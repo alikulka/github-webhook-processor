@@ -472,1676 +472,1676 @@ export class Upserts {
 		}
 	}
 
-	public async insertPullRequest(pr: types.PullRequest): Promise<void> {
-		const query = `
-      INSERT INTO pull_requests (
-        id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
-        locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
-        repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
-    `;
-
-		const values = [
-			pr.id,
-			pr.node_id,
-			pr.url,
-			pr.pull_request_number,
-			pr.state,
-			pr.state_reason,
-			pr.title,
-			pr.body,
-			pr.created_by.id,
-			pr.locked,
-			pr.active_lock_reason || null,
-			pr.num_comments,
-			pr.closed_at,
-			pr.created_at,
-			pr.updated_at,
-			pr.closed_by?.id || null,
-			pr.repository_id,
-			pr.author_association,
-			pr.total_reaction_count || 0,
-			pr.merged_at,
-			pr.diff_url,
-			pr.draft,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request inserted successfully:", pr.id);
-		} catch (error) {
-			console.error("Error inserting pull request:", error);
-		}
-	}
-
-	public async updatePullRequest(pr: types.PullRequest): Promise<void> {
-		const query = `
-      UPDATE pull_requests SET
-        node_id = $2,
-        url = $3,
-        pull_request_number = $4,
-        state = $5,
-        state_reason = $6,
-        title = $7,
-        body = $8,
-        created_by = $9,
-        locked = $10,
-        active_lock_reason = $11,
-        num_comments = $12,
-        closed_at = $13,
-        created_at = $14,
-        updated_at = $15,
-        closed_by = $16,
-        repository_id = $17,
-        author_association = $18,
-        total_reaction_count = $19,
-        merged_at = $20,
-        diff_url = $21,
-        draft = $22
-      WHERE id = $1
-    `;
-
-		const values = [
-			pr.id,
-			pr.node_id,
-			pr.url,
-			pr.pull_request_number,
-			pr.state,
-			pr.state_reason,
-			pr.title,
-			pr.body,
-			pr.created_by.id,
-			pr.locked,
-			pr.active_lock_reason || null,
-			pr.num_comments,
-			pr.closed_at,
-			pr.created_at,
-			pr.updated_at,
-			pr.closed_by?.id || null,
-			pr.repository_id,
-			pr.author_association,
-			pr.total_reaction_count || 0,
-			pr.merged_at,
-			pr.diff_url,
-			pr.draft,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request updated successfully:", pr.id);
-		} catch (error) {
-			console.error("Error updating pull request:", error);
-		}
-	}
-
-	public async upsertPullRequest(pr: types.PullRequest): Promise<void> {
-		const query = `
-      INSERT INTO pull_requests (
-        id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
-        locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
-        repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        node_id = excluded.node_id,
-        url = excluded.url,
-        pull_request_number = excluded.pull_request_number,
-        state = excluded.state,
-        state_reason = excluded.state_reason,
-        title = excluded.title,
-        body = excluded.body,
-        created_by = excluded.created_by,
-        locked = excluded.locked,
-        active_lock_reason = excluded.active_lock_reason,
-        num_comments = excluded.num_comments,
-        closed_at = excluded.closed_at,
-        created_at = excluded.created_at,
-        updated_at = excluded.updated_at,
-        closed_by = excluded.closed_by,
-        repository_id = excluded.repository_id,
-        author_association = excluded.author_association,
-        total_reaction_count = excluded.total_reaction_count,
-        merged_at = excluded.merged_at,
-        diff_url = excluded.diff_url,
-        draft = excluded.draft
-    `;
-
-		const values = [
-			pr.id,
-			pr.node_id,
-			pr.url,
-			pr.pull_request_number,
-			pr.state,
-			pr.state_reason,
-			pr.title,
-			pr.body,
-			pr.created_by,
-			pr.locked,
-			pr.active_lock_reason || null,
-			pr.num_comments,
-			pr.closed_at,
-			pr.created_at,
-			pr.updated_at,
-			pr.closed_by?.id || null,
-			pr.repository_id,
-			pr.author_association,
-			pr.total_reaction_count || 0,
-			pr.merged_at,
-			pr.diff_url,
-			pr.draft,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request upserted successfully:", pr.id);
-		} catch (error) {
-			console.error("Error upserting pull request:", error);
-		}
-	}
-
-	public async insertIssueComment(comment: types.IssueComment): Promise<void> {
-		const query = `
-      INSERT INTO issuecomments (
-        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-			comment.id,
-			comment.node_id,
-			comment.url,
-			comment.body,
-			comment.created_by.id,
-			comment.created_at,
-			comment.updated_at,
-			comment.issue_id,
-			comment.author_association,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue comment inserted successfully:", comment.id);
-		} catch (error) {
-			console.error("Error inserting issue comment:", error);
-		}
-	}
-
-	public async updateIssueComment(comment: types.IssueComment): Promise<void> {
-		const query = `
-      UPDATE issuecomments SET
-        node_id = $2,
-        url = $3,
-        body = $4,
-        created_by = $5,
-        created_at = $6,
-        updated_at = $7,
-        issue_id = $8,
-        author_association = $9
-      WHERE id = $1
-    `;
-
-		const values = [
-			comment.id,
-			comment.node_id,
-			comment.url,
-			comment.body,
-			comment.created_by.id,
-			comment.created_at,
-			comment.updated_at,
-			comment.issue_id,
-			comment.author_association,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue comment updated successfully:", comment.id);
-		} catch (error) {
-			console.error("Error updating issue comment:", error);
-		}
-	}
-
-	public async upsertIssueComment(comment: types.IssueComment): Promise<void> {
-		const query = `
-      INSERT INTO issuecomments (
-        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-      ) VALUES %L
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        node_id = excluded.node_id,
-        url = excluded.url,
-        body = excluded.body,
-        created_by = excluded.created_by,
-        created_at = excluded.created_at,
-        updated_at = excluded.updated_at,
-        issue_id = excluded.issue_id,
-        author_association = excluded.author_association
-    `;
-
-		await this.client.query(query, [
-			comment.id,
-			comment.node_id,
-			comment.url,
-			comment.body,
-			comment.created_by,
-			comment.created_at,
-			comment.updated_at,
-			comment.issue_id,
-			comment.author_association,
-		]);
-	}
-
-	public async insertIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO issuecommentreactions (
-        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Issue comment reaction inserted successfully:",
-				reaction.issuecomment_id,
-			);
-		} catch (error) {
-			console.error("Error inserting issue comment reaction:", error);
-		}
-	}
-
-	public async updateIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      UPDATE issuecommentreactions SET
-        plusone = $2,
-        minusone = $3,
-        laugh = $4,
-        hooray = $5,
-        confused = $6,
-        heart = $7,
-        rocket = $8,
-        eyes = $9
-      WHERE issuecomment_id = $1
-    `;
-
-		const values = [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Issue comment reaction updated successfully:",
-				reaction.issuecomment_id,
-			);
-		} catch (error) {
-			console.error("Error updating issue comment reaction:", error);
-		}
-	}
-
-	public async upsertIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO issuecommentreactions (
-        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      ON CONFLICT (issuecomment_id) DO UPDATE SET
-        issuecomment_id = excluded.issuecomment_id,
-        plusone = excluded.plusone,
-        minusone = excluded.minusone,
-        laugh = excluded.laugh,
-        hooray = excluded.hooray,
-        confused = excluded.confused,
-        heart = excluded.heart,
-        rocket = excluded.rocket,
-        eyes = excluded.eyes
-    `;
-
-		await this.client.query(query, [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
-		]);
-	}
-
-	public async insertDiscussionCategories(
-		category: types.DiscussionCategory,
-	): Promise<void> {
-		const query = `
-      INSERT INTO discussioncategories (
-        id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-			category.id,
-			category.created_at,
-			category.description,
-			category.emoji,
-			category.is_answerable,
-			category.name,
-			category.repository_id,
-			category.slug,
-			category.updated_at,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion category inserted successfully:", category.id);
-		} catch (error) {
-			console.error("Error inserting discussion category:", error);
-		}
-	}
-
-	public async updateDiscussionCategories(
-		category: types.DiscussionCategory,
-	): Promise<void> {
-		const query = `
-      UPDATE discussioncategories SET
-        created_at = $2,
-        description = $3,
-        emoji = $4,
-        is_answerable = $5,
-        name = $6,
-        repository_id = $7,
-        slug = $8,
-        updated_at = $9
-      WHERE id = $1
-    `;
-
-		const values = [
-			category.id,
-			category.created_at,
-			category.description,
-			category.emoji,
-			category.is_answerable,
-			category.name,
-			category.repository_id,
-			category.slug,
-			category.updated_at,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion category updated successfully:", category.id);
-		} catch (error) {
-			console.error("Error updating discussion category:", error);
-		}
-	}
-
-	public async upsertDiscussionCategories(
-		category: types.DiscussionCategory,
-	): Promise<void> {
-		const query = `
-      INSERT INTO discussioncategories (
-        id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        created_at = excluded.created_at,
-        description = excluded.description,
-        emoji = excluded.emoji,
-        is_answerable = excluded.is_answerable,
-        name = excluded.name,
-        repository_id = excluded.repository_id,
-        slug = excluded.slug,
-        updated_at = excluded.updated_at
-    `;
-
-		await this.client.query(query, [
-			category.id,
-			category.created_at,
-			category.description,
-			category.emoji,
-			category.is_answerable,
-			category.name,
-			category.repository_id,
-			category.slug,
-			category.updated_at,
-		]);
-	}
-
-    public async insertDiscussion(discussion: types.Discussion): Promise<void> {
-		const query = `
-      INSERT INTO discussions (
-        active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
-        is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
-        total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)
-    `;
-
-		const values = [
-			discussion.active_lock_reason,
-			discussion.answer,
-			discussion.answer_chosen_at,
-			discussion.answer_chosen_by,
-			discussion.created_by,
-			discussion.author_association,
-			discussion.body,
-			discussion.category_id,
-			discussion.is_closed,
-			discussion.closed_at,
-			discussion.created_at,
-			discussion.id,
-			discussion.is_answered,
-			discussion.last_edited_at,
-			discussion.is_locked,
-			discussion.discussion_number,
-			discussion.published_at,
-			discussion.total_reaction_count,
-			discussion.repository_id,
-			discussion.state_reason,
-			discussion.title,
-			discussion.updated_at,
-			discussion.total_upvote_count,
-			discussion.url,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion inserted successfully:", discussion.id);
-		} catch (error) {
-			console.error("Error inserting discussion:", error);
-		}
-	}
-
-    public async updateDiscussion(discussion: types.Discussion): Promise<void> {
-		const query = `
-        UPDATE discussions SET
-          active_lock_reason = $1,
-          answer = $2,
-          answer_chosen_at = $3,
-          answer_chosen_by = $4,
-          created_by = $5,
-          author_association = $6,
-          body = $7,
-          category_id = $8,
-          is_closed = $9,
-          closed_at = $10,
-          created_at = $11,
-          id = $12,
-          is_answered = $13,
-          last_edited_at = $14,
-          is_locked = $15,
-          discussion_number = $16,
-          published_at = $17,
-          total_reaction_count = $18,
-          repository_id = $19,
-          state_reason = $20,
-          title = $21,
-          updated_at = $22,
-          total_upvote_count = $23,
-          url = $24
-        WHERE id = $12
-    `;
-
-		const values = [
-			discussion.active_lock_reason,
-			discussion.answer,
-			discussion.answer_chosen_at,
-			discussion.answer_chosen_by,
-			discussion.created_by,
-			discussion.author_association,
-			discussion.body,
-			discussion.category_id,
-			discussion.is_closed,
-			discussion.closed_at,
-			discussion.created_at,
-			discussion.id,
-			discussion.is_answered,
-			discussion.last_edited_at,
-			discussion.is_locked,
-			discussion.discussion_number,
-			discussion.published_at,
-			discussion.total_reaction_count,
-			discussion.repository_id,
-			discussion.state_reason,
-			discussion.title,
-			discussion.updated_at,
-			discussion.total_upvote_count,
-			discussion.url,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion updated successfully:", discussion.id);
-		} catch (error) {
-			console.error("Error updating discussion:", error);
-		}
-	}
-
-	public async upsertDiscussion(discussion: types.Discussion): Promise<void> {
-		const query = `
-      INSERT INTO discussions (
-        active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
-        is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
-        total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
-      ) VALUES %L
-      ON CONFLICT (id) DO UPDATE SET
-        active_lock_reason = excluded.active_lock_reason,
-        answer = excluded.answer,
-        answer_chosen_at = excluded.answer_chosen_at,
-        answer_chosen_by = excluded.answer_chosen_by,
-        created_by = excluded.created_by,
-        author_association = excluded.author_association,
-        body = excluded.body,
-        category_id = excluded.category_id,
-        is_closed = excluded.is_closed,
-        closed_at = excluded.closed_at,
-        created_at = excluded.created_at,
-        id = excluded.id,
-        is_answered = excluded.is_answered,
-        last_edited_at = excluded.last_edited_at,
-        is_locked = excluded.is_locked,
-        discussion_number = excluded.discussion_number,
-        published_at = excluded.published_at,
-        total_reaction_count = excluded.total_reaction_count,
-        repository_id = excluded.repository_id,
-        state_reason = excluded.state_reason,
-        title = excluded.title,
-        updated_at = excluded.updated_at,
-        total_upvote_count = excluded.total_upvote_count,
-        url = excluded.url
-    `;
-
-		await this.client.query(query, [
-			discussion.active_lock_reason,
-			discussion.answer,
-			discussion.answer_chosen_at,
-			discussion.answer_chosen_by,
-			discussion.created_by,
-			discussion.author_association,
-			discussion.body,
-			discussion.category_id,
-			discussion.is_closed,
-			discussion.closed_at,
-			discussion.created_at,
-			discussion.id,
-			discussion.is_answered,
-			discussion.last_edited_at,
-			discussion.is_locked,
-			discussion.discussion_number,
-			discussion.published_at,
-			discussion.total_reaction_count,
-			discussion.repository_id,
-			discussion.state_reason,
-			discussion.title,
-			discussion.updated_at,
-			discussion.total_upvote_count,
-			discussion.url,
-		]);
-	}
-
-	public async insertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-		const query = `
-      INSERT INTO discussionpolls (
-        poll_id, discussion_id, question, total_votes
-      ) VALUES ($1, $2, $3, $4)
-    `;
-
-		const values = [
-			discussionPoll.poll_id,
-			discussionPoll.discussion_id,
-			discussionPoll.question,
-			discussionPoll.total_votes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion poll inserted successfully:", discussionPoll.poll_id);
-		} catch (error) {
-			console.error("Error inserting discussion poll:", error);
-		}
-	}
-
-    public async updateDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-		const query = `
-      UPDATE discussionpolls SET
-        poll_id = $1,
-        discussion_id = $2,
-        question = $3,
-        total_votes = $4
-      WHERE poll_id = $1 AND discussion_id = $2
-    `;
-
-		const values = [
-			discussionPoll.poll_id,
-			discussionPoll.discussion_id,
-			discussionPoll.question,
-			discussionPoll.total_votes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion poll updated successfully:", discussionPoll.poll_id);
-		} catch (error) {
-			console.error("Error updating discussion poll:", error);
-		}
-	}
-
-    public async upsertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-		const query = `
-      INSERT INTO discussionpolls (
-        poll_id, discussion_id, question, total_votes
-      ) VALUES ($1, $2, $3, $4)
-      ON CONFLICT (poll_id, discussion_id) DO UPDATE SET
-        poll_id = excluded.poll_id,
-        discussion_id = excluded.discussion_id,
-        question = excluded.question,
-        total_votes = excluded.total_votes
-    `;
-
-		await this.client.query(query, [
-			discussionPoll.poll_id,
-			discussionPoll.discussion_id,
-			discussionPoll.question,
-			discussionPoll.total_votes,
-		]);
-	}
-
-    public async insertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-		const query = `
-      INSERT INTO discussionpolloptions (
-        option_id, poll_id, option, votes
-      ) VALUES ($1, $2, $3, $4)
-    `;
-
-		const values = [
-            discussionPollOptions.option_id,
-			discussionPollOptions.poll_id,
-			discussionPollOptions.option,
-			discussionPollOptions.votes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion poll option inserted successfully:", discussionPollOptions.poll_id);
-		} catch (error) {
-			console.error("Error inserting discussion poll option:", error);
-		}
-	}
-
-    public async updateDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-		const query = `
-      UPDATE discussionpolloptions SET
-        option_id = $1,
-        poll_id = $2,
-        option = $3,
-        votes = $4
-      WHERE option_id = $1 AND poll_id = $2
-    `;
-
-		const values = [
-            discussionPollOptions.option_id,
-			discussionPollOptions.poll_id,
-			discussionPollOptions.option,
-			discussionPollOptions.votes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion poll option updated successfully:", discussionPollOptions.poll_id);
-		} catch (error) {
-			console.error("Error updating discussion poll option:", error);
-		}
-	}
-
-    public async upsertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-		const query = `
-      INSERT INTO discussionpolloptions (
-        option_id, poll_id, option, votes
-      ) VALUES ($1, $2, $3, $4)
-      ON CONFLICT (option_id, poll_id) DO UPDATE SET
-        option_id = excluded.option_id,
-        poll_id = excluded.poll_id,
-        option = excluded.option,
-        votes = excluded.votes
-    `;
-
-		await this.client.query(query, [
-            discussionPollOptions.option_id,
-			discussionPollOptions.poll_id,
-			discussionPollOptions.option,
-			discussionPollOptions.votes,
-		]);
-	}
-
-    public async insertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-		const query = `
-      INSERT INTO discussioncomments (
-        id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
-        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-    `;
-
-		const values = [
-            discussionComment.id,
-			discussionComment.created_by,
-			discussionComment.created_at,
-			discussionComment.author_association,
-			discussionComment.body,
-			discussionComment.created_at,
-			discussionComment.deleted_at,
-			discussionComment.discussion_id,
-			discussionComment.edited_by,
-			discussionComment.is_answer,
-			discussionComment.is_minimized,
-			discussionComment.last_edited_at,
-			discussionComment.minimized_reason,
-			discussionComment.published_at,
-			discussionComment.in_reply_to_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion comment inserted successfully:", discussionComment.id);
-		} catch (error) {
-			console.error("Error inserting discussion comment:", error);
-		}
-	}
-
-    public async updateDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-		const query = `
-      UPDATE discussioncomments SET
-        id = $1,
-        created_by = $2,
-        created_at = $3,
-        author_association = $4,
-        body = $5,
-        created_at = $6,
-        deleted_at = $7,
-        discussion_id = $8,
-        edited_by = $9,
-        is_answer = $10,
-        is_minimized = $11,
-        lasted_edited_at = $12,
-        minimized_reason = $13,
-        published_at = $14,
-        in_reply_to_id = $15
-      WHERE id = $1
-    `;
-
-		const values = [
-            discussionComment.id,
-			discussionComment.created_by,
-			discussionComment.created_at,
-			discussionComment.author_association,
-			discussionComment.body,
-			discussionComment.created_at,
-			discussionComment.deleted_at,
-			discussionComment.discussion_id,
-			discussionComment.edited_by,
-			discussionComment.is_answer,
-			discussionComment.is_minimized,
-			discussionComment.last_edited_at,
-			discussionComment.minimized_reason,
-			discussionComment.published_at,
-			discussionComment.in_reply_to_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion comment updated successfully:", discussionComment.id);
-		} catch (error) {
-			console.error("Error updating discussion comment:", error);
-		}
-	}
-
-    public async upsertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-		const query = `
-      INSERT INTO discussioncomments (
-        id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
-        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        created_by = excluded.created_by,
-        created_at = excluded.created_at,
-        author_association = excluded.author_association,
-        body = excluded.body,
-        created_at = excluded.created_at,
-        deleted_at = excluded.deleted_at,
-        discussion_id = excluded.discussion_id,
-        edited_by = excluded.edited_by,
-        is_answer = excluded.is_answer,
-        is_minimized = excluded.is_minimized,
-        lasted_edited_at = excluded.last_edited_at,
-        minimized_reason = excluded.minimized_reason,
-        published_at = excluded.published_at,
-        in_reply_to_id = excluded.in_reply_to_id
-    `;
-
-		await this.client.query(query, [
-            discussionComment.id,
-			discussionComment.created_by,
-			discussionComment.created_at,
-			discussionComment.author_association,
-			discussionComment.body,
-			discussionComment.created_at,
-			discussionComment.deleted_at,
-			discussionComment.discussion_id,
-			discussionComment.edited_by,
-			discussionComment.is_answer,
-			discussionComment.is_minimized,
-			discussionComment.last_edited_at,
-			discussionComment.minimized_reason,
-			discussionComment.published_at,
-			discussionComment.in_reply_to_id,
-		]);
-	}
-
-    public async insertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-		const query = `
-      INSERT INTO discussioncommentreactions (
-        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-            discussionCommentReactions.comment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion comment reactions inserted successfully:", discussionCommentReactions.comment_id);
-		} catch (error) {
-			console.error("Error inserting discussion comment reactions:", error);
-		}
-	}
-
-    public async updateDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-		const query = `
-      UPDATE discussioncommentreactions SET
-        discussioncomment_id = $1,
-        plusone = $2,
-        minusone = $3,
-        laugh = $4,
-        hooray = $5,
-        confused = $6,
-        heart = $7,
-        rocket = $8,
-        eyes = $9
-      WHERE discussioncomment_id = $1
-    `;
-
-		const values = [
-            discussionCommentReactions.comment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion comment reactions updated successfully:", discussionCommentReactions.comment_id);
-		} catch (error) {
-			console.error("Error updating discussion comment reactions:", error);
-		}
-	}
-
-    public async upsertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-		const query = `
-      INSERT INTO discussioncommentreactions (
-        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      ON CONFLICT (discussioncomment_id) DO UPDATE SET
-        discussioncomment_id = excluded.discussioncomment_id,
-        plusone = excluded.plusone,
-        minusone = excluded.minusone,
-        laugh = excluded.laugh,
-        hooray = excluded.hooray,
-        confused = excluded.confused,
-        heart = excluded.heart,
-        rocket = excluded.rocket,
-        eyes = excluded.eyes
-    `;
-
-		await this.client.query(query, [
-            discussionCommentReactions.comment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
-		]);
-	}
-
-    public async insertMilestone(milestone: types.Milestone): Promise<void> {
-		const query = `
-      INSERT INTO milestones (
-        id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-    `;
-
-		const values = [
-            milestone.id,
-			milestone.node_id,
-			milestone.url,
-			milestone.milestone_number,
-			milestone.state,
-			milestone.title,
-			milestone.description,
-			milestone.created_by,
-			milestone.open_issues,
-			milestone.closed_issues,
-			milestone.created_at,
-			milestone.updated_at,
-			milestone.closed_at,
-			milestone.due_on,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Milestone inserted successfully:", milestone.id);
-		} catch (error) {
-			console.error("Error inserting milestone:", error);
-		}
-	}
-
-    public async updateMilestone(milestone: types.Milestone): Promise<void> {
-		const query = `
-      UPDATE milestones SET
-        id = $1,
-        node_id = $2,
-        url = $3,
-        milestone_number = $4,
-        state = $5,
-        title = $6,
-        description = $7,
-        created_by = $8,
-        open_issues = $9,
-        closed_issues = $10,
-        created_at = $11,
-        updated_at = $12,
-        closed_at = $13,
-        due_on = $14
-      WHERE id = $1
-    `;
-
-		const values = [
-            milestone.id,
-			milestone.node_id,
-			milestone.url,
-			milestone.milestone_number,
-			milestone.state,
-			milestone.title,
-			milestone.description,
-			milestone.created_by,
-			milestone.open_issues,
-			milestone.closed_issues,
-			milestone.created_at,
-			milestone.updated_at,
-			milestone.closed_at,
-			milestone.due_on,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Milestone updated successfully:", milestone.id);
-		} catch (error) {
-			console.error("Error updating milestone:", error);
-		}
-	}
-
-    public async upsertMilestone(milestone: types.Milestone): Promise<void> {
-		const query = `
-      INSERT INTO milestones (
-        id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        node_id = excluded.node_id,
-        url = excluded.url,
-        milestone_number = excluded.milestone_number,
-        state = excluded.state,
-        title = excluded.title,
-        description = excluded.description,
-        created_by = excluded.created_by,
-        open_issues = excluded.open_issues,
-        closed_issues = excluded.closed_issues,
-        created_at = excluded.created_at,
-        updated_at = excluded.updated_at,
-        closed_at = excluded.closed_at,
-        due_on = excluded.due_on
-    `;
-
-		await this.client.query(query, [
-            milestone.id,
-			milestone.node_id,
-			milestone.url,
-			milestone.milestone_number,
-			milestone.state,
-			milestone.title,
-			milestone.description,
-			milestone.created_by,
-			milestone.open_issues,
-			milestone.closed_issues,
-			milestone.created_at,
-			milestone.updated_at,
-			milestone.closed_at,
-			milestone.due_on,
-		]);
-	}
-
-    public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-		const query = `
-      INSERT INTO repo_labels (
-        id, repository_id, node_id, name, description, color, default
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-    `;
-
-		const values = [
-            repoLabels.id,
-			repoLabels.repository_id,
-			repoLabels.node_id,
-			repoLabels.name,
-			repoLabels.description,
-			repoLabels.color,
-			repoLabels.default,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Repo label inserted successfully:", repoLabels.id);
-		} catch (error) {
-			console.error("Error inserting repo label:", error);
-		}
-	}
-
-    public async updateRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-		const query = `
-      UPDATE repo_labels SET
-        id = $1,
-        repository_id = $2,
-        node_id = $3,
-        name = $4,
-        description = $5,
-        color = $6,
-        default = $7
-      WHERE id = $1
-    `;
-
-		const values = [
-            repoLabels.id,
-			repoLabels.repository_id,
-			repoLabels.node_id,
-			repoLabels.name,
-			repoLabels.description,
-			repoLabels.color,
-			repoLabels.default,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Repo label updated successfully:", repoLabels.id);
-		} catch (error) {
-			console.error("Error updating repo label:", error);
-		}
-	}
-
-    public async upsertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-		const query = `
-      INSERT INTO repo_labels (
-        id, repository_id, node_id, name, description, color, default
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-      ON CONFLICT (id) DO UPDATE SET
-        id = excluded.id,
-        repository_id = excluded.repository_id,
-        node_id = excluded.node_id,
-        name = excluded.name,
-        description = excluded.description,
-        color = excluded.color,
-        default = excluded.default
-    `;
-
-		await this.client.query(query, [
-            repoLabels.id,
-			repoLabels.repository_id,
-			repoLabels.node_id,
-			repoLabels.name,
-			repoLabels.description,
-			repoLabels.color,
-			repoLabels.default,
-		]);
-	}
-
-    public async insertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-		const query = `
-      INSERT INTO issue_labels (
-        issue_id, label_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            issueLabels.issue_id,
-			issueLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue label inserted successfully:", issueLabels.id);
-		} catch (error) {
-			console.error("Error inserting issue label:", error);
-		}
-	}
-
-    public async updateIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-		const query = `
-      UPDATE issue_labels SET
-        issue_id = $1,
-        label_id = $2
-      WHERE issue_id = $1 AND label_id = $2
-    `;
-
-		const values = [
-            issueLabels.issue_id,
-			issueLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue label updated successfully:", issueLabels.issue_id);
-		} catch (error) {
-			console.error("Error updating issue label:", error);
-		}
-	}
-
-    public async upsertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-		const query = `
-      INSERT INTO issue_labels (
-        issue_id, label_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (issue_id, label_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-            issueLabels.issue_id,
-			issueLabels.label_id,
-		]);
-	}
-
-    public async insertDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
-		const query = `
-      INSERT INTO discussion_labels (
-        discussion_id, label_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            discussionLabels.discussion_id,
-			discussionLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion label inserted successfully:", discussionLabels.id);
-		} catch (error) {
-			console.error("Error inserting discussion label:", error);
-		}
-	}
-
-    public async updateDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
-		const query = `
-      UPDATE discussion_labels SET
-        discussion_id = $1,
-        label_id = $2
-      WHERE discussion_id = $1 AND label_id = $2
-    `;
-
-		const values = [
-            discussionLabels.discussion_id,
-			discussionLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Discussion label updated successfully:", discussionLabels.discussion_id);
-		} catch (error) {
-			console.error("Error updating discussion label:", error);
-		}
-	}
-
-    public async upsertDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
-		const query = `
-      INSERT INTO discussion_labels (
-        discussion_id, label_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (discussion_id, label_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-            discussionLabels.discussion_id,
-			discussionLabels.label_id,
-		]);
-	}
-
-    public async insertMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
-		const query = `
-      INSERT INTO milestone_labels (
-        milestone_id, label_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            milestoneLabels.milestone_id,
-			milestoneLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Milestone label inserted successfully:", milestoneLabels.id);
-		} catch (error) {
-			console.error("Error inserting milestone label:", error);
-		}
-	}
-
-    public async updateMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
-		const query = `
-      UPDATE milestone_labels SET
-        milestone_id = $1,
-        label_id = $2
-      WHERE milestone_id = $1 AND label_id = $2
-    `;
-
-		const values = [
-            milestoneLabels.milestone_id,
-			milestoneLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Milestone label updated successfully:", milestoneLabels.milestone_id);
-		} catch (error) {
-			console.error("Error updating milestone label:", error);
-		}
-	}
-
-    public async upsertMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
-		const query = `
-      INSERT INTO milestone_labels (
-        milestone_id, label_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (milestone_id, label_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-            milestoneLabels.milestone_id,
-			milestoneLabels.label_id,
-		]);
-	}
-
-    public async insertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_labels (
-        pull_request_id, label_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            pullRequestLabels.pull_request_id,
-			pullRequestLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request label inserted successfully:", pullRequestLabels.id);
-		} catch (error) {
-			console.error("Error inserting pull request label:", error);
-		}
-	}
-
-    public async updatePullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-		const query = `
-      UPDATE pull_request_labels SET
-        pull_request_id = $1,
-        label_id = $2
-      WHERE pull_request_id = $1 AND label_id = $2
-    `;
-
-		const values = [
-            pullRequestLabels.pull_request_id,
-			pullRequestLabels.label_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request label updated successfully:", pullRequestLabels.pull_request_id);
-		} catch (error) {
-			console.error("Error updating pull request label:", error);
-		}
-	}
-
-    public async upsertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_labels (
-        pull_request_id, label_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (pull_request_id, label_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-            pullRequestLabels.pull_request_id,
-			pullRequestLabels.label_id,
-		]);
-	}
-
-    public async insertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-		const query = `
-      INSERT INTO issue_assignees (
-        issue_id, assignee_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            issueAssignee.issue_id,
-			issueAssignee.assignee_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue assignee inserted successfully:", issueAssignee.id);
-		} catch (error) {
-			console.error("Error inserting issue assignee:", error);
-		}
-	}
-
-    public async updateIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-		const query = `
-      UPDATE issue_assignees SET
-        issue_id = $1,
-        assignee_id = $2
-      WHERE issue_id = $1 AND assignee_id = $2
-    `;
-
-		const values = [
-            issueAssignee.issue_id,
-			issueAssignee.assignee_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Issue assignee updated successfully:", issueAssignee.issue_id);
-		} catch (error) {
-			console.error("Error updating issue assignee:", error);
-		}
-	}
-
-    public async upsertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-		const query = `
-      INSERT INTO issue_assignees (
-        issue_id, assignee_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (issue_id, assignee_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-            issueAssignee.issue_id,
-			issueAssignee.assignee_id,
-		]);
-	}
-
-    public async insertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_assignees (
-        pull_request_id, assignee_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [
-            pullRequestAssignee.pull_request_id,
-			pullRequestAssignee.assignee_id,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log("Pull request assignee inserted successfully:", pullRequestAssignee.id);
-		} catch (error) {
-			console.error("Error inserting pull request assignee:", error);
-		}
-	}
+	// public async insertPullRequest(pr: types.PullRequest): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_requests (
+    //     id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
+    //     locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
+    //     repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
+    // `;
+
+	// 	const values = [
+	// 		pr.id,
+	// 		pr.node_id,
+	// 		pr.url,
+	// 		pr.pull_request_number,
+	// 		pr.state,
+	// 		pr.state_reason,
+	// 		pr.title,
+	// 		pr.body,
+	// 		pr.created_by.id,
+	// 		pr.locked,
+	// 		pr.active_lock_reason || null,
+	// 		pr.num_comments,
+	// 		pr.closed_at,
+	// 		pr.created_at,
+	// 		pr.updated_at,
+	// 		pr.closed_by?.id || null,
+	// 		pr.repository_id,
+	// 		pr.author_association,
+	// 		pr.total_reaction_count || 0,
+	// 		pr.merged_at,
+	// 		pr.diff_url,
+	// 		pr.draft,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request inserted successfully:", pr.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting pull request:", error);
+	// 	}
+	// }
+
+	// public async updatePullRequest(pr: types.PullRequest): Promise<void> {
+	// 	const query = `
+    //   UPDATE pull_requests SET
+    //     node_id = $2,
+    //     url = $3,
+    //     pull_request_number = $4,
+    //     state = $5,
+    //     state_reason = $6,
+    //     title = $7,
+    //     body = $8,
+    //     created_by = $9,
+    //     locked = $10,
+    //     active_lock_reason = $11,
+    //     num_comments = $12,
+    //     closed_at = $13,
+    //     created_at = $14,
+    //     updated_at = $15,
+    //     closed_by = $16,
+    //     repository_id = $17,
+    //     author_association = $18,
+    //     total_reaction_count = $19,
+    //     merged_at = $20,
+    //     diff_url = $21,
+    //     draft = $22
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+	// 		pr.id,
+	// 		pr.node_id,
+	// 		pr.url,
+	// 		pr.pull_request_number,
+	// 		pr.state,
+	// 		pr.state_reason,
+	// 		pr.title,
+	// 		pr.body,
+	// 		pr.created_by.id,
+	// 		pr.locked,
+	// 		pr.active_lock_reason || null,
+	// 		pr.num_comments,
+	// 		pr.closed_at,
+	// 		pr.created_at,
+	// 		pr.updated_at,
+	// 		pr.closed_by?.id || null,
+	// 		pr.repository_id,
+	// 		pr.author_association,
+	// 		pr.total_reaction_count || 0,
+	// 		pr.merged_at,
+	// 		pr.diff_url,
+	// 		pr.draft,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request updated successfully:", pr.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating pull request:", error);
+	// 	}
+	// }
+
+	// public async upsertPullRequest(pr: types.PullRequest): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_requests (
+    //     id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
+    //     locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
+    //     repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     node_id = excluded.node_id,
+    //     url = excluded.url,
+    //     pull_request_number = excluded.pull_request_number,
+    //     state = excluded.state,
+    //     state_reason = excluded.state_reason,
+    //     title = excluded.title,
+    //     body = excluded.body,
+    //     created_by = excluded.created_by,
+    //     locked = excluded.locked,
+    //     active_lock_reason = excluded.active_lock_reason,
+    //     num_comments = excluded.num_comments,
+    //     closed_at = excluded.closed_at,
+    //     created_at = excluded.created_at,
+    //     updated_at = excluded.updated_at,
+    //     closed_by = excluded.closed_by,
+    //     repository_id = excluded.repository_id,
+    //     author_association = excluded.author_association,
+    //     total_reaction_count = excluded.total_reaction_count,
+    //     merged_at = excluded.merged_at,
+    //     diff_url = excluded.diff_url,
+    //     draft = excluded.draft
+    // `;
+
+	// 	const values = [
+	// 		pr.id,
+	// 		pr.node_id,
+	// 		pr.url,
+	// 		pr.pull_request_number,
+	// 		pr.state,
+	// 		pr.state_reason,
+	// 		pr.title,
+	// 		pr.body,
+	// 		pr.created_by,
+	// 		pr.locked,
+	// 		pr.active_lock_reason || null,
+	// 		pr.num_comments,
+	// 		pr.closed_at,
+	// 		pr.created_at,
+	// 		pr.updated_at,
+	// 		pr.closed_by?.id || null,
+	// 		pr.repository_id,
+	// 		pr.author_association,
+	// 		pr.total_reaction_count || 0,
+	// 		pr.merged_at,
+	// 		pr.diff_url,
+	// 		pr.draft,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request upserted successfully:", pr.id);
+	// 	} catch (error) {
+	// 		console.error("Error upserting pull request:", error);
+	// 	}
+	// }
+
+	// public async insertIssueComment(comment: types.IssueComment): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issuecomments (
+    //     id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    // `;
+
+	// 	const values = [
+	// 		comment.id,
+	// 		comment.node_id,
+	// 		comment.url,
+	// 		comment.body,
+	// 		comment.created_by.id,
+	// 		comment.created_at,
+	// 		comment.updated_at,
+	// 		comment.issue_id,
+	// 		comment.author_association,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue comment inserted successfully:", comment.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting issue comment:", error);
+	// 	}
+	// }
+
+	// public async updateIssueComment(comment: types.IssueComment): Promise<void> {
+	// 	const query = `
+    //   UPDATE issuecomments SET
+    //     node_id = $2,
+    //     url = $3,
+    //     body = $4,
+    //     created_by = $5,
+    //     created_at = $6,
+    //     updated_at = $7,
+    //     issue_id = $8,
+    //     author_association = $9
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+	// 		comment.id,
+	// 		comment.node_id,
+	// 		comment.url,
+	// 		comment.body,
+	// 		comment.created_by.id,
+	// 		comment.created_at,
+	// 		comment.updated_at,
+	// 		comment.issue_id,
+	// 		comment.author_association,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue comment updated successfully:", comment.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating issue comment:", error);
+	// 	}
+	// }
+
+	// public async upsertIssueComment(comment: types.IssueComment): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issuecomments (
+    //     id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
+    //   ) VALUES %L
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     node_id = excluded.node_id,
+    //     url = excluded.url,
+    //     body = excluded.body,
+    //     created_by = excluded.created_by,
+    //     created_at = excluded.created_at,
+    //     updated_at = excluded.updated_at,
+    //     issue_id = excluded.issue_id,
+    //     author_association = excluded.author_association
+    // `;
+
+	// 	await this.client.query(query, [
+	// 		comment.id,
+	// 		comment.node_id,
+	// 		comment.url,
+	// 		comment.body,
+	// 		comment.created_by,
+	// 		comment.created_at,
+	// 		comment.updated_at,
+	// 		comment.issue_id,
+	// 		comment.author_association,
+	// 	]);
+	// }
+
+	// public async insertIssueCommentReaction(
+	// 	reaction: types.IssueCommentReaction,
+	// ): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issuecommentreactions (
+    //     issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    // `;
+
+	// 	const values = [
+	// 		reaction.issuecomment_id,
+	// 		reaction.plusone,
+	// 		reaction.minusone,
+	// 		reaction.laugh,
+	// 		reaction.hooray,
+	// 		reaction.confused,
+	// 		reaction.heart,
+	// 		reaction.rocket,
+	// 		reaction.eyes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log(
+	// 			"Issue comment reaction inserted successfully:",
+	// 			reaction.issuecomment_id,
+	// 		);
+	// 	} catch (error) {
+	// 		console.error("Error inserting issue comment reaction:", error);
+	// 	}
+	// }
+
+	// public async updateIssueCommentReaction(
+	// 	reaction: types.IssueCommentReaction,
+	// ): Promise<void> {
+	// 	const query = `
+    //   UPDATE issuecommentreactions SET
+    //     plusone = $2,
+    //     minusone = $3,
+    //     laugh = $4,
+    //     hooray = $5,
+    //     confused = $6,
+    //     heart = $7,
+    //     rocket = $8,
+    //     eyes = $9
+    //   WHERE issuecomment_id = $1
+    // `;
+
+	// 	const values = [
+	// 		reaction.issuecomment_id,
+	// 		reaction.plusone,
+	// 		reaction.minusone,
+	// 		reaction.laugh,
+	// 		reaction.hooray,
+	// 		reaction.confused,
+	// 		reaction.heart,
+	// 		reaction.rocket,
+	// 		reaction.eyes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log(
+	// 			"Issue comment reaction updated successfully:",
+	// 			reaction.issuecomment_id,
+	// 		);
+	// 	} catch (error) {
+	// 		console.error("Error updating issue comment reaction:", error);
+	// 	}
+	// }
+
+	// public async upsertIssueCommentReaction(
+	// 	reaction: types.IssueCommentReaction,
+	// ): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issuecommentreactions (
+    //     issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    //   ON CONFLICT (issuecomment_id) DO UPDATE SET
+    //     issuecomment_id = excluded.issuecomment_id,
+    //     plusone = excluded.plusone,
+    //     minusone = excluded.minusone,
+    //     laugh = excluded.laugh,
+    //     hooray = excluded.hooray,
+    //     confused = excluded.confused,
+    //     heart = excluded.heart,
+    //     rocket = excluded.rocket,
+    //     eyes = excluded.eyes
+    // `;
+
+	// 	await this.client.query(query, [
+	// 		reaction.issuecomment_id,
+	// 		reaction.plusone,
+	// 		reaction.minusone,
+	// 		reaction.laugh,
+	// 		reaction.hooray,
+	// 		reaction.confused,
+	// 		reaction.heart,
+	// 		reaction.rocket,
+	// 		reaction.eyes,
+	// 	]);
+	// }
+
+	// public async insertDiscussionCategories(
+	// 	category: types.DiscussionCategory,
+	// ): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncategories (
+    //     id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    // `;
+
+	// 	const values = [
+	// 		category.id,
+	// 		category.created_at,
+	// 		category.description,
+	// 		category.emoji,
+	// 		category.is_answerable,
+	// 		category.name,
+	// 		category.repository_id,
+	// 		category.slug,
+	// 		category.updated_at,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion category inserted successfully:", category.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion category:", error);
+	// 	}
+	// }
+
+	// public async updateDiscussionCategories(
+	// 	category: types.DiscussionCategory,
+	// ): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussioncategories SET
+    //     created_at = $2,
+    //     description = $3,
+    //     emoji = $4,
+    //     is_answerable = $5,
+    //     name = $6,
+    //     repository_id = $7,
+    //     slug = $8,
+    //     updated_at = $9
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+	// 		category.id,
+	// 		category.created_at,
+	// 		category.description,
+	// 		category.emoji,
+	// 		category.is_answerable,
+	// 		category.name,
+	// 		category.repository_id,
+	// 		category.slug,
+	// 		category.updated_at,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion category updated successfully:", category.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion category:", error);
+	// 	}
+	// }
+
+	// public async upsertDiscussionCategories(
+	// 	category: types.DiscussionCategory,
+	// ): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncategories (
+    //     id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     created_at = excluded.created_at,
+    //     description = excluded.description,
+    //     emoji = excluded.emoji,
+    //     is_answerable = excluded.is_answerable,
+    //     name = excluded.name,
+    //     repository_id = excluded.repository_id,
+    //     slug = excluded.slug,
+    //     updated_at = excluded.updated_at
+    // `;
+
+	// 	await this.client.query(query, [
+	// 		category.id,
+	// 		category.created_at,
+	// 		category.description,
+	// 		category.emoji,
+	// 		category.is_answerable,
+	// 		category.name,
+	// 		category.repository_id,
+	// 		category.slug,
+	// 		category.updated_at,
+	// 	]);
+	// }
+
+    // public async insertDiscussion(discussion: types.Discussion): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussions (
+    //     active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
+    //     is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
+    //     total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)
+    // `;
+
+	// 	const values = [
+	// 		discussion.active_lock_reason,
+	// 		discussion.answer,
+	// 		discussion.answer_chosen_at,
+	// 		discussion.answer_chosen_by,
+	// 		discussion.created_by,
+	// 		discussion.author_association,
+	// 		discussion.body,
+	// 		discussion.category_id,
+	// 		discussion.is_closed,
+	// 		discussion.closed_at,
+	// 		discussion.created_at,
+	// 		discussion.id,
+	// 		discussion.is_answered,
+	// 		discussion.last_edited_at,
+	// 		discussion.is_locked,
+	// 		discussion.discussion_number,
+	// 		discussion.published_at,
+	// 		discussion.total_reaction_count,
+	// 		discussion.repository_id,
+	// 		discussion.state_reason,
+	// 		discussion.title,
+	// 		discussion.updated_at,
+	// 		discussion.total_upvote_count,
+	// 		discussion.url,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion inserted successfully:", discussion.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussion(discussion: types.Discussion): Promise<void> {
+	// 	const query = `
+    //     UPDATE discussions SET
+    //       active_lock_reason = $1,
+    //       answer = $2,
+    //       answer_chosen_at = $3,
+    //       answer_chosen_by = $4,
+    //       created_by = $5,
+    //       author_association = $6,
+    //       body = $7,
+    //       category_id = $8,
+    //       is_closed = $9,
+    //       closed_at = $10,
+    //       created_at = $11,
+    //       id = $12,
+    //       is_answered = $13,
+    //       last_edited_at = $14,
+    //       is_locked = $15,
+    //       discussion_number = $16,
+    //       published_at = $17,
+    //       total_reaction_count = $18,
+    //       repository_id = $19,
+    //       state_reason = $20,
+    //       title = $21,
+    //       updated_at = $22,
+    //       total_upvote_count = $23,
+    //       url = $24
+    //     WHERE id = $12
+    // `;
+
+	// 	const values = [
+	// 		discussion.active_lock_reason,
+	// 		discussion.answer,
+	// 		discussion.answer_chosen_at,
+	// 		discussion.answer_chosen_by,
+	// 		discussion.created_by,
+	// 		discussion.author_association,
+	// 		discussion.body,
+	// 		discussion.category_id,
+	// 		discussion.is_closed,
+	// 		discussion.closed_at,
+	// 		discussion.created_at,
+	// 		discussion.id,
+	// 		discussion.is_answered,
+	// 		discussion.last_edited_at,
+	// 		discussion.is_locked,
+	// 		discussion.discussion_number,
+	// 		discussion.published_at,
+	// 		discussion.total_reaction_count,
+	// 		discussion.repository_id,
+	// 		discussion.state_reason,
+	// 		discussion.title,
+	// 		discussion.updated_at,
+	// 		discussion.total_upvote_count,
+	// 		discussion.url,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion updated successfully:", discussion.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion:", error);
+	// 	}
+	// }
+
+	// public async upsertDiscussion(discussion: types.Discussion): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussions (
+    //     active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
+    //     is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
+    //     total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
+    //   ) VALUES %L
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     active_lock_reason = excluded.active_lock_reason,
+    //     answer = excluded.answer,
+    //     answer_chosen_at = excluded.answer_chosen_at,
+    //     answer_chosen_by = excluded.answer_chosen_by,
+    //     created_by = excluded.created_by,
+    //     author_association = excluded.author_association,
+    //     body = excluded.body,
+    //     category_id = excluded.category_id,
+    //     is_closed = excluded.is_closed,
+    //     closed_at = excluded.closed_at,
+    //     created_at = excluded.created_at,
+    //     id = excluded.id,
+    //     is_answered = excluded.is_answered,
+    //     last_edited_at = excluded.last_edited_at,
+    //     is_locked = excluded.is_locked,
+    //     discussion_number = excluded.discussion_number,
+    //     published_at = excluded.published_at,
+    //     total_reaction_count = excluded.total_reaction_count,
+    //     repository_id = excluded.repository_id,
+    //     state_reason = excluded.state_reason,
+    //     title = excluded.title,
+    //     updated_at = excluded.updated_at,
+    //     total_upvote_count = excluded.total_upvote_count,
+    //     url = excluded.url
+    // `;
+
+	// 	await this.client.query(query, [
+	// 		discussion.active_lock_reason,
+	// 		discussion.answer,
+	// 		discussion.answer_chosen_at,
+	// 		discussion.answer_chosen_by,
+	// 		discussion.created_by,
+	// 		discussion.author_association,
+	// 		discussion.body,
+	// 		discussion.category_id,
+	// 		discussion.is_closed,
+	// 		discussion.closed_at,
+	// 		discussion.created_at,
+	// 		discussion.id,
+	// 		discussion.is_answered,
+	// 		discussion.last_edited_at,
+	// 		discussion.is_locked,
+	// 		discussion.discussion_number,
+	// 		discussion.published_at,
+	// 		discussion.total_reaction_count,
+	// 		discussion.repository_id,
+	// 		discussion.state_reason,
+	// 		discussion.title,
+	// 		discussion.updated_at,
+	// 		discussion.total_upvote_count,
+	// 		discussion.url,
+	// 	]);
+	// }
+
+	// public async insertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussionpolls (
+    //     poll_id, discussion_id, question, total_votes
+    //   ) VALUES ($1, $2, $3, $4)
+    // `;
+
+	// 	const values = [
+	// 		discussionPoll.poll_id,
+	// 		discussionPoll.discussion_id,
+	// 		discussionPoll.question,
+	// 		discussionPoll.total_votes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion poll inserted successfully:", discussionPoll.poll_id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion poll:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussionpolls SET
+    //     poll_id = $1,
+    //     discussion_id = $2,
+    //     question = $3,
+    //     total_votes = $4
+    //   WHERE poll_id = $1 AND discussion_id = $2
+    // `;
+
+	// 	const values = [
+	// 		discussionPoll.poll_id,
+	// 		discussionPoll.discussion_id,
+	// 		discussionPoll.question,
+	// 		discussionPoll.total_votes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion poll updated successfully:", discussionPoll.poll_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion poll:", error);
+	// 	}
+	// }
+
+    // public async upsertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussionpolls (
+    //     poll_id, discussion_id, question, total_votes
+    //   ) VALUES ($1, $2, $3, $4)
+    //   ON CONFLICT (poll_id, discussion_id) DO UPDATE SET
+    //     poll_id = excluded.poll_id,
+    //     discussion_id = excluded.discussion_id,
+    //     question = excluded.question,
+    //     total_votes = excluded.total_votes
+    // `;
+
+	// 	await this.client.query(query, [
+	// 		discussionPoll.poll_id,
+	// 		discussionPoll.discussion_id,
+	// 		discussionPoll.question,
+	// 		discussionPoll.total_votes,
+	// 	]);
+	// }
+
+    // public async insertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussionpolloptions (
+    //     option_id, poll_id, option, votes
+    //   ) VALUES ($1, $2, $3, $4)
+    // `;
+
+	// 	const values = [
+    //         discussionPollOptions.option_id,
+	// 		discussionPollOptions.poll_id,
+	// 		discussionPollOptions.option,
+	// 		discussionPollOptions.votes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion poll option inserted successfully:", discussionPollOptions.poll_id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion poll option:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussionpolloptions SET
+    //     option_id = $1,
+    //     poll_id = $2,
+    //     option = $3,
+    //     votes = $4
+    //   WHERE option_id = $1 AND poll_id = $2
+    // `;
+
+	// 	const values = [
+    //         discussionPollOptions.option_id,
+	// 		discussionPollOptions.poll_id,
+	// 		discussionPollOptions.option,
+	// 		discussionPollOptions.votes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion poll option updated successfully:", discussionPollOptions.poll_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion poll option:", error);
+	// 	}
+	// }
+
+    // public async upsertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussionpolloptions (
+    //     option_id, poll_id, option, votes
+    //   ) VALUES ($1, $2, $3, $4)
+    //   ON CONFLICT (option_id, poll_id) DO UPDATE SET
+    //     option_id = excluded.option_id,
+    //     poll_id = excluded.poll_id,
+    //     option = excluded.option,
+    //     votes = excluded.votes
+    // `;
+
+	// 	await this.client.query(query, [
+    //         discussionPollOptions.option_id,
+	// 		discussionPollOptions.poll_id,
+	// 		discussionPollOptions.option,
+	// 		discussionPollOptions.votes,
+	// 	]);
+	// }
+
+    // public async insertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncomments (
+    //     id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
+    //     is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    // `;
+
+	// 	const values = [
+    //         discussionComment.id,
+	// 		discussionComment.created_by,
+	// 		discussionComment.created_at,
+	// 		discussionComment.author_association,
+	// 		discussionComment.body,
+	// 		discussionComment.created_at,
+	// 		discussionComment.deleted_at,
+	// 		discussionComment.discussion_id,
+	// 		discussionComment.edited_by,
+	// 		discussionComment.is_answer,
+	// 		discussionComment.is_minimized,
+	// 		discussionComment.last_edited_at,
+	// 		discussionComment.minimized_reason,
+	// 		discussionComment.published_at,
+	// 		discussionComment.in_reply_to_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion comment inserted successfully:", discussionComment.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion comment:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussioncomments SET
+    //     id = $1,
+    //     created_by = $2,
+    //     created_at = $3,
+    //     author_association = $4,
+    //     body = $5,
+    //     created_at = $6,
+    //     deleted_at = $7,
+    //     discussion_id = $8,
+    //     edited_by = $9,
+    //     is_answer = $10,
+    //     is_minimized = $11,
+    //     lasted_edited_at = $12,
+    //     minimized_reason = $13,
+    //     published_at = $14,
+    //     in_reply_to_id = $15
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+    //         discussionComment.id,
+	// 		discussionComment.created_by,
+	// 		discussionComment.created_at,
+	// 		discussionComment.author_association,
+	// 		discussionComment.body,
+	// 		discussionComment.created_at,
+	// 		discussionComment.deleted_at,
+	// 		discussionComment.discussion_id,
+	// 		discussionComment.edited_by,
+	// 		discussionComment.is_answer,
+	// 		discussionComment.is_minimized,
+	// 		discussionComment.last_edited_at,
+	// 		discussionComment.minimized_reason,
+	// 		discussionComment.published_at,
+	// 		discussionComment.in_reply_to_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion comment updated successfully:", discussionComment.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion comment:", error);
+	// 	}
+	// }
+
+    // public async upsertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncomments (
+    //     id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
+    //     is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     created_by = excluded.created_by,
+    //     created_at = excluded.created_at,
+    //     author_association = excluded.author_association,
+    //     body = excluded.body,
+    //     created_at = excluded.created_at,
+    //     deleted_at = excluded.deleted_at,
+    //     discussion_id = excluded.discussion_id,
+    //     edited_by = excluded.edited_by,
+    //     is_answer = excluded.is_answer,
+    //     is_minimized = excluded.is_minimized,
+    //     lasted_edited_at = excluded.last_edited_at,
+    //     minimized_reason = excluded.minimized_reason,
+    //     published_at = excluded.published_at,
+    //     in_reply_to_id = excluded.in_reply_to_id
+    // `;
+
+	// 	await this.client.query(query, [
+    //         discussionComment.id,
+	// 		discussionComment.created_by,
+	// 		discussionComment.created_at,
+	// 		discussionComment.author_association,
+	// 		discussionComment.body,
+	// 		discussionComment.created_at,
+	// 		discussionComment.deleted_at,
+	// 		discussionComment.discussion_id,
+	// 		discussionComment.edited_by,
+	// 		discussionComment.is_answer,
+	// 		discussionComment.is_minimized,
+	// 		discussionComment.last_edited_at,
+	// 		discussionComment.minimized_reason,
+	// 		discussionComment.published_at,
+	// 		discussionComment.in_reply_to_id,
+	// 	]);
+	// }
+
+    // public async insertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncommentreactions (
+    //     discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    // `;
+
+	// 	const values = [
+    //         discussionCommentReactions.comment_id,
+	// 		discussionCommentReactions.plusone,
+	// 		discussionCommentReactions.minusone,
+	// 		discussionCommentReactions.laugh,
+	// 		discussionCommentReactions.hooray,
+	// 		discussionCommentReactions.confused,
+	// 		discussionCommentReactions.heart,
+	// 		discussionCommentReactions.rocket,
+	// 		discussionCommentReactions.eyes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion comment reactions inserted successfully:", discussionCommentReactions.comment_id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion comment reactions:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussioncommentreactions SET
+    //     discussioncomment_id = $1,
+    //     plusone = $2,
+    //     minusone = $3,
+    //     laugh = $4,
+    //     hooray = $5,
+    //     confused = $6,
+    //     heart = $7,
+    //     rocket = $8,
+    //     eyes = $9
+    //   WHERE discussioncomment_id = $1
+    // `;
+
+	// 	const values = [
+    //         discussionCommentReactions.comment_id,
+	// 		discussionCommentReactions.plusone,
+	// 		discussionCommentReactions.minusone,
+	// 		discussionCommentReactions.laugh,
+	// 		discussionCommentReactions.hooray,
+	// 		discussionCommentReactions.confused,
+	// 		discussionCommentReactions.heart,
+	// 		discussionCommentReactions.rocket,
+	// 		discussionCommentReactions.eyes,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion comment reactions updated successfully:", discussionCommentReactions.comment_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion comment reactions:", error);
+	// 	}
+	// }
+
+    // public async upsertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussioncommentreactions (
+    //     discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    //   ON CONFLICT (discussioncomment_id) DO UPDATE SET
+    //     discussioncomment_id = excluded.discussioncomment_id,
+    //     plusone = excluded.plusone,
+    //     minusone = excluded.minusone,
+    //     laugh = excluded.laugh,
+    //     hooray = excluded.hooray,
+    //     confused = excluded.confused,
+    //     heart = excluded.heart,
+    //     rocket = excluded.rocket,
+    //     eyes = excluded.eyes
+    // `;
+
+	// 	await this.client.query(query, [
+    //         discussionCommentReactions.comment_id,
+	// 		discussionCommentReactions.plusone,
+	// 		discussionCommentReactions.minusone,
+	// 		discussionCommentReactions.laugh,
+	// 		discussionCommentReactions.hooray,
+	// 		discussionCommentReactions.confused,
+	// 		discussionCommentReactions.heart,
+	// 		discussionCommentReactions.rocket,
+	// 		discussionCommentReactions.eyes,
+	// 	]);
+	// }
+
+    // public async insertMilestone(milestone: types.Milestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO milestones (
+    //     id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    // `;
+
+	// 	const values = [
+    //         milestone.id,
+	// 		milestone.node_id,
+	// 		milestone.url,
+	// 		milestone.milestone_number,
+	// 		milestone.state,
+	// 		milestone.title,
+	// 		milestone.description,
+	// 		milestone.created_by,
+	// 		milestone.open_issues,
+	// 		milestone.closed_issues,
+	// 		milestone.created_at,
+	// 		milestone.updated_at,
+	// 		milestone.closed_at,
+	// 		milestone.due_on,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Milestone inserted successfully:", milestone.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting milestone:", error);
+	// 	}
+	// }
+
+    // public async updateMilestone(milestone: types.Milestone): Promise<void> {
+	// 	const query = `
+    //   UPDATE milestones SET
+    //     id = $1,
+    //     node_id = $2,
+    //     url = $3,
+    //     milestone_number = $4,
+    //     state = $5,
+    //     title = $6,
+    //     description = $7,
+    //     created_by = $8,
+    //     open_issues = $9,
+    //     closed_issues = $10,
+    //     created_at = $11,
+    //     updated_at = $12,
+    //     closed_at = $13,
+    //     due_on = $14
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+    //         milestone.id,
+	// 		milestone.node_id,
+	// 		milestone.url,
+	// 		milestone.milestone_number,
+	// 		milestone.state,
+	// 		milestone.title,
+	// 		milestone.description,
+	// 		milestone.created_by,
+	// 		milestone.open_issues,
+	// 		milestone.closed_issues,
+	// 		milestone.created_at,
+	// 		milestone.updated_at,
+	// 		milestone.closed_at,
+	// 		milestone.due_on,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Milestone updated successfully:", milestone.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating milestone:", error);
+	// 	}
+	// }
+
+    // public async upsertMilestone(milestone: types.Milestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO milestones (
+    //     id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     node_id = excluded.node_id,
+    //     url = excluded.url,
+    //     milestone_number = excluded.milestone_number,
+    //     state = excluded.state,
+    //     title = excluded.title,
+    //     description = excluded.description,
+    //     created_by = excluded.created_by,
+    //     open_issues = excluded.open_issues,
+    //     closed_issues = excluded.closed_issues,
+    //     created_at = excluded.created_at,
+    //     updated_at = excluded.updated_at,
+    //     closed_at = excluded.closed_at,
+    //     due_on = excluded.due_on
+    // `;
+
+	// 	await this.client.query(query, [
+    //         milestone.id,
+	// 		milestone.node_id,
+	// 		milestone.url,
+	// 		milestone.milestone_number,
+	// 		milestone.state,
+	// 		milestone.title,
+	// 		milestone.description,
+	// 		milestone.created_by,
+	// 		milestone.open_issues,
+	// 		milestone.closed_issues,
+	// 		milestone.created_at,
+	// 		milestone.updated_at,
+	// 		milestone.closed_at,
+	// 		milestone.due_on,
+	// 	]);
+	// }
+
+    // public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO repo_labels (
+    //     id, repository_id, node_id, name, description, color, default
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    // `;
+
+	// 	const values = [
+    //         repoLabels.id,
+	// 		repoLabels.repository_id,
+	// 		repoLabels.node_id,
+	// 		repoLabels.name,
+	// 		repoLabels.description,
+	// 		repoLabels.color,
+	// 		repoLabels.default,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Repo label inserted successfully:", repoLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting repo label:", error);
+	// 	}
+	// }
+
+    // public async updateRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+	// 	const query = `
+    //   UPDATE repo_labels SET
+    //     id = $1,
+    //     repository_id = $2,
+    //     node_id = $3,
+    //     name = $4,
+    //     description = $5,
+    //     color = $6,
+    //     default = $7
+    //   WHERE id = $1
+    // `;
+
+	// 	const values = [
+    //         repoLabels.id,
+	// 		repoLabels.repository_id,
+	// 		repoLabels.node_id,
+	// 		repoLabels.name,
+	// 		repoLabels.description,
+	// 		repoLabels.color,
+	// 		repoLabels.default,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Repo label updated successfully:", repoLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error updating repo label:", error);
+	// 	}
+	// }
+
+    // public async upsertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO repo_labels (
+    //     id, repository_id, node_id, name, description, color, default
+    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    //   ON CONFLICT (id) DO UPDATE SET
+    //     id = excluded.id,
+    //     repository_id = excluded.repository_id,
+    //     node_id = excluded.node_id,
+    //     name = excluded.name,
+    //     description = excluded.description,
+    //     color = excluded.color,
+    //     default = excluded.default
+    // `;
+
+	// 	await this.client.query(query, [
+    //         repoLabels.id,
+	// 		repoLabels.repository_id,
+	// 		repoLabels.node_id,
+	// 		repoLabels.name,
+	// 		repoLabels.description,
+	// 		repoLabels.color,
+	// 		repoLabels.default,
+	// 	]);
+	// }
+
+    // public async insertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_labels (
+    //     issue_id, label_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         issueLabels.issue_id,
+	// 		issueLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue label inserted successfully:", issueLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting issue label:", error);
+	// 	}
+	// }
+
+    // public async updateIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+	// 	const query = `
+    //   UPDATE issue_labels SET
+    //     issue_id = $1,
+    //     label_id = $2
+    //   WHERE issue_id = $1 AND label_id = $2
+    // `;
+
+	// 	const values = [
+    //         issueLabels.issue_id,
+	// 		issueLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue label updated successfully:", issueLabels.issue_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating issue label:", error);
+	// 	}
+	// }
+
+    // public async upsertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_labels (
+    //     issue_id, label_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (issue_id, label_id) DO NOTHING
+    // `;
+
+	// 	await this.client.query(query, [
+    //         issueLabels.issue_id,
+	// 		issueLabels.label_id,
+	// 	]);
+	// }
+
+    // public async insertDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussion_labels (
+    //     discussion_id, label_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         discussionLabels.discussion_id,
+	// 		discussionLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion label inserted successfully:", discussionLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting discussion label:", error);
+	// 	}
+	// }
+
+    // public async updateDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
+	// 	const query = `
+    //   UPDATE discussion_labels SET
+    //     discussion_id = $1,
+    //     label_id = $2
+    //   WHERE discussion_id = $1 AND label_id = $2
+    // `;
+
+	// 	const values = [
+    //         discussionLabels.discussion_id,
+	// 		discussionLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Discussion label updated successfully:", discussionLabels.discussion_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating discussion label:", error);
+	// 	}
+	// }
+
+    // public async upsertDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO discussion_labels (
+    //     discussion_id, label_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (discussion_id, label_id) DO NOTHING
+    // `;
+
+	// 	await this.client.query(query, [
+    //         discussionLabels.discussion_id,
+	// 		discussionLabels.label_id,
+	// 	]);
+	// }
+
+    // public async insertMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO milestone_labels (
+    //     milestone_id, label_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         milestoneLabels.milestone_id,
+	// 		milestoneLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Milestone label inserted successfully:", milestoneLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting milestone label:", error);
+	// 	}
+	// }
+
+    // public async updateMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
+	// 	const query = `
+    //   UPDATE milestone_labels SET
+    //     milestone_id = $1,
+    //     label_id = $2
+    //   WHERE milestone_id = $1 AND label_id = $2
+    // `;
+
+	// 	const values = [
+    //         milestoneLabels.milestone_id,
+	// 		milestoneLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Milestone label updated successfully:", milestoneLabels.milestone_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating milestone label:", error);
+	// 	}
+	// }
+
+    // public async upsertMilestoneLabels(milestoneLabels: types.MilestoneLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO milestone_labels (
+    //     milestone_id, label_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (milestone_id, label_id) DO NOTHING
+    // `;
+
+	// 	await this.client.query(query, [
+    //         milestoneLabels.milestone_id,
+	// 		milestoneLabels.label_id,
+	// 	]);
+	// }
+
+    // public async insertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_labels (
+    //     pull_request_id, label_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         pullRequestLabels.pull_request_id,
+	// 		pullRequestLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request label inserted successfully:", pullRequestLabels.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting pull request label:", error);
+	// 	}
+	// }
+
+    // public async updatePullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+	// 	const query = `
+    //   UPDATE pull_request_labels SET
+    //     pull_request_id = $1,
+    //     label_id = $2
+    //   WHERE pull_request_id = $1 AND label_id = $2
+    // `;
+
+	// 	const values = [
+    //         pullRequestLabels.pull_request_id,
+	// 		pullRequestLabels.label_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request label updated successfully:", pullRequestLabels.pull_request_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating pull request label:", error);
+	// 	}
+	// }
+
+    // public async upsertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_labels (
+    //     pull_request_id, label_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (pull_request_id, label_id) DO NOTHING
+    // `;
+
+	// 	await this.client.query(query, [
+    //         pullRequestLabels.pull_request_id,
+	// 		pullRequestLabels.label_id,
+	// 	]);
+	// }
+
+    // public async insertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_assignees (
+    //     issue_id, assignee_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         issueAssignee.issue_id,
+	// 		issueAssignee.assignee_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue assignee inserted successfully:", issueAssignee.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting issue assignee:", error);
+	// 	}
+	// }
+
+    // public async updateIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+	// 	const query = `
+    //   UPDATE issue_assignees SET
+    //     issue_id = $1,
+    //     assignee_id = $2
+    //   WHERE issue_id = $1 AND assignee_id = $2
+    // `;
+
+	// 	const values = [
+    //         issueAssignee.issue_id,
+	// 		issueAssignee.assignee_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue assignee updated successfully:", issueAssignee.issue_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating issue assignee:", error);
+	// 	}
+	// }
+
+    // public async upsertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_assignees (
+    //     issue_id, assignee_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (issue_id, assignee_id) DO NOTHING
+    // `;
+
+	// 	await this.client.query(query, [
+    //         issueAssignee.issue_id,
+	// 		issueAssignee.assignee_id,
+	// 	]);
+	// }
+
+    // public async insertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_assignees (
+    //     pull_request_id, assignee_id
+    //   ) VALUES ($1, $2)
+    // `;
+
+	// 	const values = [
+    //         pullRequestAssignee.pull_request_id,
+	// 		pullRequestAssignee.assignee_id,
+	// 	];
+
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request assignee inserted successfully:", pullRequestAssignee.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting pull request assignee:", error);
+	// 	}
+	// }
     
-    public async updatePullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-		const query = `
-      UPDATE pull_request_assignees SET
-        pull_request_id = $1,
-        assignee_id = $2
-      WHERE pull_request_id = $1 AND assignee_id = $2
-    `;
+    // public async updatePullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+	// 	const query = `
+    //   UPDATE pull_request_assignees SET
+    //     pull_request_id = $1,
+    //     assignee_id = $2
+    //   WHERE pull_request_id = $1 AND assignee_id = $2
+    // `;
 
-		const values = [
-            pullRequestAssignee.pull_request_id,
-			pullRequestAssignee.assignee_id,
-		];
+	// 	const values = [
+    //         pullRequestAssignee.pull_request_id,
+	// 		pullRequestAssignee.assignee_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Pull request assignee updated successfully:", pullRequestAssignee.pull_request_id);
-		} catch (error) {
-			console.error("Error updating pull request assignee:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request assignee updated successfully:", pullRequestAssignee.pull_request_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating pull request assignee:", error);
+	// 	}
+	// }
 
-    public async upsertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_assignees (
-        pull_request_id, assignee_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (pull_request_id, assignee_id) DO NOTHING
-    `;
+    // public async upsertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_assignees (
+    //     pull_request_id, assignee_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (pull_request_id, assignee_id) DO NOTHING
+    // `;
 
-		await this.client.query(query, [
-            pullRequestAssignee.pull_request_id,
-			pullRequestAssignee.assignee_id,
-		]);
-	}
+	// 	await this.client.query(query, [
+    //         pullRequestAssignee.pull_request_id,
+	// 		pullRequestAssignee.assignee_id,
+	// 	]);
+	// }
 
-    public async insertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-		const query = `
-      INSERT INTO issue_milestones (
-        issue_id, milestone_id
-      ) VALUES ($1, $2)
-    `;
+    // public async insertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_milestones (
+    //     issue_id, milestone_id
+    //   ) VALUES ($1, $2)
+    // `;
 
-		const values = [
-            issueMilestone.issue_id,
-			issueMilestone.milestone_id,
-		];
+	// 	const values = [
+    //         issueMilestone.issue_id,
+	// 		issueMilestone.milestone_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Issue milestone inserted successfully:", issueMilestone.id);
-		} catch (error) {
-			console.error("Error inserting issue milestone:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue milestone inserted successfully:", issueMilestone.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting issue milestone:", error);
+	// 	}
+	// }
 
-    public async updateIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-		const query = `
-      UPDATE issue_milestones SET
-        issue_id = $1,
-        milestone_id = $2
-      WHERE issue_id = $1 AND milestone_id = $2
-    `;
+    // public async updateIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+	// 	const query = `
+    //   UPDATE issue_milestones SET
+    //     issue_id = $1,
+    //     milestone_id = $2
+    //   WHERE issue_id = $1 AND milestone_id = $2
+    // `;
 
-		const values = [
-            issueMilestone.issue_id,
-			issueMilestone.milestone_id,
-		];
+	// 	const values = [
+    //         issueMilestone.issue_id,
+	// 		issueMilestone.milestone_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Issue milestone updated successfully:", issueMilestone.issue_id);
-		} catch (error) {
-			console.error("Error updating issue milestone:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Issue milestone updated successfully:", issueMilestone.issue_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating issue milestone:", error);
+	// 	}
+	// }
 
-    public async upsertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-		const query = `
-      INSERT INTO issue_milestones (
-        issue_id, milestone_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (issue_id, milestone_id) DO NOTHING
-    `;
+    // public async upsertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO issue_milestones (
+    //     issue_id, milestone_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (issue_id, milestone_id) DO NOTHING
+    // `;
 
-		await this.client.query(query, [
-            issueMilestone.issue_id,
-			issueMilestone.milestone_id,
-		]);
-	}
+	// 	await this.client.query(query, [
+    //         issueMilestone.issue_id,
+	// 		issueMilestone.milestone_id,
+	// 	]);
+	// }
 
-    public async insertPullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_milestones (
-        pull_request_id, milestone_id
-      ) VALUES ($1, $2)
-    `;
+    // public async insertPullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_milestones (
+    //     pull_request_id, milestone_id
+    //   ) VALUES ($1, $2)
+    // `;
 
-		const values = [
-            pullRequestMilestone.pull_request_id,
-			pullRequestMilestone.milestone_id,
-		];
+	// 	const values = [
+    //         pullRequestMilestone.pull_request_id,
+	// 		pullRequestMilestone.milestone_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Pull request milestone inserted successfully:", pullRequestMilestone.id);
-		} catch (error) {
-			console.error("Error inserting pull request milestone:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request milestone inserted successfully:", pullRequestMilestone.id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting pull request milestone:", error);
+	// 	}
+	// }
 
-    public async updatePullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
-		const query = `
-      UPDATE pull_request_milestones SET
-        pull_request_id = $1,
-        milestone_id = $2
-      WHERE pull_request_id = $1 AND milestone_id = $2
-    `;
+    // public async updatePullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
+	// 	const query = `
+    //   UPDATE pull_request_milestones SET
+    //     pull_request_id = $1,
+    //     milestone_id = $2
+    //   WHERE pull_request_id = $1 AND milestone_id = $2
+    // `;
 
-		const values = [
-            pullRequestMilestone.pull_request_id,
-			pullRequestMilestone.milestone_id,
-		];
+	// 	const values = [
+    //         pullRequestMilestone.pull_request_id,
+	// 		pullRequestMilestone.milestone_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Pull request milestone updated successfully:", pullRequestMilestone.pull_request_id);
-		} catch (error) {
-			console.error("Error updating pull request milestone:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Pull request milestone updated successfully:", pullRequestMilestone.pull_request_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating pull request milestone:", error);
+	// 	}
+	// }
 
-    public async upsertPullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
-		const query = `
-      INSERT INTO pull_request_milestones (
-        pull_request_id, milestone_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (pull_request_id, milestone_id) DO NOTHING
-    `;
+    // public async upsertPullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO pull_request_milestones (
+    //     pull_request_id, milestone_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (pull_request_id, milestone_id) DO NOTHING
+    // `;
 
-		await this.client.query(query, [
-            pullRequestMilestone.pull_request_id,
-			pullRequestMilestone.milestone_id,
-		]);
-	}
+	// 	await this.client.query(query, [
+    //         pullRequestMilestone.pull_request_id,
+	// 		pullRequestMilestone.milestone_id,
+	// 	]);
+	// }
 
-    public async insertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-		const query = `
-      INSERT INTO sub_issue_lists (
-        parent_id, sub_id
-      ) VALUES ($1, $2)
-    `;
+    // public async insertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO sub_issue_lists (
+    //     parent_id, sub_id
+    //   ) VALUES ($1, $2)
+    // `;
 
-		const values = [
-            subIssueList.parent_id,
-			subIssueList.sub_id,
-		];
+	// 	const values = [
+    //         subIssueList.parent_id,
+	// 		subIssueList.sub_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Sub issue list inserted successfully:", subIssueList.sub_id);
-		} catch (error) {
-			console.error("Error inserting sub issue list:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Sub issue list inserted successfully:", subIssueList.sub_id);
+	// 	} catch (error) {
+	// 		console.error("Error inserting sub issue list:", error);
+	// 	}
+	// }
 
-    public async updateSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-		const query = `
-      UPDATE sub_issue_lists SET
-        parent_id = $1,
-        sub_id = $2
-      WHERE parent_id = $1 AND sub_id = $2
-    `;
+    // public async updateSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+	// 	const query = `
+    //   UPDATE sub_issue_lists SET
+    //     parent_id = $1,
+    //     sub_id = $2
+    //   WHERE parent_id = $1 AND sub_id = $2
+    // `;
 
-		const values = [
-            subIssueList.parent_id,
-			subIssueList.sub_id,
-		];
+	// 	const values = [
+    //         subIssueList.parent_id,
+	// 		subIssueList.sub_id,
+	// 	];
 
-		try {
-			this.client.query(query, values);
-			console.log("Sub issue list updated successfully:", subIssueList.parent_id);
-		} catch (error) {
-			console.error("Error updating sub issue list:", error);
-		}
-	}
+	// 	try {
+	// 		this.client.query(query, values);
+	// 		console.log("Sub issue list updated successfully:", subIssueList.parent_id);
+	// 	} catch (error) {
+	// 		console.error("Error updating sub issue list:", error);
+	// 	}
+	// }
 
-    public async upsertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-		const query = `
-      INSERT INTO sub_issue_lists (
-        parent_id, sub_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (parent_id, sub_id) DO NOTHING
-    `;
+    // public async upsertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+	// 	const query = `
+    //   INSERT INTO sub_issue_lists (
+    //     parent_id, sub_id
+    //   ) VALUES ($1, $2)
+    //   ON CONFLICT (parent_id, sub_id) DO NOTHING
+    // `;
 
-		await this.client.query(query, [
-            subIssueList.parent_id,
-			subIssueList.sub_id,
-		]);
-	}
+	// 	await this.client.query(query, [
+    //         subIssueList.parent_id,
+	// 		subIssueList.sub_id,
+	// 	]);
+	// }
 };

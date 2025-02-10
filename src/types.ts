@@ -231,7 +231,6 @@ export interface Discussion {
 }
 
 export interface DiscussionPoll {
-    id(discussion_poll: DiscussionPoll, discussionPollOperations: DatabaseOperations<DiscussionPoll>, id: any): unknown;
 	discussion_id: Discussion;
 	poll_id: string;
 	question: string;
@@ -239,7 +238,6 @@ export interface DiscussionPoll {
 }
 
 export interface DiscussionPollOption {
-    id(discussion_poll_options: DiscussionPollOption, discussionPollOptionsOperations: DatabaseOperations<DiscussionPollOption>, id: any): unknown;
 	poll_id: DiscussionPoll;
 	option_id: string;
 	option: string;

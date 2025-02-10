@@ -80,239 +80,239 @@ export class PayloadMapper {
 		};
 	}
 
-	static createPullRequestFromPayload(payload: any): types.PullRequest {
-		return {
-			id: payload.pull_request.id,
-			node_id: payload.pull_request.node_id,
-			url: payload.pull_request.url,
-			pull_request_number: payload.pull_request.number,
-			state: payload.pull_request.state,
-			state_reason: payload.pull_request.state_reason,
-			title: payload.pull_request.title,
-			body: payload.pull_request.body || "",
-			created_by: payload.pull_request.user,
-			locked: payload.pull_request.locked,
-			active_lock_reason: payload.pull_request.active_lock_reason,
-			num_comments: payload.pull_request.comments,
-			closed_at: new Date(payload.pull_request.closed_at),
-			created_at: new Date(payload.pull_request.created_at),
-			updated_at: new Date(payload.pull_request.updated_at),
-			closed_by: payload.pull_request.closed_by,
-			repository_id: payload.repository.id,
-			author_association: payload.pull_request.author_association,
-			total_reaction_count: payload.pull_request.reactions?.total_count || 0,
-			merged_at: new Date(payload.pull_request.merged_at),
-			diff_url: payload.pull_request.diff_url,
-			draft: payload.pull_request.draft || false,
-		};
-	}
+	// static createPullRequestFromPayload(payload: any): types.PullRequest {
+	// 	return {
+	// 		id: payload.pull_request.id,
+	// 		node_id: payload.pull_request.node_id,
+	// 		url: payload.pull_request.url,
+	// 		pull_request_number: payload.pull_request.number,
+	// 		state: payload.pull_request.state,
+	// 		state_reason: payload.pull_request.state_reason,
+	// 		title: payload.pull_request.title,
+	// 		body: payload.pull_request.body || "",
+	// 		created_by: payload.pull_request.user,
+	// 		locked: payload.pull_request.locked,
+	// 		active_lock_reason: payload.pull_request.active_lock_reason,
+	// 		num_comments: payload.pull_request.comments,
+	// 		closed_at: new Date(payload.pull_request.closed_at),
+	// 		created_at: new Date(payload.pull_request.created_at),
+	// 		updated_at: new Date(payload.pull_request.updated_at),
+	// 		closed_by: payload.pull_request.closed_by,
+	// 		repository_id: payload.repository.id,
+	// 		author_association: payload.pull_request.author_association,
+	// 		total_reaction_count: payload.pull_request.reactions?.total_count || 0,
+	// 		merged_at: new Date(payload.pull_request.merged_at),
+	// 		diff_url: payload.pull_request.diff_url,
+	// 		draft: payload.pull_request.draft || false,
+	// 	};
+	// }
 
-	static createIssueCommentFromPayload(payload: any): types.IssueComment {
-		return {
-			id: payload.comment.id,
-			node_id: payload.comment.node_id,
-			url: payload.comment.url,
-			body: payload.comment.body || "",
-			created_by: payload.comment.user,
-			created_at: new Date(payload.comment.created_at),
-			updated_at: new Date(payload.comment.updated_at),
-			issue_id: payload.issue.id,
-			author_association: payload.comment.author_association,
-		};
-	}
+	// static createIssueCommentFromPayload(payload: any): types.IssueComment {
+	// 	return {
+	// 		id: payload.comment.id,
+	// 		node_id: payload.comment.node_id,
+	// 		url: payload.comment.url,
+	// 		body: payload.comment.body || "",
+	// 		created_by: payload.comment.user,
+	// 		created_at: new Date(payload.comment.created_at),
+	// 		updated_at: new Date(payload.comment.updated_at),
+	// 		issue_id: payload.issue.id,
+	// 		author_association: payload.comment.author_association,
+	// 	};
+	// }
 
-	static createIssueCommentReactionFromPayload(
-		payload: any,
-	): types.IssueCommentReaction {
-		return {
-			issuecomment_id: payload.comment.id,
-			plusone: payload.comment.reactions?.["+1"] || 0,
-			minusone: payload.comment.reactions?.["-1"] || 0,
-			laugh: payload.comment.reactions?.laugh || 0,
-			hooray: payload.comment.reactions?.hooray || 0,
-			confused: payload.comment.reactions?.confused || 0,
-			heart: payload.comment.reactions?.heart || 0,
-			rocket: payload.comment.reactions?.rocket || 0,
-			eyes: payload.comment.reactions?.eyes || 0,
-		};
-	}
+	// static createIssueCommentReactionFromPayload(
+	// 	payload: any,
+	// ): types.IssueCommentReaction {
+	// 	return {
+	// 		issuecomment_id: payload.comment.id,
+	// 		plusone: payload.comment.reactions?.["+1"] || 0,
+	// 		minusone: payload.comment.reactions?.["-1"] || 0,
+	// 		laugh: payload.comment.reactions?.laugh || 0,
+	// 		hooray: payload.comment.reactions?.hooray || 0,
+	// 		confused: payload.comment.reactions?.confused || 0,
+	// 		heart: payload.comment.reactions?.heart || 0,
+	// 		rocket: payload.comment.reactions?.rocket || 0,
+	// 		eyes: payload.comment.reactions?.eyes || 0,
+	// 	};
+	// }
 
-	static createDiscussionCategoriesFromPayload(
-		payload: any,
-	): types.DiscussionCategory {
-		return {
-			id: payload.discussion_category.id,
-			description: payload.discussion_category.description,
-			emoji: payload.discussion_category.emoji,
-			name: payload.discussion_category.name,
-			created_at: new Date(payload.discussion_category.created_at),
-			updated_at: new Date(payload.discussion_category.updated_at),
-			is_answerable: payload.discussion_category.is_answerable,
-			repository_id: payload.repository.id,
-			slug: payload.discussion_category.slug,
-		};
-	}
+	// static createDiscussionCategoriesFromPayload(
+	// 	payload: any,
+	// ): types.DiscussionCategory {
+	// 	return {
+	// 		id: payload.discussion_category.id,
+	// 		description: payload.discussion_category.description,
+	// 		emoji: payload.discussion_category.emoji,
+	// 		name: payload.discussion_category.name,
+	// 		created_at: new Date(payload.discussion_category.created_at),
+	// 		updated_at: new Date(payload.discussion_category.updated_at),
+	// 		is_answerable: payload.discussion_category.is_answerable,
+	// 		repository_id: payload.repository.id,
+	// 		slug: payload.discussion_category.slug,
+	// 	};
+	// }
 
-    static createDiscussionFromPayload(payload: any): types.Discussion {
-        return {
-            id: payload.discussion.id,
-            url: payload.discussion.url,
-            title: payload.discussion.title,
-            body: payload.discussion.body || "",
-            created_by: payload.discussion.user,
-            is_locked: payload.discussion.locked,
-            active_lock_reason: payload.discussion.active_lock_reason,
-            comments: payload.discussion.comments,
-            created_at: new Date(payload.discussion.created_at),
-            updated_at: new Date(payload.discussion.updated_at),
-            closed_at: new Date(payload.discussion.closed_at),
-            repository_id: payload.repository.id,
-            author_association: payload.discussion.author_association,
-            total_reaction_count: payload.discussion.reactions?.total_count || 0,
-        };
-    }
+    // // static createDiscussionFromPayload(payload: any): types.Discussion {
+    // //     return {
+    // //         id: payload.discussion.id,
+    // //         url: payload.discussion.url,
+    // //         title: payload.discussion.title,
+    // //         body: payload.discussion.body || "",
+    // //         created_by: payload.discussion.user,
+    // //         is_locked: payload.discussion.locked,
+    // //         active_lock_reason: payload.discussion.active_lock_reason,
+    // //         comments: payload.discussion.comments,
+    // //         created_at: new Date(payload.discussion.created_at),
+    // //         updated_at: new Date(payload.discussion.updated_at),
+    // //         closed_at: new Date(payload.discussion.closed_at),
+    // //         repository_id: payload.repository.id,
+    // //         author_association: payload.discussion.author_association,
+    // //         total_reaction_count: payload.discussion.reactions?.total_count || 0,
+    // //     };
+    // // }
 
-    static createDiscussionCommentFromPayload(payload: any): types.DiscussionComment {
-        return {
-            id: payload.comment.id,
-            body: payload.comment.body || "",
-            created_by: payload.comment.user,
-            created_at: new Date(payload.comment.created_at),
-            deleted_at: new Date(payload.comment.deleted_at),
-            discussion_id: payload.discussion.id,
-            edited_by: payload.comment.edited_by,
-            is_answer: payload.comment.is_answer,
-            is_minimized: payload.comment.is_minimized,
-            last_edited_at: new Date(payload.comment.last_edited_at),
-            minimized_reason: payload.comment.minimized_reason,
-            published_at: new Date(payload.comment.published_at),
-            author_association: payload.comment.author_association,
-            in_reply_to_id: 
-        };
-    }
+    // // static createDiscussionCommentFromPayload(payload: any): types.DiscussionComment {
+    // //     return {
+    // //         id: payload.comment.id,
+    // //         body: payload.comment.body || "",
+    // //         created_by: payload.comment.user,
+    // //         created_at: new Date(payload.comment.created_at),
+    // //         deleted_at: new Date(payload.comment.deleted_at),
+    // //         discussion_id: payload.discussion.id,
+    // //         edited_by: payload.comment.edited_by,
+    // //         is_answer: payload.comment.is_answer,
+    // //         is_minimized: payload.comment.is_minimized,
+    // //         last_edited_at: new Date(payload.comment.last_edited_at),
+    // //         minimized_reason: payload.comment.minimized_reason,
+    // //         published_at: new Date(payload.comment.published_at),
+    // //         author_association: payload.comment.author_association,
+    // //         in_reply_to_id: 
+    // //     };
+    // // }
 
-    static createDiscussionCommentReactionFromPayload(
-        payload: any,
-    ): types.DiscussionCommentReaction {
-        return {
-            discussioncomment_id: payload.comment.id,
-            plusone: payload.comment.reactions?.["+1"] || 0,
-            minusone: payload.comment.reactions?.["-1"] || 0,
-            laugh: payload.comment.reactions?.laugh || 0,
-            hooray: payload.comment.reactions?.hooray || 0,
-            confused: payload.comment.reactions?.confused || 0,
-            heart: payload.comment.reactions?.heart || 0,
-            rocket: payload.comment.reactions?.rocket || 0,
-            eyes: payload.comment.reactions?.eyes || 0,
-        };
-    }
+    // static createDiscussionCommentReactionFromPayload(
+    //     payload: any,
+    // ): types.DiscussionCommentReaction {
+    //     return {
+    //         discussioncomment_id: payload.comment.id,
+    //         plusone: payload.comment.reactions?.["+1"] || 0,
+    //         minusone: payload.comment.reactions?.["-1"] || 0,
+    //         laugh: payload.comment.reactions?.laugh || 0,
+    //         hooray: payload.comment.reactions?.hooray || 0,
+    //         confused: payload.comment.reactions?.confused || 0,
+    //         heart: payload.comment.reactions?.heart || 0,
+    //         rocket: payload.comment.reactions?.rocket || 0,
+    //         eyes: payload.comment.reactions?.eyes || 0,
+    //     };
+    // }
 
-    static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
-        return {
-            poll_id: payload.option.id,
-            discussion_id: payload.discussion.id,
-            option_id: payload.option.id,
-            total_votes: payload.option.votes,
-        };
-    }
+    // // static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
+    // //     return {
+    // //         poll_id: payload.option.id,
+    // //         discussion_id: payload.discussion.id,
+    // //         option_id: payload.option.id,
+    // //         total_votes: payload.option.votes,
+    // //     };
+    // // }
 
-    static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
-        return {
-            id: payload.option.id,
-            discussion_id: payload.discussion.id,
-            option: payload.option.option,
-            votes: payload.option.votes,
-        };
-    }
+    // // static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
+    // //     return {
+    // //         id: payload.option.id,
+    // //         discussion_id: payload.discussion.id,
+    // //         option: payload.option.option,
+    // //         votes: payload.option.votes,
+    // //     };
+    // // }
 
-    static createMilestonesFromPayload(payload: any): types.Milestone {
-        return {
-            id: payload.milestone.id,
-            node_id: payload.milestone.node_id,
-            url: payload.milestone.url,
-            title: payload.milestone.title,
-            description: payload.milestone.description || "",
-            state: payload.milestone.state,
-            due_on: new Date(payload.milestone.due_on),
-            created_at: new Date(payload.milestone.created_at),
-            updated_at: new Date(payload.milestone.updated_at),
-            closed_at: new Date(payload.milestone.closed_at),
-            repository_id: payload.repository.id,
-        };
-    }
+    // // static createMilestonesFromPayload(payload: any): types.Milestone {
+    // //     return {
+    // //         id: payload.milestone.id,
+    // //         node_id: payload.milestone.node_id,
+    // //         url: payload.milestone.url,
+    // //         title: payload.milestone.title,
+    // //         description: payload.milestone.description || "",
+    // //         state: payload.milestone.state,
+    // //         due_on: new Date(payload.milestone.due_on),
+    // //         created_at: new Date(payload.milestone.created_at),
+    // //         updated_at: new Date(payload.milestone.updated_at),
+    // //         closed_at: new Date(payload.milestone.closed_at),
+    // //         repository_id: payload.repository.id,
+    // //     };
+    // // }
 
-    static createRepoLabelsFromPayload(payload: any): types.RepoLabel {
-        return {
-            id: payload.label.id,
-            node_id: payload.label.node_id,
-            name: payload.label.name,
-            color: payload.label.color,
-            default: payload.label.default,
-            description: payload.label.description || "",
-            repository_id: payload.repository.id,
-        };
-    }
+    // static createRepoLabelsFromPayload(payload: any): types.RepoLabel {
+    //     return {
+    //         id: payload.label.id,
+    //         node_id: payload.label.node_id,
+    //         name: payload.label.name,
+    //         color: payload.label.color,
+    //         default: payload.label.default,
+    //         description: payload.label.description || "",
+    //         repository_id: payload.repository.id,
+    //     };
+    // }
 
-    static createIssueLabelFromPayload(payload: any): types.IssueLabel {
-        return {
-            issue_id: payload.issue.id,
-            label_id: payload.label.id,
-        };
-    }
+    // static createIssueLabelFromPayload(payload: any): types.IssueLabel {
+    //     return {
+    //         issue_id: payload.issue.id,
+    //         label_id: payload.label.id,
+    //     };
+    // }
 
-    static createDiscussionLabelFromPayload(payload: any): types.DiscussionLabel {
-        return {
-            discussion_id: payload.discussion.id,
-            label_id: payload.label.id,
-        };
-    }
+    // static createDiscussionLabelFromPayload(payload: any): types.DiscussionLabel {
+    //     return {
+    //         discussion_id: payload.discussion.id,
+    //         label_id: payload.label.id,
+    //     };
+    // }
 
-    static createMilestoneLabelFromPayload(payload: any): types.MilestoneLabel {
-        return {
-            milestone_id: payload.milestone.id,
-            label_id: payload.label.id,
-        };
-    }
+    // static createMilestoneLabelFromPayload(payload: any): types.MilestoneLabel {
+    //     return {
+    //         milestone_id: payload.milestone.id,
+    //         label_id: payload.label.id,
+    //     };
+    // }
 
-    static createPullRequestLabelFromPayload(payload: any): types.PullRequestLabel {
-        return {
-            pull_request_id: payload.pull_request.id,
-            label_id: payload.label.id,
-        };
-    }
+    // static createPullRequestLabelFromPayload(payload: any): types.PullRequestLabel {
+    //     return {
+    //         pull_request_id: payload.pull_request.id,
+    //         label_id: payload.label.id,
+    //     };
+    // }
 
-    static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
-        return {
-            issue_id: payload.issue.id,
-            assignee_id: payload.assignee.id,
-        };
-    }
+    // static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
+    //     return {
+    //         issue_id: payload.issue.id,
+    //         assignee_id: payload.assignee.id,
+    //     };
+    // }
 
-    static createPullRequestAssigneeFromPayload(payload: any): types.PullRequestAssignee {
-        return {
-            pullrequest_id: payload.pull_request.id,
-            assignee_id: payload.assignee.id,
-        };
-    }
+    // static createPullRequestAssigneeFromPayload(payload: any): types.PullRequestAssignee {
+    //     return {
+    //         pullrequest_id: payload.pull_request.id,
+    //         assignee_id: payload.assignee.id,
+    //     };
+    // }
 
-    static createIssueMilestoneFromPayload(payload: any): types.IssueMilestone {
-        return {
-            issue_id: payload.issue.id,
-            milestone_id: payload.milestone.id,
-        };
-    }
+    // static createIssueMilestoneFromPayload(payload: any): types.IssueMilestone {
+    //     return {
+    //         issue_id: payload.issue.id,
+    //         milestone_id: payload.milestone.id,
+    //     };
+    // }
 
-    static createPullRequestMilestoneFromPayload(payload: any): types.PullRequestMilestone {
-        return {
-            pull_request_id: payload.pull_request.id,
-            milestone_id: payload.milestone.id,
-        };
-    }
+    // static createPullRequestMilestoneFromPayload(payload: any): types.PullRequestMilestone {
+    //     return {
+    //         pull_request_id: payload.pull_request.id,
+    //         milestone_id: payload.milestone.id,
+    //     };
+    // }
 
-    static createSubIssueListFromPayload(payload: any): types.SubIssueList {
-        return {
-            parent_id: payload.issue.id,
-            sub_id: payload.sub_issue.id,
-        };
-    }
+    // static createSubIssueListFromPayload(payload: any): types.SubIssueList {
+    //     return {
+    //         parent_id: payload.issue.id,
+    //         sub_id: payload.sub_issue.id,
+    //     };
+    // }
 }
