@@ -88,16 +88,16 @@ export interface Issue {
 	closed_by: Owner;
 	repository_id: Repository;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	total_reaction_count: number;
-	sub_or_parent_issue: "sub" | "sub_and_parent" | "parent" | "neither";
+	sub_or_parent_issue: "SUB" | "SUB_AND_PARENT" | "PARENT" | "NEITHER";
 
 	labels?: Label[];
 	assignees?: Owner[];
@@ -118,19 +118,19 @@ export interface PullRequest {
 	node_id: string;
 	url: string;
 	pull_request_number: number;
-	state: "open" | "closed";
-	state_reason: "completed" | "reopened" | "not_planned";
+	state: "OPEN" | "CLOSED";
+	state_reason: "COMPLETED" | "REOPENED" | "NOT_PLANNED";
 	title: string;
 	body: string;
 	created_by: Owner;
 	locked: boolean;
 	active_lock_reason:
-		| "off_topic"
-		| "too_heated"
-		| "resolved"
-		| "resolved"
-		| "spam"
-		| "other";
+		| "OFF_TOPIC"
+		| "TOO_HEATED"
+		| "RESOLVED"
+		| "RESOLVED"
+		| "SPAM"
+		| "OTHER";
 	num_comments: number;
 	closed_at: Date;
 	created_at: Date;
@@ -138,14 +138,14 @@ export interface PullRequest {
 	closed_by: Owner;
 	repository_id: Repository;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	total_reaction_count: number;
 	merged_at: Date;
 	diff_url: string;
@@ -162,14 +162,14 @@ export interface IssueComment {
 	updated_at: Date;
 	issue_id: Issue;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	reactions?: IssueCommentReaction;
 }
 
@@ -187,25 +187,25 @@ export interface IssueCommentReaction {
 
 export interface Discussion {
 	active_lock_reason:
-		| "off_topic"
-		| "too_heated"
-		| "resolved"
-		| "resolved"
-		| "spam"
-		| "other";
+		| "OFF_TOPIC"
+		| "TOO_HEATED"
+		| "RESOLVED"
+		| "RESOLVED"
+		| "SPAM"
+		| "OTHER";
 	answer: DiscussionComment;
 	answer_chosen_at: Date;
 	answer_chosen_by: Owner;
 	created_by: Owner;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	body: string;
 	category_id: DiscussionCategory;
 	is_closed: boolean;
@@ -219,7 +219,7 @@ export interface Discussion {
 	published_at: Date;
 	total_reaction_count: number;
 	repository_id: Repository;
-	state_reason: "completed" | "reopened" | "not_planned";
+	state_reason: "COMPLETED" | "REOPENED" | "NOT_PLANNED";
 	title: string;
 	updated_at: Date;
 	total_upvote_count: number;
@@ -247,14 +247,14 @@ export interface DiscussionPollOption {
 export interface DiscussionComment {
 	created_by: Owner;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	body: string;
 	created_at: Date;
 	deleted_at: Date;
@@ -265,13 +265,13 @@ export interface DiscussionComment {
 	is_minimized: boolean;
 	last_edited_at: Date;
 	minimized_reason:
-		| "abuse"
-		| "off_topic"
-		| "outdated"
-		| "resolved"
-		| "spam"
-		| "duplicate"
-		| "other";
+		| "ABUSE"
+		| "OFF_TOPIC"
+		| "OUTDATED"
+		| "RESOLVED"
+		| "SPAM"
+		| "DUPLICATE"
+		| "OTHER";
 	published_at: Date;
 	in_reply_to_id: DiscussionComment;
 	reactions?: DiscussionCommentReaction;
@@ -306,7 +306,7 @@ export interface Milestone {
 	node_id: string;
 	url: string;
 	milestone_number: number;
-	state: "open" | "closed";
+	state: "OPEN" | "CLOSED";
 	title: string;
 	description: string;
 	created_by: Owner;
