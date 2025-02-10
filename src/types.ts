@@ -88,14 +88,14 @@ export interface Issue {
 	closed_by: Owner;
 	repository_id: Repository;
 	author_association:
-		| "owner"
-		| "collaborator"
-		| "contributor"
-		| "member"
-		| "first_timer"
-		| "first_time_contributor"
-		| "mannequin"
-		| "none";
+		| "OWNER"
+		| "COLLABORATOR"
+		| "CONTRIBUTOR"
+		| "MEMBER"
+		| "FIRST_TIMER"
+		| "FIRST_TIME_CONTRIBUTOR"
+		| "MANNEQUIN"
+		| "NONE";
 	total_reaction_count: number;
 	sub_or_parent_issue: "sub" | "sub_and_parent" | "parent" | "neither";
 

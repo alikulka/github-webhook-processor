@@ -96,16 +96,16 @@ export class WebhookProcessor {
         identifierColumn: "id",
     };
 
-    // private pullRequestOperations: DatabaseOperations<types.PullRequest> = {
-    //     tableName: "pull_requests",
-    //     operations: {
-    //         insert: (pr) => this.upserts.insertPullRequest(pr),
-    //         update: (pr) => this.upserts.updatePullRequest(pr),
-    //         upsert: (pr) => this.upserts.upsertPullRequest(pr),
-    //     },
-    //     entityName: "Pull Request",
-    //     identifierColumn: "id",
-    // };
+    private pullRequestOperations: DatabaseOperations<types.PullRequest> = {
+        tableName: "pull_requests",
+        operations: {
+            insert: (pr) => this.upserts.insertPullRequest(pr),
+            update: (pr) => this.upserts.updatePullRequest(pr),
+            upsert: (pr) => this.upserts.upsertPullRequest(pr),
+        },
+        entityName: "Pull Request",
+        identifierColumn: "id",
+    };
 
     // private issueCommentOperations: DatabaseOperations<types.IssueComment> = {
     //     tableName: "issuecomments",
@@ -223,36 +223,36 @@ export class WebhookProcessor {
     //         identifierColumn: "id",
     //     };
     
-    // private repoLabelOperations: DatabaseOperations<types.RepoLabel> =
-    //     {
-    //         tableName: "repolabels",
-    //         operations: {
-    //             insert: (repo_label) =>
-    //                 this.upserts.insertRepoLabels(repo_label),
-    //             update: (repo_label) =>
-    //                 this.upserts.updateRepoLabels(repo_label),
-    //             upsert: (repo_label) =>
-    //                 this.upserts.upsertRepoLabels(repo_label),
-    //         },
-    //         entityName: "Repo Label",
-    //         identifierColumn: "id",
-    //     };
+    private repoLabelOperations: DatabaseOperations<types.RepoLabel> =
+        {
+            tableName: "repo_labels",
+            operations: {
+                insert: (repo_label) =>
+                    this.upserts.insertRepoLabels(repo_label),
+                update: (repo_label) =>
+                    this.upserts.updateRepoLabels(repo_label),
+                upsert: (repo_label) =>
+                    this.upserts.upsertRepoLabels(repo_label),
+            },
+            entityName: "Repo Label",
+            identifierColumn: "id",
+        };
 
     
-    // private issueLabelOperations: DatabaseOperations<types.IssueLabel> =
-    //     {
-    //         tableName: "issuelabels",
-    //         operations: {
-    //             insert: (issue_label) =>
-    //                 this.upserts.insertIssueLabels(issue_label),
-    //             update: (issue_label) =>
-    //                 this.upserts.updateIssueLabels(issue_label),
-    //             upsert: (issue_label) =>
-    //                 this.upserts.upsertIssueLabels(issue_label),
-    //         },
-    //         entityName: "Issue Label",
-    //         identifierColumn: "id",
-    //     };
+    private issueLabelOperations: DatabaseOperations<types.IssueLabel> =
+        {
+            tableName: "issuelabels",
+            operations: {
+                insert: (issue_label) =>
+                    this.upserts.insertIssueLabels(issue_label),
+                update: (issue_label) =>
+                    this.upserts.updateIssueLabels(issue_label),
+                upsert: (issue_label) =>
+                    this.upserts.upsertIssueLabels(issue_label),
+            },
+            entityName: "Issue Label",
+            identifierColumn: "id",
+        };
     
     // private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
     //     {
@@ -394,9 +394,45 @@ export class WebhookProcessor {
     }
 
     private async processIssueEvent(payload: any): Promise<void> {
+        // console.log(payload)
         const owner = PayloadMapper.createOwnerFromPayload(payload.issue.user);
         const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
         const issue = PayloadMapper.createIssueFromPayload(payload);
+
+        // Handle owner first
+        await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
+
+        await this.handleDatabaseOperation(
+            repo,
+            this.repositoryOperations,
+            repo.id,
+        );
+
+        // the idea is to do specific things depending on the webhook action
+        // for opened, an insert takes place. for closed, an updated takes place
+        if (payload.action === WebhookAction.Opened) {
+            await this.handleDatabaseOperation(
+                issue,
+                this.issueOperations,
+                issue.id,
+            );
+
+        } 
+        else if (payload.action === WebhookAction.Closed) {
+            await this.handleDatabaseOperation(
+                issue,
+                this.issueOperations,
+                issue.id,
+            );
+        }
+    }
+
+    private async processPullRequestEvent(payload: any): Promise<void> {
+        const owner = PayloadMapper.createOwnerFromPayload(
+            payload.pull_request.user,
+        );
+        const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
+        const pullRequest = PayloadMapper.createPullRequestFromPayload(payload);
 
         // Handle owner first
         await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
@@ -408,101 +444,67 @@ export class WebhookProcessor {
             repo.id,
         );
 
-        // Then issue
-        await this.handleDatabaseOperation(issue, this.issueOperations, issue.id);
-
-        // Handle closed_by user if exists
-        if (payload.issue.closed_by) {
-            const closedByUser = PayloadMapper.createOwnerFromPayload(
-                payload.issue.closed_by,
-            );
+        // Then pull request
+        if (payload.action === WebhookAction.Opened) {
             await this.handleDatabaseOperation(
-                closedByUser,
-                this.ownerOperations,
-                closedByUser.id,
+                pullRequest,
+                this.pullRequestOperations,
+                pullRequest.id,
+            );
+        }
+
+        if (payload.action === WebhookAction.Closed) {
+            await this.handleDatabaseOperation(
+                pullRequest,
+                this.pullRequestOperations,
+                pullRequest.id,
             );
         }
     }
 
-    // private async processPullRequestEvent(payload: any): Promise<void> {
-    //     const owner = PayloadMapper.createOwnerFromPayload(
-    //         payload.pull_request.user,
-    //     );
-    //     const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
-    //     const pullRequest = PayloadMapper.createPullRequestFromPayload(payload);
-
-    //     // Handle owner first
-    //     await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
-
-    //     // Then repository
-    //     await this.handleDatabaseOperation(
-    //         repo,
-    //         this.repositoryOperations,
-    //         repo.id,
-    //     );
-
-    //     // Then pull request
-    //     await this.handleDatabaseOperation(
-    //         pullRequest,
-    //         this.pullRequestOperations,
-    //         pullRequest.id,
-    //     );
-
-    //     // Handle closed_by user if exists
-    //     if (payload.pull_request.closed_by) {
-    //         const closedByUser = PayloadMapper.createOwnerFromPayload(
-    //             payload.pull_request.closed_by,
-    //         );
-    //         await this.handleDatabaseOperation(
-    //             closedByUser,
-    //             this.ownerOperations,
-    //             closedByUser.id,
-    //         );
-    //     }
-    // }
-
-    // private async processLabel(payload: any, context: string): Promise<void> {
-    //     // First, ensure the label exists in repo_labels
-    //     const label = PayloadMapper.createRepoLabelsFromPayload(payload.label);
-    //     await this.handleDatabaseOperation(
-    //       label,
-    //       this.repoLabelOperations,
-    //       label.id
-    //     );
+    private async processLabel(payload: any, context: string): Promise<void> {
+        // First, ensure the label exists in repo_labels
+        const label = PayloadMapper.createRepoLabelsFromPayload(payload);
+        await this.handleDatabaseOperation(
+          label,
+          this.repoLabelOperations,
+          label.id
+        );
     
-    //     // Then handle the junction table based on context
-    //     switch(context) {
-    //       case 'issue': {
-    //         const issueLabel = PayloadMapper.createIssueLabelFromPayload(payload);
-    //         await this.handleDatabaseOperation(
-    //           issueLabel,
-    //           this.issueLabelOperations,
-    //           issueLabel.issue_id
-    //         );
-    //         break;
-    //       }
+        // Then handle the junction table based on context
+        switch(context) {
+          case 'issue': {
+            console.log(payload.issue.labels);
+            const issueLabel = PayloadMapper.createIssueLabelFromPayload(payload.issue.labels);
+            await this.handleDatabaseOperation(
+              issueLabel,
+              this.issueLabelOperations,
+              issueLabel.issue_id
+            );
+            break;
+          }
           
-    //       case 'pull_request': {
-    //         const prLabel = PayloadMapper.createPullRequestLabelFromPayload(payload);
-    //         await this.handleDatabaseOperation(
-    //           prLabel,
-    //           this.pullRequestLabelOperations,
-    //           prLabel.pull_request_id
-    //         );
-    //         break;
-    //       }
+        //   case 'pull_request': {
+        //     const prLabel = PayloadMapper.createPullRequestLabelFromPayload(payload);
+        //     await this.handleDatabaseOperation(
+        //       prLabel,
+        //       this.pullRequestLabelOperations,
+        //       prLabel.pull_request_id
+        //     );
+        //     break;
+        //   }
           
-    //       case 'discussion': {
-    //         const discussionLabel = PayloadMapper.createDiscussionLabelFromPayload(payload);
-    //         await this.handleDatabaseOperation(
-    //           discussionLabel,
-    //           this.discussionLabelOperations,
-    //           discussionLabel.discussion_id
-    //         );
-    //         break;
-    //       }
-    //     }
-    //   }
+        //   case 'discussion': {
+        //     const discussionLabel = PayloadMapper.createDiscussionLabelFromPayload(payload);
+        //     await this.handleDatabaseOperation(
+        //       discussionLabel,
+        //       this.discussionLabelOperations,
+        //       discussionLabel.discussion_id
+        //     );
+        //     break;
+        //   }
+        }
+      }
     
     //   private async processReaction(payload: any, context: string): Promise<void> {
     //     switch(context) {
@@ -711,25 +713,25 @@ export class WebhookProcessor {
     //     throw new Error("Method not implemented.");
     // }
 
-    // private async processRepoLabels(payload: any): Promise<void> {
-    //     const repo_label = PayloadMapper.createRepoLabelsFromPayload(payload);
+    private async processRepoLabels(payload: any): Promise<void> {
+        const repo_label = PayloadMapper.createRepoLabelsFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         repo_label,
-    //         this.repoLabelOperations,
-    //         repo_label.id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            repo_label,
+            this.repoLabelOperations,
+            repo_label.id,
+        );
+    }
 
-    // private async processIssueLabels(payload: any): Promise<void> {
-    //     const issue_label = PayloadMapper.createIssueLabelFromPayload(payload);
+    private async processIssueLabels(payload: any): Promise<void> {
+        const issue_label = PayloadMapper.createIssueLabelFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         issue_label,
-    //         this.issueLabelOperations,
-    //         issue_label.issue_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            issue_label,
+            this.issueLabelOperations,
+            issue_label.issue_id,
+        );
+    }
 
     // private async processDiscussionLabels(payload: any): Promise<void> {
     //     const discussion_label = PayloadMapper.createDiscussionLabelFromPayload(payload);
@@ -793,7 +795,6 @@ export class WebhookProcessor {
 
     async processWebhook(eventType: string, payload: any): Promise<void> {
 
-        console.log(payload)
         console.log(`Processing ${eventType} webhook with action ${payload.action}...`);
 
         switch (eventType) {
@@ -803,43 +804,43 @@ export class WebhookProcessor {
             case WebhookEventType.Issue:
                 await this.processIssueEvent(payload);
 
+                switch (payload.action) {
+                    case WebhookAction.Labeled:
+                    case WebhookAction.Unlabeled:
+                        await this.processLabel(payload, "issue");
+                        break;
+                    
+                    // case WebhookAction.Milestoned:
+                    // case WebhookAction.Demilestoned:
+                    //     await this.processMilestone(payload, "issue");
+                    //     break;
+                    
+                    // case WebhookAction.Assigned:
+                    // case WebhookAction.Unassigned:
+                    //     await this.processAssignee(payload);
+                    //     break;
+                }
+                break;
+            case WebhookEventType.PullRequest:
+                await this.processPullRequestEvent(payload);
+
                 // switch (payload.action) {
                 //     case WebhookAction.Labeled:
                 //     case WebhookAction.Unlabeled:
-                //         await this.processLabel(payload, "issue");
+                //         await this.processLabel(payload, "pull_request");
                 //         break;
-                    
+
                 //     case WebhookAction.Milestoned:
                 //     case WebhookAction.Demilestoned:
-                //         await this.processMilestone(payload, "issue");
+                //         await this.processMilestone(payload, "pull_request");
                 //         break;
-                    
+
                 //     case WebhookAction.Assigned:
                 //     case WebhookAction.Unassigned:
                 //         await this.processAssignee(payload);
                 //         break;
                 // }
                 break;
-            // case WebhookEventType.PullRequest:
-            //     await this.processPullRequestEvent(payload);
-
-            //     switch (payload.action) {
-            //         case WebhookAction.Labeled:
-            //         case WebhookAction.Unlabeled:
-            //             await this.processLabel(payload, "pull_request");
-            //             break;
-
-            //         case WebhookAction.Milestoned:
-            //         case WebhookAction.Demilestoned:
-            //             await this.processMilestone(payload, "pull_request");
-            //             break;
-
-            //         case WebhookAction.Assigned:
-            //         case WebhookAction.Unassigned:
-            //             await this.processAssignee(payload);
-            //             break;
-            //     }
-            //     break;
             // case WebhookEventType.IssueComment:
             //     await this.processIssueCommentEvent(payload);
             //     break;

@@ -80,32 +80,32 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createPullRequestFromPayload(payload: any): types.PullRequest {
-	// 	return {
-	// 		id: payload.pull_request.id,
-	// 		node_id: payload.pull_request.node_id,
-	// 		url: payload.pull_request.url,
-	// 		pull_request_number: payload.pull_request.number,
-	// 		state: payload.pull_request.state,
-	// 		state_reason: payload.pull_request.state_reason,
-	// 		title: payload.pull_request.title,
-	// 		body: payload.pull_request.body || "",
-	// 		created_by: payload.pull_request.user,
-	// 		locked: payload.pull_request.locked,
-	// 		active_lock_reason: payload.pull_request.active_lock_reason,
-	// 		num_comments: payload.pull_request.comments,
-	// 		closed_at: new Date(payload.pull_request.closed_at),
-	// 		created_at: new Date(payload.pull_request.created_at),
-	// 		updated_at: new Date(payload.pull_request.updated_at),
-	// 		closed_by: payload.pull_request.closed_by,
-	// 		repository_id: payload.repository.id,
-	// 		author_association: payload.pull_request.author_association,
-	// 		total_reaction_count: payload.pull_request.reactions?.total_count || 0,
-	// 		merged_at: new Date(payload.pull_request.merged_at),
-	// 		diff_url: payload.pull_request.diff_url,
-	// 		draft: payload.pull_request.draft || false,
-	// 	};
-	// }
+	static createPullRequestFromPayload(payload: any): types.PullRequest {
+		return {
+			id: payload.pull_request.id,
+			node_id: payload.pull_request.node_id,
+			url: payload.pull_request.url,
+			pull_request_number: payload.pull_request.number,
+			state: payload.pull_request.state,
+			state_reason: payload.pull_request.state_reason,
+			title: payload.pull_request.title,
+			body: payload.pull_request.body || "",
+			created_by: payload.pull_request.user,
+			locked: payload.pull_request.locked,
+			active_lock_reason: payload.pull_request.active_lock_reason,
+			num_comments: payload.pull_request.comments,
+			closed_at: new Date(payload.pull_request.closed_at),
+			created_at: new Date(payload.pull_request.created_at),
+			updated_at: new Date(payload.pull_request.updated_at),
+			closed_by: payload.pull_request.closed_by,
+			repository_id: payload.repository.id,
+			author_association: payload.pull_request.author_association,
+			total_reaction_count: payload.pull_request.reactions?.total_count || 0,
+			merged_at: new Date(payload.pull_request.merged_at),
+			diff_url: payload.pull_request.diff_url,
+			draft: payload.pull_request.draft || false,
+		};
+	}
 
 	// static createIssueCommentFromPayload(payload: any): types.IssueComment {
 	// 	return {
@@ -241,24 +241,24 @@ export class PayloadMapper {
     // //     };
     // // }
 
-    // static createRepoLabelsFromPayload(payload: any): types.RepoLabel {
-    //     return {
-    //         id: payload.label.id,
-    //         node_id: payload.label.node_id,
-    //         name: payload.label.name,
-    //         color: payload.label.color,
-    //         default: payload.label.default,
-    //         description: payload.label.description || "",
-    //         repository_id: payload.repository.id,
-    //     };
-    // }
+    static createRepoLabelsFromPayload(payload: any): types.RepoLabel {
+        return {
+            id: payload.id,
+            node_id: payload.node_id,
+            name: payload.name,
+            color: payload.color,
+            default: payload.default,
+            description: payload.description || "",
+            repository_id: payload.repository.id,
+        };
+    }
 
-    // static createIssueLabelFromPayload(payload: any): types.IssueLabel {
-    //     return {
-    //         issue_id: payload.issue.id,
-    //         label_id: payload.label.id,
-    //     };
-    // }
+    static createIssueLabelFromPayload(payload: any): types.IssueLabel {
+        return {
+            issue_id: payload.id,
+            label_id: payload.id,
+        };
+    }
 
     // static createDiscussionLabelFromPayload(payload: any): types.DiscussionLabel {
     //     return {

@@ -43,8 +43,8 @@ async function testIssueWebhooks() {
 	try {
 		const processor = new WebhookProcessor(client);
 		console.log("Processing webhook...");
-		const issue_wh1 = sampleWebhook.IssueOpenedWebhook;
-		await processor.processWebhook("issues", issue_wh1);
+		const issue_wh1 = sampleWebhook.IssueLabeledWebhook;
+		await processor.processWebhook("issues", issue_wh1.payload);
 		console.log("Webhook processed successfully");
 
 		// Query results
@@ -67,36 +67,36 @@ async function testIssueWebhooks() {
 	}
 }
 
-// async function testPullRequestWebhooks() {
-// 	const pool = new Pool(config.database);
-// 	const client = await pool.connect();
+async function testPullRequestWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
 
-// 	try {
-// 		const processor = new WebhookProcessor(client);
-// 		console.log("Processing webhook...");
-// 		const pr_wh1 = sampleWebhook.pullRequestWebhook1;
-// 		await processor.processWebhook("pull_request", pr_wh1);
-// 		console.log("Webhook processed successfully");
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const pr_wh1 = sampleWebhook.PullRequestClosedWebhook;
+		await processor.processWebhook("pull_request", pr_wh1.payload);
+		console.log("Webhook processed successfully");
 
-// 		// Query results
-// 		// const repoResult = await client.query(
-// 		// 	"SELECT * FROM repositories WHERE id = $1",
-// 		// 	[pr_wh1.repository.id],
-// 		// );
-// 		// console.log("Repository record:", repoResult.rows[0]);
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[pr_wh1.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
 
-// 		const prResult = await client.query(
-// 			"SELECT * FROM pull_requests WHERE id = $1",
-// 			[pr_wh1.pull_request.id],
-// 		);
-// 		console.log("Pull Request record:", prResult.rows[0]);
-// 	} catch (error) {
-// 		console.error("Error:", error);
-// 	} finally {
-// 		await client.release();
-// 		await pool.end();
-// 	}
-// }
+		const prResult = await client.query(
+			"SELECT * FROM pull_requests WHERE id = $1",
+			[pr_wh1.payload.pull_request.id],
+		);
+		console.log("Pull Request record:", prResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
 
 // async function testIssueCommentWebhooks() {
 // 	const pool = new Pool(config.database);

@@ -472,172 +472,172 @@ export class Upserts {
 		}
 	}
 
-	// public async insertPullRequest(pr: types.PullRequest): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO pull_requests (
-    //     id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
-    //     locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
-    //     repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
-    // `;
+	public async insertPullRequest(pr: types.PullRequest): Promise<void> {
+		const query = `
+      INSERT INTO pull_requests (
+        id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
+        locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
+        repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
+    `;
 
-	// 	const values = [
-	// 		pr.id,
-	// 		pr.node_id,
-	// 		pr.url,
-	// 		pr.pull_request_number,
-	// 		pr.state,
-	// 		pr.state_reason,
-	// 		pr.title,
-	// 		pr.body,
-	// 		pr.created_by.id,
-	// 		pr.locked,
-	// 		pr.active_lock_reason || null,
-	// 		pr.num_comments,
-	// 		pr.closed_at,
-	// 		pr.created_at,
-	// 		pr.updated_at,
-	// 		pr.closed_by?.id || null,
-	// 		pr.repository_id,
-	// 		pr.author_association,
-	// 		pr.total_reaction_count || 0,
-	// 		pr.merged_at,
-	// 		pr.diff_url,
-	// 		pr.draft,
-	// 	];
+		const values = [
+			pr.id,
+			pr.node_id,
+			pr.url,
+			pr.pull_request_number,
+			pr.state,
+			pr.state_reason,
+			pr.title,
+			pr.body,
+			pr.created_by.id,
+			pr.locked,
+			pr.active_lock_reason || null,
+			pr.num_comments,
+			pr.closed_at,
+			pr.created_at,
+			pr.updated_at,
+			pr.closed_by?.id || null,
+			pr.repository_id,
+			pr.author_association,
+			pr.total_reaction_count || 0,
+			pr.merged_at,
+			pr.diff_url,
+			pr.draft,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request inserted successfully:", pr.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting pull request:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request inserted successfully:", pr.id);
+		} catch (error) {
+			console.error("Error inserting pull request:", error);
+		}
+	}
 
-	// public async updatePullRequest(pr: types.PullRequest): Promise<void> {
-	// 	const query = `
-    //   UPDATE pull_requests SET
-    //     node_id = $2,
-    //     url = $3,
-    //     pull_request_number = $4,
-    //     state = $5,
-    //     state_reason = $6,
-    //     title = $7,
-    //     body = $8,
-    //     created_by = $9,
-    //     locked = $10,
-    //     active_lock_reason = $11,
-    //     num_comments = $12,
-    //     closed_at = $13,
-    //     created_at = $14,
-    //     updated_at = $15,
-    //     closed_by = $16,
-    //     repository_id = $17,
-    //     author_association = $18,
-    //     total_reaction_count = $19,
-    //     merged_at = $20,
-    //     diff_url = $21,
-    //     draft = $22
-    //   WHERE id = $1
-    // `;
+	public async updatePullRequest(pr: types.PullRequest): Promise<void> {
+		const query = `
+      UPDATE pull_requests SET
+        node_id = $2,
+        url = $3,
+        pull_request_number = $4,
+        state = $5,
+        state_reason = $6,
+        title = $7,
+        body = $8,
+        created_by = $9,
+        locked = $10,
+        active_lock_reason = $11,
+        num_comments = $12,
+        closed_at = $13,
+        created_at = $14,
+        updated_at = $15,
+        closed_by = $16,
+        repository_id = $17,
+        author_association = $18,
+        total_reaction_count = $19,
+        merged_at = $20,
+        diff_url = $21,
+        draft = $22
+      WHERE id = $1
+    `;
 
-	// 	const values = [
-	// 		pr.id,
-	// 		pr.node_id,
-	// 		pr.url,
-	// 		pr.pull_request_number,
-	// 		pr.state,
-	// 		pr.state_reason,
-	// 		pr.title,
-	// 		pr.body,
-	// 		pr.created_by.id,
-	// 		pr.locked,
-	// 		pr.active_lock_reason || null,
-	// 		pr.num_comments,
-	// 		pr.closed_at,
-	// 		pr.created_at,
-	// 		pr.updated_at,
-	// 		pr.closed_by?.id || null,
-	// 		pr.repository_id,
-	// 		pr.author_association,
-	// 		pr.total_reaction_count || 0,
-	// 		pr.merged_at,
-	// 		pr.diff_url,
-	// 		pr.draft,
-	// 	];
+		const values = [
+			pr.id,
+			pr.node_id,
+			pr.url,
+			pr.pull_request_number,
+			pr.state,
+			pr.state_reason,
+			pr.title,
+			pr.body,
+			pr.created_by.id,
+			pr.locked,
+			pr.active_lock_reason || null,
+			pr.num_comments,
+			pr.closed_at,
+			pr.created_at,
+			pr.updated_at,
+			pr.closed_by?.id || null,
+			pr.repository_id,
+			pr.author_association,
+			pr.total_reaction_count || 0,
+			pr.merged_at,
+			pr.diff_url,
+			pr.draft,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request updated successfully:", pr.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating pull request:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request updated successfully:", pr.id);
+		} catch (error) {
+			console.error("Error updating pull request:", error);
+		}
+	}
 
-	// public async upsertPullRequest(pr: types.PullRequest): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO pull_requests (
-    //     id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
-    //     locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
-    //     repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     node_id = excluded.node_id,
-    //     url = excluded.url,
-    //     pull_request_number = excluded.pull_request_number,
-    //     state = excluded.state,
-    //     state_reason = excluded.state_reason,
-    //     title = excluded.title,
-    //     body = excluded.body,
-    //     created_by = excluded.created_by,
-    //     locked = excluded.locked,
-    //     active_lock_reason = excluded.active_lock_reason,
-    //     num_comments = excluded.num_comments,
-    //     closed_at = excluded.closed_at,
-    //     created_at = excluded.created_at,
-    //     updated_at = excluded.updated_at,
-    //     closed_by = excluded.closed_by,
-    //     repository_id = excluded.repository_id,
-    //     author_association = excluded.author_association,
-    //     total_reaction_count = excluded.total_reaction_count,
-    //     merged_at = excluded.merged_at,
-    //     diff_url = excluded.diff_url,
-    //     draft = excluded.draft
-    // `;
+	public async upsertPullRequest(pr: types.PullRequest): Promise<void> {
+		const query = `
+      INSERT INTO pull_requests (
+        id, node_id, url, pull_request_number, state, state_reason, title, body, created_by,
+        locked, active_lock_reason, num_comments, closed_at, created_at, updated_at, closed_by,
+        repository_id, author_association, total_reaction_count, merged_at, diff_url, draft
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        node_id = excluded.node_id,
+        url = excluded.url,
+        pull_request_number = excluded.pull_request_number,
+        state = excluded.state,
+        state_reason = excluded.state_reason,
+        title = excluded.title,
+        body = excluded.body,
+        created_by = excluded.created_by,
+        locked = excluded.locked,
+        active_lock_reason = excluded.active_lock_reason,
+        num_comments = excluded.num_comments,
+        closed_at = excluded.closed_at,
+        created_at = excluded.created_at,
+        updated_at = excluded.updated_at,
+        closed_by = excluded.closed_by,
+        repository_id = excluded.repository_id,
+        author_association = excluded.author_association,
+        total_reaction_count = excluded.total_reaction_count,
+        merged_at = excluded.merged_at,
+        diff_url = excluded.diff_url,
+        draft = excluded.draft
+    `;
 
-	// 	const values = [
-	// 		pr.id,
-	// 		pr.node_id,
-	// 		pr.url,
-	// 		pr.pull_request_number,
-	// 		pr.state,
-	// 		pr.state_reason,
-	// 		pr.title,
-	// 		pr.body,
-	// 		pr.created_by,
-	// 		pr.locked,
-	// 		pr.active_lock_reason || null,
-	// 		pr.num_comments,
-	// 		pr.closed_at,
-	// 		pr.created_at,
-	// 		pr.updated_at,
-	// 		pr.closed_by?.id || null,
-	// 		pr.repository_id,
-	// 		pr.author_association,
-	// 		pr.total_reaction_count || 0,
-	// 		pr.merged_at,
-	// 		pr.diff_url,
-	// 		pr.draft,
-	// 	];
+		const values = [
+			pr.id,
+			pr.node_id,
+			pr.url,
+			pr.pull_request_number,
+			pr.state,
+			pr.state_reason,
+			pr.title,
+			pr.body,
+			pr.created_by,
+			pr.locked,
+			pr.active_lock_reason || null,
+			pr.num_comments,
+			pr.closed_at,
+			pr.created_at,
+			pr.updated_at,
+			pr.closed_by?.id || null,
+			pr.repository_id,
+			pr.author_association,
+			pr.total_reaction_count || 0,
+			pr.merged_at,
+			pr.diff_url,
+			pr.draft,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request upserted successfully:", pr.id);
-	// 	} catch (error) {
-	// 		console.error("Error upserting pull request:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request upserted successfully:", pr.id);
+		} catch (error) {
+			console.error("Error upserting pull request:", error);
+		}
+	}
 
 	// public async insertIssueComment(comment: types.IssueComment): Promise<void> {
 	// 	const query = `
@@ -1568,142 +1568,142 @@ export class Upserts {
 	// 	]);
 	// }
 
-    // public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO repo_labels (
-    //     id, repository_id, node_id, name, description, color, default
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-    // `;
+    public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+		const query = `
+      INSERT INTO repo_labels (
+        id, repository_id, node_id, name, description, color, is_default
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `;
 
-	// 	const values = [
-    //         repoLabels.id,
-	// 		repoLabels.repository_id,
-	// 		repoLabels.node_id,
-	// 		repoLabels.name,
-	// 		repoLabels.description,
-	// 		repoLabels.color,
-	// 		repoLabels.default,
-	// 	];
+		const values = [
+            repoLabels.id,
+			repoLabels.repository_id,
+			repoLabels.node_id,
+			repoLabels.name,
+			repoLabels.description,
+			repoLabels.color,
+			repoLabels.default,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Repo label inserted successfully:", repoLabels.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting repo label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Repo label inserted successfully:", repoLabels.id);
+		} catch (error) {
+			console.error("Error inserting repo label:", error);
+		}
+	}
 
-    // public async updateRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-	// 	const query = `
-    //   UPDATE repo_labels SET
-    //     id = $1,
-    //     repository_id = $2,
-    //     node_id = $3,
-    //     name = $4,
-    //     description = $5,
-    //     color = $6,
-    //     default = $7
-    //   WHERE id = $1
-    // `;
+    public async updateRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+		const query = `
+      UPDATE repo_labels SET
+        id = $1,
+        repository_id = $2,
+        node_id = $3,
+        name = $4,
+        description = $5,
+        color = $6,
+        is_default = $7
+      WHERE id = $1
+    `;
 
-	// 	const values = [
-    //         repoLabels.id,
-	// 		repoLabels.repository_id,
-	// 		repoLabels.node_id,
-	// 		repoLabels.name,
-	// 		repoLabels.description,
-	// 		repoLabels.color,
-	// 		repoLabels.default,
-	// 	];
+		const values = [
+            repoLabels.id,
+			repoLabels.repository_id,
+			repoLabels.node_id,
+			repoLabels.name,
+			repoLabels.description,
+			repoLabels.color,
+			repoLabels.default,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Repo label updated successfully:", repoLabels.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating repo label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Repo label updated successfully:", repoLabels.id);
+		} catch (error) {
+			console.error("Error updating repo label:", error);
+		}
+	}
 
-    // public async upsertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO repo_labels (
-    //     id, repository_id, node_id, name, description, color, default
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     repository_id = excluded.repository_id,
-    //     node_id = excluded.node_id,
-    //     name = excluded.name,
-    //     description = excluded.description,
-    //     color = excluded.color,
-    //     default = excluded.default
-    // `;
+    public async upsertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
+		const query = `
+      INSERT INTO repo_labels (
+        id, repository_id, node_id, name, description, color, is_default
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        repository_id = excluded.repository_id,
+        node_id = excluded.node_id,
+        name = excluded.name,
+        description = excluded.description,
+        color = excluded.color,
+        default = excluded.default
+    `;
 
-	// 	await this.client.query(query, [
-    //         repoLabels.id,
-	// 		repoLabels.repository_id,
-	// 		repoLabels.node_id,
-	// 		repoLabels.name,
-	// 		repoLabels.description,
-	// 		repoLabels.color,
-	// 		repoLabels.default,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            repoLabels.id,
+			repoLabels.repository_id,
+			repoLabels.node_id,
+			repoLabels.name,
+			repoLabels.description,
+			repoLabels.color,
+			repoLabels.default,
+		]);
+	}
 
-    // public async insertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issue_labels (
-    //     issue_id, label_id
-    //   ) VALUES ($1, $2)
-    // `;
+    public async insertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+		const query = `
+      INSERT INTO issue_labels (
+        issue_id, label_id
+      ) VALUES ($1, $2)
+    `;
 
-	// 	const values = [
-    //         issueLabels.issue_id,
-	// 		issueLabels.label_id,
-	// 	];
+		const values = [
+            issueLabels.issue_id,
+			issueLabels.label_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue label inserted successfully:", issueLabels.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting issue label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue label inserted successfully:", issueLabels.issue_id);
+		} catch (error) {
+			console.error("Error inserting issue label:", error);
+		}
+	}
 
-    // public async updateIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-	// 	const query = `
-    //   UPDATE issue_labels SET
-    //     issue_id = $1,
-    //     label_id = $2
-    //   WHERE issue_id = $1 AND label_id = $2
-    // `;
+    public async updateIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+		const query = `
+      UPDATE issue_labels SET
+        issue_id = $1,
+        label_id = $2
+      WHERE issue_id = $1 AND label_id = $2
+    `;
 
-	// 	const values = [
-    //         issueLabels.issue_id,
-	// 		issueLabels.label_id,
-	// 	];
+		const values = [
+            issueLabels.issue_id,
+			issueLabels.label_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue label updated successfully:", issueLabels.issue_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating issue label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue label updated successfully:", issueLabels.issue_id);
+		} catch (error) {
+			console.error("Error updating issue label:", error);
+		}
+	}
 
-    // public async upsertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issue_labels (
-    //     issue_id, label_id
-    //   ) VALUES ($1, $2)
-    //   ON CONFLICT (issue_id, label_id) DO NOTHING
-    // `;
+    public async upsertIssueLabels(issueLabels: types.IssueLabel): Promise<void> {
+		const query = `
+      INSERT INTO issue_labels (
+        issue_id, label_id
+      ) VALUES ($1, $2)
+      ON CONFLICT (issue_id, label_id) DO NOTHING
+    `;
 
-	// 	await this.client.query(query, [
-    //         issueLabels.issue_id,
-	// 		issueLabels.label_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            issueLabels.issue_id,
+			issueLabels.label_id,
+		]);
+	}
 
     // public async insertDiscussionLabels(discussionLabels: types.DiscussionLabel): Promise<void> {
 	// 	const query = `

@@ -280,8 +280,8 @@ CREATE TABLE "milestones" (
 );
 
 CREATE TABLE "repo_labels" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
-  "repository_id" "bigint unsigned" NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
+  "repository_id" bigint NOT NULL,
   "node_id" text NOT NULL,
   "name" text NOT NULL,
   "description" text,
