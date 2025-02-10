@@ -3,67 +3,67 @@
 -- Generated at: 2025-02-07T23:40:04.122Z
 
 CREATE TYPE "IssueState" AS ENUM (
-  'open',
-  'closed'
+  'OPEN',
+  'CLOSED'
 );
 
 CREATE TYPE "PullRequestState" AS ENUM (
-  'open',
-  'closed',
-  'merged'
+  'OPEN',
+  'CLOSED',
+  'MERGED'
 );
 
 CREATE TYPE "IssueStateReason" AS ENUM (
-  'completed',
-  'reopened',
-  'not_planned'
+  'COMPLETED',
+  'REOPENED',
+  'NOT_PLANNED'
 );
 
 CREATE TYPE "AuthorAssociation" AS ENUM (
-  'owner',
-  'collaborator',
-  'contributor',
-  'member',
-  'first_timer',
-  'first_time_contributor',
-  'mannequin',
-  'none'
+  'OWNER',
+  'COLLABORATOR',
+  'CONTRIBUTOR',
+  'MEMBER',
+  'FIRST_TIMER',
+  'FIRST_TIME_CONTRIBUTOR',
+  'MANNEQUIN',
+  'NONE'
 );
 
 CREATE TYPE "ActiveLockReason" AS ENUM (
-  'off_topic',
-  'too_heated',
-  'resolved',
-  'spam',
-  'other'
+  'OFF_TOPIC',
+  'TOO_HEATED',
+  'RESOLVED',
+  'SPAM',
+  'OTHER'
 );
 
 CREATE TYPE "DiscussionStateReason" AS ENUM (
-  'resolved',
-  'outdated',
-  'duplicate',
-  'reopened'
+  'RESOLVED',
+  'OUTDATED',
+  'DUPLICATE',
+  'REOPENED'
 );
 
 CREATE TYPE "DiscussionCommentMinimizedReason" AS ENUM (
-  'abuse',
-  'off_topic',
-  'outdated',
-  'resolved',
-  'spam',
-  'duplicate',
-  'other'
+  'ABUSE',
+  'OFF_TOPIC',
+  'OUTDATED',
+  'RESOLVED',
+  'SPAM',
+  'DUPLICATE',
+  'OTHER'
 );
 
 CREATE TYPE "SubOrParentIssue" AS ENUM (
-  'sub',
-  'sub_and_parent',
-  'parent',
-  'neither'
+  'SUB',
+  'SUB_AND_PARENT',
+  'PARENT',
+  'NEITHER'
 );
 
 CREATE TABLE "repositories" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
   "node_id" text NOT NULL,
   "name" text NOT NULL,
   "full_name" text NOT NULL,
@@ -109,12 +109,12 @@ CREATE TABLE "owners" (
 );
 
 CREATE TABLE "issues" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
   "node_id" text NOT NULL,
   "url" text NOT NULL,
   "issue_number" int NOT NULL,
-  "state" IssueState NOT NULL,
-  "state_reason" IssueStateReason,
+  "state" "IssueState" NOT NULL,
+  "state_reason" "IssueStateReason",
   "title" text NOT NULL,
   "body" text,
   "created_by" int NOT NULL,
@@ -125,31 +125,31 @@ CREATE TABLE "issues" (
   "created_at" timestamp NOT NULL,
   "updated_at" timestamp NOT NULL,
   "closed_by" int,
-  "repository_id" "bigint unsigned" NOT NULL,
-  "author_association" AuthorAssociation NOT NULL,
+  "repository_id" bigint NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL,
   "total_reaction_count" int NOT NULL,
-  "sub_or_parent_issue" SubOrParentIssue
+  "sub_or_parent_issue" "SubOrParentIssue"
 );
 
 CREATE TABLE "pull_requests" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
   "node_id" text NOT NULL,
   "url" text NOT NULL,
   "pull_request_number" int NOT NULL,
-  "state" PullRequestState NOT NULL,
-  "state_reason" IssueStateReason,
+  "state" "PullRequestState" NOT NULL,
+  "state_reason" "IssueStateReason",
   "title" text NOT NULL,
   "body" text,
   "created_by" int NOT NULL,
   "locked" boolean NOT NULL,
-  "active_lock_reason" ActiveLockReason,
+  "active_lock_reason" "ActiveLockReason",
   "num_comments" int NOT NULL,
   "closed_at" timestamp,
   "created_at" timestamp NOT NULL,
   "updated_at" timestamp NOT NULL,
   "closed_by" int,
-  "repository_id" "bigint unsigned" NOT NULL,
-  "author_association" AuthorAssociation NOT NULL,
+  "repository_id" bigint NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL,
   "total_reaction_count" int NOT NULL,
   "merged_at" timestamp,
   "diff_url" text NOT NULL,
@@ -157,19 +157,19 @@ CREATE TABLE "pull_requests" (
 );
 
 CREATE TABLE "issuecomments" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
   "node_id" text NOT NULL,
   "url" text NOT NULL,
   "body" text,
   "created_by" int NOT NULL,
   "created_at" timestamp NOT NULL,
   "updated_at" timestamp NOT NULL,
-  "issue_id" "bigint unsigned" NOT NULL,
-  "author_association" AuthorAssociation NOT NULL
+  "issue_id" bigint NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL
 );
 
 CREATE TABLE "issuecommentreactions" (
-  "issuecomment_id" "bigint unsigned" NOT NULL,
+  "issuecomment_id" bigint NOT NULL,
   "plusone" int,
   "minusone" int,
   "laugh" int,
@@ -181,12 +181,12 @@ CREATE TABLE "issuecommentreactions" (
 );
 
 CREATE TABLE "discussions" (
-  "active_lock_reason" ActiveLockReason,
+  "active_lock_reason" "ActiveLockReason",
   "answer" int,
   "answer_chosen_at" timestamp,
   "answer_chosen_by" int,
   "created_by" int,
-  "author_association" AuthorAssociation NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL,
   "body" text NOT NULL,
   "category_id" int,
   "is_closed" boolean NOT NULL,
@@ -199,8 +199,8 @@ CREATE TABLE "discussions" (
   "discussion_number" int NOT NULL,
   "published_at" timestamp,
   "total_reaction_count" int NOT NULL,
-  "repository_id" "bigint unsigned" NOT NULL,
-  "state_reason" DiscussionStateReason,
+  "repository_id" bigint NOT NULL,
+  "state_reason" "DiscussionStateReason",
   "title" text NOT NULL,
   "updated_at" timestamp NOT NULL,
   "total_upvote_count" int NOT NULL,
@@ -223,7 +223,7 @@ CREATE TABLE "discussionpolloptions" (
 
 CREATE TABLE "discussioncomments" (
   "created_by" int,
-  "author_association" AuthorAssociation NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL,
   "body" text NOT NULL,
   "created_at" timestamp NOT NULL,
   "deleted_at" timestamp,
@@ -233,7 +233,7 @@ CREATE TABLE "discussioncomments" (
   "is_answer" boolean NOT NULL,
   "is_minimized" boolean NOT NULL,
   "lasted_edited_at" timestamp,
-  "minimized_reason" DiscussionCommentMinimizedReason,
+  "minimized_reason" "DiscussionCommentMinimizedReason",
   "published_at" timestamp,
   "in_reply_to_id" text
 );
@@ -257,7 +257,7 @@ CREATE TABLE "discussioncategories" (
   "id" int UNIQUE PRIMARY KEY NOT NULL,
   "is_answerable" boolean NOT NULL,
   "name" text NOT NULL,
-  "repository_id" "bigint unsigned" NOT NULL,
+  "repository_id" bigint NOT NULL,
   "slug" text NOT NULL,
   "updated_at" timestamp NOT NULL
 );
@@ -267,7 +267,7 @@ CREATE TABLE "milestones" (
   "node_id" text NOT NULL,
   "url" text NOT NULL,
   "milestone_number" int NOT NULL,
-  "state" IssueState NOT NULL,
+  "state" "IssueState" NOT NULL,
   "title" text NOT NULL,
   "description" text,
   "created_by" int,
@@ -290,8 +290,8 @@ CREATE TABLE "repo_labels" (
 );
 
 CREATE TABLE "org_types" (
-  "id" "bigint unsigned" UNIQUE PRIMARY KEY NOT NULL,
-  "owner_id" "bigint unsigned" NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
+  "owner_id" bigint NOT NULL,
   "node_id" text NOT NULL,
   "name" text NOT NULL,
   "description" text,
@@ -300,53 +300,53 @@ CREATE TABLE "org_types" (
 );
 
 CREATE TABLE "issue_labels" (
-  "issue_id" "bigint unsigned" NOT NULL,
-  "label_id" "bigint unsigned" NOT NULL
+  "issue_id" bigint NOT NULL,
+  "label_id" bigint NOT NULL
 );
 
 CREATE TABLE "discussion_labels" (
   "discussion_id" text NOT NULL,
-  "label_id" "bigint unsigned" NOT NULL
+  "label_id" bigint NOT NULL
 );
 
 CREATE TABLE "milestone_labels" (
   "milestone_id" int NOT NULL,
-  "label_id" "bigint unsigned" NOT NULL
+  "label_id" bigint NOT NULL
 );
 
 CREATE TABLE "pull_request_labels" (
-  "pull_request_id" "bigint unsigned" NOT NULL,
-  "label_id" "bigint unsigned" NOT NULL
+  "pull_request_id" bigint NOT NULL,
+  "label_id" bigint NOT NULL
 );
 
 CREATE TABLE "issue_type" (
-  "issue_id" "bigint unsigned" NOT NULL,
-  "type_id" "bigint unsigned" NOT NULL
+  "issue_id" bigint NOT NULL,
+  "type_id" bigint NOT NULL
 );
 
 CREATE TABLE "issue_assignees" (
-  "issue_id" "bigint unsigned" NOT NULL,
+  "issue_id" bigint NOT NULL,
   "assignee_id" int
 );
 
 CREATE TABLE "pull_request_assignees" (
-  "pull_request_id" "bigint unsigned" NOT NULL,
+  "pull_request_id" bigint NOT NULL,
   "assignee_id" int
 );
 
 CREATE TABLE "issue_milestones" (
-  "issue_id" "bigint unsigned" NOT NULL,
+  "issue_id" bigint NOT NULL,
   "milestone_id" int NOT NULL
 );
 
 CREATE TABLE "pull_request_milestones" (
-  "pull_request_id" "bigint unsigned" NOT NULL,
+  "pull_request_id" bigint NOT NULL,
   "milestone_id" int NOT NULL
 );
 
 CREATE TABLE "sub_issue_list" (
-  "parent_id" "bigint unsigned" NOT NULL,
-  "sub_id" "bigint unsigned" NOT NULL
+  "parent_id" bigint NOT NULL,
+  "sub_id" bigint NOT NULL
 );
 
 ALTER TABLE "repositories" ADD FOREIGN KEY ("owner") REFERENCES "owners" ("id");
