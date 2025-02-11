@@ -184,10 +184,10 @@ export interface Discussion {
 		| "RESOLVED"
 		| "SPAM"
 		| "OTHER";
-	answer: DiscussionComment;
+	answer?: DiscussionComment;
 	answer_chosen_at: Date;
-	answer_chosen_by: Owner;
-	created_by: Owner;
+	answer_chosen_by: number;
+	created_by: number;
 	author_association:
 		| "OWNER"
 		| "COLLABORATOR"
@@ -200,7 +200,7 @@ export interface Discussion {
 	body: string;
 	category_id: DiscussionCategory;
 	is_closed: boolean;
-	closed_at: Date;
+	closed_at?: Date;
 	created_at: Date;
 	id: string;
 	is_answered: boolean;
@@ -222,14 +222,14 @@ export interface Discussion {
 }
 
 export interface DiscussionPoll {
-	discussion_id: Discussion;
+	discussion_id: number;
 	poll_id: string;
 	question: string;
 	total_votes: number;
 }
 
 export interface DiscussionPollOption {
-	poll_id: DiscussionPoll;
+	poll_id: number;
 	option_id: string;
 	option: string;
 	votes: number;
@@ -269,7 +269,7 @@ export interface DiscussionComment {
 }
 
 export interface DiscussionCommentReaction {
-	discussioncomment_id: DiscussionComment;
+	discussioncomment_id: number;
 	plusone: number;
 	minusone: number;
 	laugh: number;

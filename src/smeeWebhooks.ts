@@ -2275,7 +2275,7 @@ export const DiscussionWebhook = {
 			comments: 0,
 			created_at: "2025-02-11T17:45:11Z",
 			updated_at: "2025-02-11T17:45:11Z",
-			author_association: "COLLABORATOR",
+			author_association: "collaborator",
 			active_lock_reason: null,
 			body: "test discussion body 2",
 			reactions: {
@@ -2292,6 +2292,679 @@ export const DiscussionWebhook = {
 			},
 			timeline_url:
 				"https://api.github.com/repos/awslabs/aws-github-test/discussions/52/timeline",
+		},
+		repository: {
+			id: 577501239,
+			node_id: "R_kgDOImv4Nw",
+			name: "aws-github-test",
+			full_name: "awslabs/aws-github-test",
+			private: true,
+			owner: {
+				login: "awslabs",
+				id: 3299148,
+				node_id: "MDEyOk9yZ2FuaXphdGlvbjMyOTkxNDg=",
+				avatar_url: "https://avatars.githubusercontent.com/u/3299148?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/awslabs",
+				html_url: "https://github.com/awslabs",
+				followers_url: "https://api.github.com/users/awslabs/followers",
+				following_url:
+					"https://api.github.com/users/awslabs/following{/other_user}",
+				gists_url: "https://api.github.com/users/awslabs/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/awslabs/starred{/owner}{/repo}",
+				subscriptions_url: "https://api.github.com/users/awslabs/subscriptions",
+				organizations_url: "https://api.github.com/users/awslabs/orgs",
+				repos_url: "https://api.github.com/users/awslabs/repos",
+				events_url: "https://api.github.com/users/awslabs/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/awslabs/received_events",
+				type: "Organization",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			html_url: "https://github.com/awslabs/aws-github-test",
+			description: null,
+			fork: false,
+			url: "https://api.github.com/repos/awslabs/aws-github-test",
+			forks_url: "https://api.github.com/repos/awslabs/aws-github-test/forks",
+			keys_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/keys{/key_id}",
+			collaborators_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/collaborators{/collaborator}",
+			teams_url: "https://api.github.com/repos/awslabs/aws-github-test/teams",
+			hooks_url: "https://api.github.com/repos/awslabs/aws-github-test/hooks",
+			issue_events_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues/events{/number}",
+			events_url: "https://api.github.com/repos/awslabs/aws-github-test/events",
+			assignees_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/assignees{/user}",
+			branches_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/branches{/branch}",
+			tags_url: "https://api.github.com/repos/awslabs/aws-github-test/tags",
+			blobs_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/blobs{/sha}",
+			git_tags_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/tags{/sha}",
+			git_refs_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/refs{/sha}",
+			trees_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/trees{/sha}",
+			statuses_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/statuses/{sha}",
+			languages_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/languages",
+			stargazers_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/stargazers",
+			contributors_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/contributors",
+			subscribers_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/subscribers",
+			subscription_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/subscription",
+			commits_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/commits{/sha}",
+			git_commits_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/commits{/sha}",
+			comments_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/comments{/number}",
+			issue_comment_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues/comments{/number}",
+			contents_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/contents/{+path}",
+			compare_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/compare/{base}...{head}",
+			merges_url: "https://api.github.com/repos/awslabs/aws-github-test/merges",
+			archive_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/{archive_format}{/ref}",
+			downloads_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/downloads",
+			issues_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues{/number}",
+			pulls_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/pulls{/number}",
+			milestones_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/milestones{/number}",
+			notifications_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/notifications{?since,all,participating}",
+			labels_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/labels{/name}",
+			releases_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/releases{/id}",
+			deployments_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/deployments",
+			created_at: "2022-12-12T21:58:50Z",
+			updated_at: "2023-08-29T19:40:54Z",
+			pushed_at: "2024-12-07T00:06:23Z",
+			git_url: "git://github.com/awslabs/aws-github-test.git",
+			ssh_url: "git@github.com:awslabs/aws-github-test.git",
+			clone_url: "https://github.com/awslabs/aws-github-test.git",
+			svn_url: "https://github.com/awslabs/aws-github-test",
+			homepage: null,
+			size: 201,
+			stargazers_count: 1,
+			watchers_count: 1,
+			language: null,
+			has_issues: true,
+			has_projects: true,
+			has_downloads: true,
+			has_wiki: true,
+			has_pages: false,
+			has_discussions: true,
+			forks_count: 1,
+			mirror_url: null,
+			archived: false,
+			disabled: false,
+			open_issues_count: 0,
+			license: {
+				key: "apache-2.0",
+				name: "Apache License 2.0",
+				spdx_id: "Apache-2.0",
+				url: "https://api.github.com/licenses/apache-2.0",
+				node_id: "MDc6TGljZW5zZTI=",
+			},
+			allow_forking: true,
+			is_template: false,
+			web_commit_signoff_required: false,
+			topics: [],
+			visibility: "private",
+			forks: 1,
+			open_issues: 0,
+			watchers: 1,
+			default_branch: "main",
+			custom_properties: {},
+		},
+		organization: {
+			login: "awslabs",
+			id: 3299148,
+			node_id: "MDEyOk9yZ2FuaXphdGlvbjMyOTkxNDg=",
+			url: "https://api.github.com/orgs/awslabs",
+			repos_url: "https://api.github.com/orgs/awslabs/repos",
+			events_url: "https://api.github.com/orgs/awslabs/events",
+			hooks_url: "https://api.github.com/orgs/awslabs/hooks",
+			issues_url: "https://api.github.com/orgs/awslabs/issues",
+			members_url: "https://api.github.com/orgs/awslabs/members{/member}",
+			public_members_url:
+				"https://api.github.com/orgs/awslabs/public_members{/member}",
+			avatar_url: "https://avatars.githubusercontent.com/u/3299148?v=4",
+			description: "AWS Labs",
+		},
+		enterprise: {
+			id: 1290,
+			slug: "amazon",
+			name: "Amazon",
+			node_id: "MDEwOkVudGVycHJpc2UxMjkw",
+			avatar_url: "https://avatars.githubusercontent.com/b/1290?v=4",
+			description: "",
+			website_url: "https://www.amazon.com/",
+			html_url: "https://github.com/enterprises/amazon",
+			created_at: "2019-11-13T18:05:41Z",
+			updated_at: "2024-09-30T21:02:30Z",
+		},
+		sender: {
+			login: "alikulka",
+			id: 191903916,
+			node_id: "U_kgDOC3A4rA",
+			avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/alikulka",
+			html_url: "https://github.com/alikulka",
+			followers_url: "https://api.github.com/users/alikulka/followers",
+			following_url:
+				"https://api.github.com/users/alikulka/following{/other_user}",
+			gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/alikulka/subscriptions",
+			organizations_url: "https://api.github.com/users/alikulka/orgs",
+			repos_url: "https://api.github.com/users/alikulka/repos",
+			events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/alikulka/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+	},
+};
+
+export const DiscussionCommentWebhook = {
+	event: "discussion_comment",
+	payload: {
+		action: "created",
+		comment: {
+			id: 12151032,
+			node_id: "DC_kwDOImv4N84AuWj4",
+			html_url:
+				"https://github.com/awslabs/aws-github-test/discussions/52#discussioncomment-12151032",
+			parent_id: null,
+			child_comment_count: 0,
+			repository_url: "awslabs/aws-github-test",
+			discussion_id: 7947996,
+			author_association: "collaborator",
+			user: {
+				login: "alikulka",
+				id: 191903916,
+				node_id: "U_kgDOC3A4rA",
+				avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/alikulka",
+				html_url: "https://github.com/alikulka",
+				followers_url: "https://api.github.com/users/alikulka/followers",
+				following_url:
+					"https://api.github.com/users/alikulka/following{/other_user}",
+				gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/alikulka/subscriptions",
+				organizations_url: "https://api.github.com/users/alikulka/orgs",
+				repos_url: "https://api.github.com/users/alikulka/repos",
+				events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/alikulka/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			created_at: "2025-02-11T19:49:39Z",
+			updated_at: "2025-02-11T19:49:39Z",
+			body: "comment on the discussion",
+			reactions: {
+				url: "https://api.github.com/repos/awslabs/aws-github-test/discussions/comments/12151032/reactions",
+				total_count: 0,
+				"+1": 0,
+				"-1": 0,
+				laugh: 0,
+				hooray: 0,
+				confused: 0,
+				heart: 0,
+				rocket: 0,
+				eyes: 0,
+			},
+		},
+		discussion: {
+			repository_url: "https://api.github.com/repos/awslabs/aws-github-test",
+			category: {
+				id: 39523069,
+				node_id: "DIC_kwDOImv4N84CWxL9",
+				repository_id: 577501239,
+				emoji: ":speech_balloon:",
+				name: "General",
+				description: "Chat about anything and everything here",
+				created_at: "2023-05-26T12:35:41.000-07:00",
+				updated_at: "2023-05-26T12:35:41.000-07:00",
+				slug: "general",
+				is_answerable: false,
+			},
+			answer_html_url: null,
+			answer_chosen_at: null,
+			answer_chosen_by: null,
+			html_url: "https://github.com/awslabs/aws-github-test/discussions/52",
+			id: 7947996,
+			node_id: "D_kwDOImv4N84AeUbc",
+			number: 52,
+			title: "test discussion",
+			user: {
+				login: "alikulka",
+				id: 191903916,
+				node_id: "U_kgDOC3A4rA",
+				avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/alikulka",
+				html_url: "https://github.com/alikulka",
+				followers_url: "https://api.github.com/users/alikulka/followers",
+				following_url:
+					"https://api.github.com/users/alikulka/following{/other_user}",
+				gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/alikulka/subscriptions",
+				organizations_url: "https://api.github.com/users/alikulka/orgs",
+				repos_url: "https://api.github.com/users/alikulka/repos",
+				events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/alikulka/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			labels: [],
+			state: "open",
+			state_reason: null,
+			locked: false,
+			comments: 1,
+			created_at: "2025-02-11T17:45:11Z",
+			updated_at: "2025-02-11T19:49:40Z",
+			author_association: "collaborator",
+			active_lock_reason: null,
+			body: "test discussion body 2",
+			reactions: {
+				url: "https://api.github.com/repos/awslabs/aws-github-test/discussions/52/reactions",
+				total_count: 0,
+				"+1": 0,
+				"-1": 0,
+				laugh: 0,
+				hooray: 0,
+				confused: 0,
+				heart: 0,
+				rocket: 0,
+				eyes: 0,
+			},
+			timeline_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/discussions/52/timeline",
+		},
+		repository: {
+			id: 577501239,
+			node_id: "R_kgDOImv4Nw",
+			name: "aws-github-test",
+			full_name: "awslabs/aws-github-test",
+			private: true,
+			owner: {
+				login: "awslabs",
+				id: 3299148,
+				node_id: "MDEyOk9yZ2FuaXphdGlvbjMyOTkxNDg=",
+				avatar_url: "https://avatars.githubusercontent.com/u/3299148?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/awslabs",
+				html_url: "https://github.com/awslabs",
+				followers_url: "https://api.github.com/users/awslabs/followers",
+				following_url:
+					"https://api.github.com/users/awslabs/following{/other_user}",
+				gists_url: "https://api.github.com/users/awslabs/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/awslabs/starred{/owner}{/repo}",
+				subscriptions_url: "https://api.github.com/users/awslabs/subscriptions",
+				organizations_url: "https://api.github.com/users/awslabs/orgs",
+				repos_url: "https://api.github.com/users/awslabs/repos",
+				events_url: "https://api.github.com/users/awslabs/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/awslabs/received_events",
+				type: "Organization",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			html_url: "https://github.com/awslabs/aws-github-test",
+			description: null,
+			fork: false,
+			url: "https://api.github.com/repos/awslabs/aws-github-test",
+			forks_url: "https://api.github.com/repos/awslabs/aws-github-test/forks",
+			keys_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/keys{/key_id}",
+			collaborators_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/collaborators{/collaborator}",
+			teams_url: "https://api.github.com/repos/awslabs/aws-github-test/teams",
+			hooks_url: "https://api.github.com/repos/awslabs/aws-github-test/hooks",
+			issue_events_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues/events{/number}",
+			events_url: "https://api.github.com/repos/awslabs/aws-github-test/events",
+			assignees_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/assignees{/user}",
+			branches_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/branches{/branch}",
+			tags_url: "https://api.github.com/repos/awslabs/aws-github-test/tags",
+			blobs_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/blobs{/sha}",
+			git_tags_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/tags{/sha}",
+			git_refs_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/refs{/sha}",
+			trees_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/trees{/sha}",
+			statuses_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/statuses/{sha}",
+			languages_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/languages",
+			stargazers_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/stargazers",
+			contributors_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/contributors",
+			subscribers_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/subscribers",
+			subscription_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/subscription",
+			commits_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/commits{/sha}",
+			git_commits_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/git/commits{/sha}",
+			comments_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/comments{/number}",
+			issue_comment_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues/comments{/number}",
+			contents_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/contents/{+path}",
+			compare_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/compare/{base}...{head}",
+			merges_url: "https://api.github.com/repos/awslabs/aws-github-test/merges",
+			archive_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/{archive_format}{/ref}",
+			downloads_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/downloads",
+			issues_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/issues{/number}",
+			pulls_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/pulls{/number}",
+			milestones_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/milestones{/number}",
+			notifications_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/notifications{?since,all,participating}",
+			labels_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/labels{/name}",
+			releases_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/releases{/id}",
+			deployments_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/deployments",
+			created_at: "2022-12-12T21:58:50Z",
+			updated_at: "2023-08-29T19:40:54Z",
+			pushed_at: "2024-12-07T00:06:23Z",
+			git_url: "git://github.com/awslabs/aws-github-test.git",
+			ssh_url: "git@github.com:awslabs/aws-github-test.git",
+			clone_url: "https://github.com/awslabs/aws-github-test.git",
+			svn_url: "https://github.com/awslabs/aws-github-test",
+			homepage: null,
+			size: 201,
+			stargazers_count: 1,
+			watchers_count: 1,
+			language: null,
+			has_issues: true,
+			has_projects: true,
+			has_downloads: true,
+			has_wiki: true,
+			has_pages: false,
+			has_discussions: true,
+			forks_count: 1,
+			mirror_url: null,
+			archived: false,
+			disabled: false,
+			open_issues_count: 0,
+			license: {
+				key: "apache-2.0",
+				name: "Apache License 2.0",
+				spdx_id: "Apache-2.0",
+				url: "https://api.github.com/licenses/apache-2.0",
+				node_id: "MDc6TGljZW5zZTI=",
+			},
+			allow_forking: true,
+			is_template: false,
+			web_commit_signoff_required: false,
+			topics: [],
+			visibility: "private",
+			forks: 1,
+			open_issues: 0,
+			watchers: 1,
+			default_branch: "main",
+			custom_properties: {},
+		},
+		organization: {
+			login: "awslabs",
+			id: 3299148,
+			node_id: "MDEyOk9yZ2FuaXphdGlvbjMyOTkxNDg=",
+			url: "https://api.github.com/orgs/awslabs",
+			repos_url: "https://api.github.com/orgs/awslabs/repos",
+			events_url: "https://api.github.com/orgs/awslabs/events",
+			hooks_url: "https://api.github.com/orgs/awslabs/hooks",
+			issues_url: "https://api.github.com/orgs/awslabs/issues",
+			members_url: "https://api.github.com/orgs/awslabs/members{/member}",
+			public_members_url:
+				"https://api.github.com/orgs/awslabs/public_members{/member}",
+			avatar_url: "https://avatars.githubusercontent.com/u/3299148?v=4",
+			description: "AWS Labs",
+		},
+		enterprise: {
+			id: 1290,
+			slug: "amazon",
+			name: "Amazon",
+			node_id: "MDEwOkVudGVycHJpc2UxMjkw",
+			avatar_url: "https://avatars.githubusercontent.com/b/1290?v=4",
+			description: "",
+			website_url: "https://www.amazon.com/",
+			html_url: "https://github.com/enterprises/amazon",
+			created_at: "2019-11-13T18:05:41Z",
+			updated_at: "2024-09-30T21:02:30Z",
+		},
+		sender: {
+			login: "alikulka",
+			id: 191903916,
+			node_id: "U_kgDOC3A4rA",
+			avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/alikulka",
+			html_url: "https://github.com/alikulka",
+			followers_url: "https://api.github.com/users/alikulka/followers",
+			following_url:
+				"https://api.github.com/users/alikulka/following{/other_user}",
+			gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/alikulka/subscriptions",
+			organizations_url: "https://api.github.com/users/alikulka/orgs",
+			repos_url: "https://api.github.com/users/alikulka/repos",
+			events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/alikulka/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+	},
+};
+
+export const DiscussionAnsweredWebhook = {
+	event: "discussion",
+	payload: {
+		action: "answered",
+		discussion: {
+			repository_url: "https://api.github.com/repos/awslabs/aws-github-test",
+			category: {
+				id: 39523070,
+				node_id: "DIC_kwDOImv4N84CWxL-",
+				repository_id: 577501239,
+				emoji: ":pray:",
+				name: "Q&A",
+				description: "Ask the community for help",
+				created_at: "2023-05-26T12:35:41.000-07:00",
+				updated_at: "2023-05-26T12:35:41.000-07:00",
+				slug: "q-a",
+				is_answerable: true,
+			},
+			answer_html_url:
+				"https://github.com/awslabs/aws-github-test/discussions/47#discussioncomment-7647542",
+			answer_chosen_at: "2025-02-11T14:09:34.000-08:00",
+			answer_chosen_by: {
+				login: "alikulka",
+				id: 191903916,
+				node_id: "U_kgDOC3A4rA",
+				avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/alikulka",
+				html_url: "https://github.com/alikulka",
+				followers_url: "https://api.github.com/users/alikulka/followers",
+				following_url:
+					"https://api.github.com/users/alikulka/following{/other_user}",
+				gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/alikulka/subscriptions",
+				organizations_url: "https://api.github.com/users/alikulka/orgs",
+				repos_url: "https://api.github.com/users/alikulka/repos",
+				events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/alikulka/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			html_url: "https://github.com/awslabs/aws-github-test/discussions/47",
+			id: 5881924,
+			node_id: "D_kwDOImv4N84AWcBE",
+			number: 47,
+			title: "05",
+			user: {
+				login: "khushail",
+				id: 117320115,
+				node_id: "U_kgDOBv4psw",
+				avatar_url: "https://avatars.githubusercontent.com/u/117320115?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/khushail",
+				html_url: "https://github.com/khushail",
+				followers_url: "https://api.github.com/users/khushail/followers",
+				following_url:
+					"https://api.github.com/users/khushail/following{/other_user}",
+				gists_url: "https://api.github.com/users/khushail/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/khushail/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/khushail/subscriptions",
+				organizations_url: "https://api.github.com/users/khushail/orgs",
+				repos_url: "https://api.github.com/users/khushail/repos",
+				events_url: "https://api.github.com/users/khushail/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/khushail/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			labels: [],
+			state: "open",
+			state_reason: "reopened",
+			locked: false,
+			comments: 1,
+			created_at: "2023-11-23T01:18:16Z",
+			updated_at: "2025-02-11T22:09:34Z",
+			author_association: "contributor",
+			active_lock_reason: null,
+			body: "05",
+			reactions: {
+				url: "https://api.github.com/repos/awslabs/aws-github-test/discussions/47/reactions",
+				total_count: 0,
+				"+1": 0,
+				"-1": 0,
+				laugh: 0,
+				hooray: 0,
+				confused: 0,
+				heart: 0,
+				rocket: 0,
+				eyes: 0,
+			},
+			timeline_url:
+				"https://api.github.com/repos/awslabs/aws-github-test/discussions/47/timeline",
+		},
+		answer: {
+			id: 7647542,
+			node_id: "DC_kwDOImv4N84AdLE2",
+			html_url:
+				"https://github.com/awslabs/aws-github-test/discussions/47#discussioncomment-7647542",
+			parent_id: null,
+			child_comment_count: 0,
+			repository_url: "awslabs/aws-github-test",
+			discussion_id: 5881924,
+			author_association: "NONE",
+			user: {
+				login: "github-actions[bot]",
+				id: 41898282,
+				node_id: "MDM6Qm90NDE4OTgyODI=",
+				avatar_url: "https://avatars.githubusercontent.com/in/15368?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/github-actions%5Bbot%5D",
+				html_url: "https://github.com/apps/github-actions",
+				followers_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/followers",
+				following_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+				gists_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+				organizations_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+				repos_url: "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+				events_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+				type: "Bot",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			created_at: "2023-11-23T01:21:06Z",
+			updated_at: "2023-11-23T01:21:06Z",
+			body: "Hello! Reopening this discussion to make it searchable. ",
+			reactions: {
+				url: "https://api.github.com/repos/awslabs/aws-github-test/discussions/comments/7647542/reactions",
+				total_count: 0,
+				"+1": 0,
+				"-1": 0,
+				laugh: 0,
+				hooray: 0,
+				confused: 0,
+				heart: 0,
+				rocket: 0,
+				eyes: 0,
+			},
 		},
 		repository: {
 			id: 577501239,

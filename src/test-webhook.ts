@@ -123,7 +123,72 @@ async function testIssueCommentWebhooks() {
 	}
 }
 
+async function testDiscussionWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const discussion_wh = sampleWebhook.DiscussionAnsweredWebhook;
+		await processor.processWebhook("discussion", discussion_wh.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const discussionResult = await client.query(
+			"SELECT * FROM discussions WHERE id = $1",
+			[discussion_wh.payload.discussion.id],
+		);
+		console.log("Issue record:", discussionResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
+async function testDiscussionCommentWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const discussion_comment_wh = sampleWebhook.DiscussionCommentWebhook;
+		await processor.processWebhook("discussion_comment", discussion_comment_wh.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const discussionCommentResult = await client.query(
+			"SELECT * FROM discussioncomments WHERE id = $1",
+			[discussion_comment_wh.payload.comment.id],
+		);
+		console.log("Issue record:", discussionCommentResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+
+}
+
 // testRepoWebhooks();
 // testIssueWebhooks();
 // testPullRequestWebhooks();
-testIssueCommentWebhooks();
+// testIssueCommentWebhooks();
+// testDiscussionWebhooks();
+testDiscussionCommentWebhooks();
