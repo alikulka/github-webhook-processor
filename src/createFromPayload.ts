@@ -225,21 +225,25 @@ export class PayloadMapper {
     // //     };
     // // }
 
-    // // static createMilestonesFromPayload(payload: any): types.Milestone {
-    // //     return {
-    // //         id: payload.milestone.id,
-    // //         node_id: payload.milestone.node_id,
-    // //         url: payload.milestone.url,
-    // //         title: payload.milestone.title,
-    // //         description: payload.milestone.description || "",
-    // //         state: payload.milestone.state,
-    // //         due_on: new Date(payload.milestone.due_on),
-    // //         created_at: new Date(payload.milestone.created_at),
-    // //         updated_at: new Date(payload.milestone.updated_at),
-    // //         closed_at: new Date(payload.milestone.closed_at),
-    // //         repository_id: payload.repository.id,
-    // //     };
-    // // }
+    static createMilestonesFromPayload(payload: any): types.Milestone {
+        return {
+            id: payload.milestone.id,
+            node_id: payload.milestone.node_id,
+            url: payload.milestone.url,
+            milestone_number: payload.milestone.number,
+            state: payload.milestone.state,
+            title: payload.milestone.title,
+            description: payload.milestone.description || "",
+            created_by: payload.milestone.creator.id,
+            open_issues: payload.milestone.open_issues,
+            closed_issues: payload.milestone.closed_issues,
+            created_at: new Date(payload.milestone.created_at),
+            updated_at: new Date(payload.milestone.updated_at),
+            closed_at: new Date(payload.milestone.closed_at),
+            due_on: new Date(payload.milestone.due_on),
+            repository_id: payload.repository.id,
+        };
+    }
 
     static createRepoLabelsFromPayload(payload: any, repo_id: number): types.RepoLabel {
 
@@ -297,12 +301,12 @@ export class PayloadMapper {
     //     };
     // }
 
-    // static createIssueMilestoneFromPayload(payload: any): types.IssueMilestone {
-    //     return {
-    //         issue_id: payload.issue.id,
-    //         milestone_id: payload.milestone.id,
-    //     };
-    // }
+    static createIssueMilestoneFromPayload(payload: any): types.IssueMilestone {
+        return {
+            issue_id: payload.issue.id,
+            milestone_id: payload.milestone.id,
+        };
+    }
 
     // static createPullRequestMilestoneFromPayload(payload: any): types.PullRequestMilestone {
     //     return {

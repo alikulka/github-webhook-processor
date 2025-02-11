@@ -1451,122 +1451,122 @@ export class Upserts {
 	// 	]);
 	// }
 
-    // public async insertMilestone(milestone: types.Milestone): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO milestones (
-    //     id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-    // `;
+    public async insertMilestone(milestone: types.Milestone): Promise<void> {
+		const query = `
+      INSERT INTO milestones (
+        id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    `;
 
-	// 	const values = [
-    //         milestone.id,
-	// 		milestone.node_id,
-	// 		milestone.url,
-	// 		milestone.milestone_number,
-	// 		milestone.state,
-	// 		milestone.title,
-	// 		milestone.description,
-	// 		milestone.created_by,
-	// 		milestone.open_issues,
-	// 		milestone.closed_issues,
-	// 		milestone.created_at,
-	// 		milestone.updated_at,
-	// 		milestone.closed_at,
-	// 		milestone.due_on,
-	// 	];
+		const values = [
+            milestone.id,
+			milestone.node_id,
+			milestone.url,
+			milestone.milestone_number,
+			milestone.state,
+			milestone.title,
+			milestone.description,
+			milestone.created_by,
+			milestone.open_issues,
+			milestone.closed_issues,
+			milestone.created_at,
+			milestone.updated_at,
+			milestone.closed_at,
+			milestone.due_on,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Milestone inserted successfully:", milestone.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting milestone:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Milestone inserted successfully:", milestone.id);
+		} catch (error) {
+			console.error("Error inserting milestone:", error);
+		}
+	}
 
-    // public async updateMilestone(milestone: types.Milestone): Promise<void> {
-	// 	const query = `
-    //   UPDATE milestones SET
-    //     id = $1,
-    //     node_id = $2,
-    //     url = $3,
-    //     milestone_number = $4,
-    //     state = $5,
-    //     title = $6,
-    //     description = $7,
-    //     created_by = $8,
-    //     open_issues = $9,
-    //     closed_issues = $10,
-    //     created_at = $11,
-    //     updated_at = $12,
-    //     closed_at = $13,
-    //     due_on = $14
-    //   WHERE id = $1
-    // `;
+    public async updateMilestone(milestone: types.Milestone): Promise<void> {
+		const query = `
+      UPDATE milestones SET
+        id = $1,
+        node_id = $2,
+        url = $3,
+        milestone_number = $4,
+        state = $5,
+        title = $6,
+        description = $7,
+        created_by = $8,
+        open_issues = $9,
+        closed_issues = $10,
+        created_at = $11,
+        updated_at = $12,
+        closed_at = $13,
+        due_on = $14
+      WHERE id = $1
+    `;
 
-	// 	const values = [
-    //         milestone.id,
-	// 		milestone.node_id,
-	// 		milestone.url,
-	// 		milestone.milestone_number,
-	// 		milestone.state,
-	// 		milestone.title,
-	// 		milestone.description,
-	// 		milestone.created_by,
-	// 		milestone.open_issues,
-	// 		milestone.closed_issues,
-	// 		milestone.created_at,
-	// 		milestone.updated_at,
-	// 		milestone.closed_at,
-	// 		milestone.due_on,
-	// 	];
+		const values = [
+            milestone.id,
+			milestone.node_id,
+			milestone.url,
+			milestone.milestone_number,
+			milestone.state,
+			milestone.title,
+			milestone.description,
+			milestone.created_by,
+			milestone.open_issues,
+			milestone.closed_issues,
+			milestone.created_at,
+			milestone.updated_at,
+			milestone.closed_at,
+			milestone.due_on,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Milestone updated successfully:", milestone.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating milestone:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Milestone updated successfully:", milestone.id);
+		} catch (error) {
+			console.error("Error updating milestone:", error);
+		}
+	}
 
-    // public async upsertMilestone(milestone: types.Milestone): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO milestones (
-    //     id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     node_id = excluded.node_id,
-    //     url = excluded.url,
-    //     milestone_number = excluded.milestone_number,
-    //     state = excluded.state,
-    //     title = excluded.title,
-    //     description = excluded.description,
-    //     created_by = excluded.created_by,
-    //     open_issues = excluded.open_issues,
-    //     closed_issues = excluded.closed_issues,
-    //     created_at = excluded.created_at,
-    //     updated_at = excluded.updated_at,
-    //     closed_at = excluded.closed_at,
-    //     due_on = excluded.due_on
-    // `;
+    public async upsertMilestone(milestone: types.Milestone): Promise<void> {
+		const query = `
+      INSERT INTO milestones (
+        id, node_id, url, milestone_number, state, title, description, created_by, open_issues, closed_issues, created_at, updated_at, closed_at, due_on
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        node_id = excluded.node_id,
+        url = excluded.url,
+        milestone_number = excluded.milestone_number,
+        state = excluded.state,
+        title = excluded.title,
+        description = excluded.description,
+        created_by = excluded.created_by,
+        open_issues = excluded.open_issues,
+        closed_issues = excluded.closed_issues,
+        created_at = excluded.created_at,
+        updated_at = excluded.updated_at,
+        closed_at = excluded.closed_at,
+        due_on = excluded.due_on
+    `;
 
-	// 	await this.client.query(query, [
-    //         milestone.id,
-	// 		milestone.node_id,
-	// 		milestone.url,
-	// 		milestone.milestone_number,
-	// 		milestone.state,
-	// 		milestone.title,
-	// 		milestone.description,
-	// 		milestone.created_by,
-	// 		milestone.open_issues,
-	// 		milestone.closed_issues,
-	// 		milestone.created_at,
-	// 		milestone.updated_at,
-	// 		milestone.closed_at,
-	// 		milestone.due_on,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            milestone.id,
+			milestone.node_id,
+			milestone.url,
+			milestone.milestone_number,
+			milestone.state,
+			milestone.title,
+			milestone.description,
+			milestone.created_by,
+			milestone.open_issues,
+			milestone.closed_issues,
+			milestone.created_at,
+			milestone.updated_at,
+			milestone.closed_at,
+			milestone.due_on,
+		]);
+	}
 
     public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
 		const query = `
@@ -1979,60 +1979,60 @@ export class Upserts {
 	// 	]);
 	// }
 
-    // public async insertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issue_milestones (
-    //     issue_id, milestone_id
-    //   ) VALUES ($1, $2)
-    // `;
+    public async insertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+		const query = `
+      INSERT INTO issue_milestones (
+        issue_id, milestone_id
+      ) VALUES ($1, $2)
+    `;
 
-	// 	const values = [
-    //         issueMilestone.issue_id,
-	// 		issueMilestone.milestone_id,
-	// 	];
+		const values = [
+            issueMilestone.issue_id,
+			issueMilestone.milestone_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue milestone inserted successfully:", issueMilestone.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting issue milestone:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue milestone inserted successfully:", issueMilestone.issue_id);
+		} catch (error) {
+			console.error("Error inserting issue milestone:", error);
+		}
+	}
 
-    // public async updateIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-	// 	const query = `
-    //   UPDATE issue_milestones SET
-    //     issue_id = $1,
-    //     milestone_id = $2
-    //   WHERE issue_id = $1 AND milestone_id = $2
-    // `;
+    public async updateIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+		const query = `
+      UPDATE issue_milestones SET
+        issue_id = $1,
+        milestone_id = $2
+      WHERE issue_id = $1 AND milestone_id = $2
+    `;
 
-	// 	const values = [
-    //         issueMilestone.issue_id,
-	// 		issueMilestone.milestone_id,
-	// 	];
+		const values = [
+            issueMilestone.issue_id,
+			issueMilestone.milestone_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue milestone updated successfully:", issueMilestone.issue_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating issue milestone:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue milestone updated successfully:", issueMilestone.issue_id);
+		} catch (error) {
+			console.error("Error updating issue milestone:", error);
+		}
+	}
 
-    // public async upsertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issue_milestones (
-    //     issue_id, milestone_id
-    //   ) VALUES ($1, $2)
-    //   ON CONFLICT (issue_id, milestone_id) DO NOTHING
-    // `;
+    public async upsertIssueMilestone(issueMilestone: types.IssueMilestone): Promise<void> {
+		const query = `
+      INSERT INTO issue_milestones (
+        issue_id, milestone_id
+      ) VALUES ($1, $2)
+      ON CONFLICT (issue_id, milestone_id) DO NOTHING
+    `;
 
-	// 	await this.client.query(query, [
-    //         issueMilestone.issue_id,
-	// 		issueMilestone.milestone_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            issueMilestone.issue_id,
+			issueMilestone.milestone_id,
+		]);
+	}
 
     // public async insertPullRequestMilestone(pullRequestMilestone: types.PullRequestMilestone): Promise<void> {
 	// 	const query = `

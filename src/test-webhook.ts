@@ -123,7 +123,32 @@ async function testIssueCommentWebhooks() {
 	}
 }
 
+async function testIssueMilestoneWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const issue_milestone_wh1 = sampleWebhook.IssueMilestonedWebhook;
+		await processor.processWebhook("issues", issue_milestone_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		const issueMilestoneResult = await client.query(
+			"SELECT * FROM issue_milestones WHERE id = $1",
+			[issue_milestone_wh1.payload.milestone.id],
+		)
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
 // testRepoWebhooks();
 // testIssueWebhooks();
 // testPullRequestWebhooks();
-testIssueCommentWebhooks();
+//testIssueCommentWebhooks();
+
+testIssueMilestoneWebhooks();

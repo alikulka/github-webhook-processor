@@ -307,6 +307,7 @@ export interface Milestone {
 	updated_at: Date;
 	closed_at: Date;
 	due_on: Date;
+	repository_id: number;
 }
 
 export interface RepoLabel {

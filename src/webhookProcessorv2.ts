@@ -55,8 +55,8 @@ enum WebhookAction {
     CategoryChanged = "category_changed",
     Answered = "answered",
     Unanswered = "unanswered",
-    Milestoned = "Milestoned",
-    Demilestoned = "Demilestoned"
+    Milestoned = "milestoned",
+    Demilestoned = "demilestoned"
   }
 
 export class WebhookProcessor {
@@ -208,20 +208,20 @@ export class WebhookProcessor {
     //         identifierColumn: "id",
     //     };
 
-    // private milestoneOperations: DatabaseOperations<types.Milestone> =
-    //     {
-    //         tableName: "milestones",
-    //         operations: {
-    //             insert: (milestone) =>
-    //                 this.upserts.insertMilestone(milestone),
-    //             update: (milestone) =>
-    //                 this.upserts.updateMilestone(milestone),
-    //             upsert: (milestone) =>
-    //                 this.upserts.upsertMilestone(milestone),
-    //         },
-    //         entityName: "Milestone",
-    //         identifierColumn: "id",
-    //     };
+    private milestoneOperations: DatabaseOperations<types.Milestone> =
+        {
+            tableName: "milestones",
+            operations: {
+                insert: (milestone) =>
+                    this.upserts.insertMilestone(milestone),
+                update: (milestone) =>
+                    this.upserts.updateMilestone(milestone),
+                upsert: (milestone) =>
+                    this.upserts.upsertMilestone(milestone),
+            },
+            entityName: "Milestone",
+            identifierColumn: "id",
+        };
     
     private repoLabelOperations: DatabaseOperations<types.RepoLabel> =
         {
@@ -299,20 +299,20 @@ export class WebhookProcessor {
             identifierColumn: "pull_request_id",
         };
     
-    // private issueMilestoneOperations: DatabaseOperations<types.IssueMilestone> =
-    //     {
-    //         tableName: "issuemilestones",
-    //         operations: {
-    //             insert: (issue_milestone) =>
-    //                 this.upserts.insertIssueMilestone(issue_milestone),
-    //             update: (issue_milestone) =>
-    //                 this.upserts.updateIssueMilestone(issue_milestone),
-    //             upsert: (issue_milestone) =>
-    //                 this.upserts.upsertIssueMilestone(issue_milestone),
-    //         },
-    //         entityName: "Issue Milestone",
-    //         identifierColumn: "id",
-    //     };
+    private issueMilestoneOperations: DatabaseOperations<types.IssueMilestone> =
+        {
+            tableName: "issue_milestones",
+            operations: {
+                insert: (issue_milestone) =>
+                    this.upserts.insertIssueMilestone(issue_milestone),
+                update: (issue_milestone) =>
+                    this.upserts.updateIssueMilestone(issue_milestone),
+                upsert: (issue_milestone) =>
+                    this.upserts.upsertIssueMilestone(issue_milestone),
+            },
+            entityName: "Issue Milestone",
+            identifierColumn: "id",
+        };
 
     // private pullRequestMilestoneOperations: DatabaseOperations<types.PullRequestMilestone> =
     //     {
@@ -581,38 +581,38 @@ export class WebhookProcessor {
     //     }
     //   }
     
-    //   private async processMilestone(payload: any, context: string): Promise<void> {
-    //     // First, ensure the milestone exists
-    //     const milestone = PayloadMapper.createMilestonesFromPayload(payload.milestone);
-    //     await this.handleDatabaseOperation(
-    //       milestone,
-    //       this.milestoneOperations,
-    //       milestone.id
-    //     );
+      private async processMilestone(payload: any, context: string): Promise<void> {
+        // First, ensure the milestone exists
+        const milestone = PayloadMapper.createMilestonesFromPayload(payload);
+        await this.handleDatabaseOperation(
+          milestone,
+          this.milestoneOperations,
+          milestone.id
+        );
     
-    //     // Then handle the junction table based on context
-    //     switch(context) {
-    //       case 'issue': {
-    //         const issueMilestone = PayloadMapper.createIssueMilestoneFromPayload(payload);
-    //         await this.handleDatabaseOperation(
-    //           issueMilestone,
-    //           this.issueMilestoneOperations,
-    //           issueMilestone.issue_id
-    //         );
-    //         break;
-    //       }
+        // Then handle the junction table based on context
+        switch(context) {
+          case 'issue': {
+            const issueMilestone = PayloadMapper.createIssueMilestoneFromPayload(payload);
+            await this.handleDatabaseOperation(
+              issueMilestone,
+              this.issueMilestoneOperations,
+              issueMilestone.issue_id
+            );
+            break;
+          }
           
-    //       case 'pull_request': {
-    //         const prMilestone = PayloadMapper.createPullRequestMilestoneFromPayload(payload);
-    //         await this.handleDatabaseOperation(
-    //           prMilestone,
-    //           this.pullRequestMilestoneOperations,
-    //           prMilestone.pull_request_id
-    //         );
-    //         break;
-    //       }
-    //     }
-    //   }
+        //   case 'pull_request': {
+        //     const prMilestone = PayloadMapper.createPullRequestMilestoneFromPayload(payload);
+        //     await this.handleDatabaseOperation(
+        //       prMilestone,
+        //       this.pullRequestMilestoneOperations,
+        //       prMilestone.pull_request_id
+        //     );
+        //     break;
+        //   }
+        }
+      }
 
     //   private async processIssueCommentReaction(payload: any): Promise<void> {
     //     const reaction =
@@ -860,10 +860,10 @@ export class WebhookProcessor {
                         await this.processLabel(payload, "issue");
                         break;
                     
-                    // case WebhookAction.Milestoned:
-                    // case WebhookAction.Demilestoned:
-                    //     await this.processMilestone(payload, "issue");
-                    //     break;
+                    case WebhookAction.Milestoned:
+                    case WebhookAction.Demilestoned:
+                        await this.processMilestone(payload, "issue");
+                        break;
                     
                     // case WebhookAction.Assigned:
                     // case WebhookAction.Unassigned:
