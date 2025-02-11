@@ -107,31 +107,31 @@ export class WebhookProcessor {
         identifierColumn: "id",
     };
 
-    // private issueCommentOperations: DatabaseOperations<types.IssueComment> = {
-    //     tableName: "issuecomments",
-    //     operations: {
-    //         insert: (issue_comment) => this.upserts.insertIssueComment(issue_comment),
-    //         update: (issue_comment) => this.upserts.updateIssueComment(issue_comment),
-    //         upsert: (issue_comment) => this.upserts.upsertIssueComment(issue_comment),
-    //     },
-    //     entityName: "Issue Comment",
-    //     identifierColumn: "id",
-    // };
+    private issueCommentOperations: DatabaseOperations<types.IssueComment> = {
+        tableName: "issuecomments",
+        operations: {
+            insert: (issue_comment) => this.upserts.insertIssueComment(issue_comment),
+            update: (issue_comment) => this.upserts.updateIssueComment(issue_comment),
+            upsert: (issue_comment) => this.upserts.upsertIssueComment(issue_comment),
+        },
+        entityName: "Issue Comment",
+        identifierColumn: "id",
+    };
 
-    // private issueCommentReactionOperations: DatabaseOperations<types.IssueCommentReaction> =
-    //     {
-    //         tableName: "issuecommentreactions",
-    //         operations: {
-    //             insert: (issue_comment_reaction) =>
-    //                 this.upserts.insertIssueCommentReaction(issue_comment_reaction),
-    //             update: (issue_comment_reaction) =>
-    //                 this.upserts.updateIssueCommentReaction(issue_comment_reaction),
-    //             upsert: (issue_comment_reaction) =>
-    //                 this.upserts.upsertIssueCommentReaction(issue_comment_reaction),
-    //         },
-    //         entityName: "Issue Comment Reaction",
-    //         identifierColumn: "issuecomment_id",
-    //     };
+    private issueCommentReactionOperations: DatabaseOperations<types.IssueCommentReaction> =
+        {
+            tableName: "issuecommentreactions",
+            operations: {
+                insert: (issue_comment_reaction) =>
+                    this.upserts.insertIssueCommentReaction(issue_comment_reaction),
+                update: (issue_comment_reaction) =>
+                    this.upserts.updateIssueCommentReaction(issue_comment_reaction),
+                upsert: (issue_comment_reaction) =>
+                    this.upserts.upsertIssueCommentReaction(issue_comment_reaction),
+            },
+            entityName: "Issue Comment Reaction",
+            identifierColumn: "issuecomment_id",
+        };
 
     // private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
     //     {
@@ -241,7 +241,7 @@ export class WebhookProcessor {
     
     private issueLabelOperations: DatabaseOperations<types.IssueLabel> =
         {
-            tableName: "issuelabels",
+            tableName: "issue_labels",
             operations: {
                 insert: (issue_label) =>
                     this.upserts.insertIssueLabels(issue_label),
@@ -251,7 +251,7 @@ export class WebhookProcessor {
                     this.upserts.upsertIssueLabels(issue_label),
             },
             entityName: "Issue Label",
-            identifierColumn: "id",
+            identifierColumn: "issue_id",
         };
     
     // private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
@@ -284,20 +284,20 @@ export class WebhookProcessor {
     //         identifierColumn: "id",
     //     };
     
-    // private pullRequestLabelOperations: DatabaseOperations<types.PullRequestLabel> =
-    //     {
-    //         tableName: "pullrequestlabels",
-    //         operations: {
-    //             insert: (pull_request_label) =>
-    //                 this.upserts.insertPullRequestLabels(pull_request_label),
-    //             update: (pull_request_label) =>
-    //                 this.upserts.updatePullRequestLabels(pull_request_label),
-    //             upsert: (pull_request_label) =>
-    //                 this.upserts.upsertPullRequestLabels(pull_request_label),
-    //         },
-    //         entityName: "Pull Request Label",
-    //         identifierColumn: "id",
-    //     };
+    private pullRequestLabelOperations: DatabaseOperations<types.PullRequestLabel> =
+        {
+            tableName: "pull_request_labels",
+            operations: {
+                insert: (pull_request_label) =>
+                    this.upserts.insertPullRequestLabels(pull_request_label),
+                update: (pull_request_label) =>
+                    this.upserts.updatePullRequestLabels(pull_request_label),
+                upsert: (pull_request_label) =>
+                    this.upserts.upsertPullRequestLabels(pull_request_label),
+            },
+            entityName: "Pull Request Label",
+            identifierColumn: "pull_request_id",
+        };
     
     // private issueMilestoneOperations: DatabaseOperations<types.IssueMilestone> =
     //     {
@@ -478,29 +478,72 @@ export class WebhookProcessor {
 
             const repo_id = payload.repository.id;
 
+            const issue = PayloadMapper.createIssueFromPayload(payload);
+
+            await this.handleDatabaseOperation(
+                issue,
+                this.issueOperations,
+                issue.id,
+            );
+
+
             for (const labelData of payload.issue.labels) {
                 console.log(labelData)
-                const issueLabel = PayloadMapper.createRepoLabelsFromPayload(labelData, repo_id);
+                const repoLabel = PayloadMapper.createRepoLabelsFromPayload(labelData, repo_id);
                 // console.log(issueLabel);
                 await this.handleDatabaseOperation(
-                  issueLabel,
+                    repoLabel,
                   this.repoLabelOperations,
-                  issueLabel.id
+                  repoLabel.id
                 );
+
+
+                const issueLabel = PayloadMapper.createIssueLabelFromPayload(payload.issue.id, labelData.id)
+
+                await this.handleDatabaseOperation(
+                    issueLabel,
+                    this.issueLabelOperations,
+                    issueLabel.issue_id
+                )
             
             }
             break;
           }
           
-        //   case 'pull_request': {
-        //     const prLabel = PayloadMapper.createPullRequestLabelFromPayload(payload);
-        //     await this.handleDatabaseOperation(
-        //       prLabel,
-        //       this.pullRequestLabelOperations,
-        //       prLabel.pull_request_id
-        //     );
-        //     break;
-        //   }
+          case 'pull_request': {
+            const repo_id = payload.repository.id;
+
+            const pr = PayloadMapper.createPullRequestFromPayload(payload);
+
+            await this.handleDatabaseOperation(
+                pr,
+                this.pullRequestOperations,
+                pr.id,
+            );
+
+
+            for (const labelData of payload.pull_request.labels) {
+                console.log(labelData)
+                const repoLabel = PayloadMapper.createRepoLabelsFromPayload(labelData, repo_id);
+                // console.log(issueLabel);
+                await this.handleDatabaseOperation(
+                    repoLabel,
+                  this.repoLabelOperations,
+                  repoLabel.id
+                );
+
+
+                const prLabel = PayloadMapper.createPullRequestLabelFromPayload(payload.pull_request.id, labelData.id)
+
+                await this.handleDatabaseOperation(
+                    prLabel,
+                    this.pullRequestLabelOperations,
+                    prLabel.pull_request_id
+                )
+            
+            }
+            break;
+          }
           
         //   case 'discussion': {
         //     const discussionLabel = PayloadMapper.createDiscussionLabelFromPayload(payload);
@@ -583,37 +626,37 @@ export class WebhookProcessor {
     // }
 
     // // This needs to check if reactions are present or not and pass to processIssueCommentReactions() if present
-    // private async processIssueCommentEvent(payload: any): Promise<void> {
-    //     const comment = PayloadMapper.createIssueCommentFromPayload(payload);
-    //     const issue  = PayloadMapper.createIssueFromPayload(payload);
-    //     const owner = PayloadMapper.createOwnerFromPayload(payload.comment.user);
-    //     const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
-    //     const reaction =
-    //         PayloadMapper.createIssueCommentReactionFromPayload(payload);
+    private async processIssueCommentEvent(payload: any): Promise<void> {
+        const comment = PayloadMapper.createIssueCommentFromPayload(payload);
+        const issue  = PayloadMapper.createIssueFromPayload(payload);
+        const owner = PayloadMapper.createOwnerFromPayload(payload.comment.user);
+        const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
+        const reaction =
+            PayloadMapper.createIssueCommentReactionFromPayload(payload);
 
-    //     // Handle all entities in correct order
-    //     await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
+        // Handle all entities in correct order
+        await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
 
-    //     await this.handleDatabaseOperation(
-    //         repo,
-    //         this.repositoryOperations,
-    //         repo.id,
-    //     );
+        await this.handleDatabaseOperation(
+            repo,
+            this.repositoryOperations,
+            repo.id,
+        );
 
-    //     await this.handleDatabaseOperation(issue, this.issueOperations, issue.id);
+        await this.handleDatabaseOperation(issue, this.issueOperations, issue.id);
 
-    //     await this.handleDatabaseOperation(
-    //         comment,
-    //         this.issueCommentOperations,
-    //         comment.id,
-    //     );
+        await this.handleDatabaseOperation(
+            comment,
+            this.issueCommentOperations,
+            comment.id,
+        );
 
-    //     await this.handleDatabaseOperation(
-    //         reaction,
-    //         this.issueCommentReactionOperations,
-    //         reaction.issuecomment_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            reaction,
+            this.issueCommentReactionOperations,
+            reaction.issuecomment_id,
+        );
+    }
 
     // private async processDiscussionCategories(payload: any): Promise<void> {
     //     const discussion_category =
@@ -731,15 +774,15 @@ export class WebhookProcessor {
         );
     }
 
-    private async processIssueLabels(payload: any): Promise<void> {
-        const issue_label = PayloadMapper.createIssueLabelFromPayload(payload);
+    // private async processIssueLabels(payload: any): Promise<void> {
+    //     const issue_label = PayloadMapper.createIssueLabelFromPayload(payload);
 
-        await this.handleDatabaseOperation(
-            issue_label,
-            this.issueLabelOperations,
-            issue_label.issue_id,
-        );
-    }
+    //     await this.handleDatabaseOperation(
+    //         issue_label,
+    //         this.issueLabelOperations,
+    //         issue_label.issue_id,
+    //     );
+    // }
 
     // private async processDiscussionLabels(payload: any): Promise<void> {
     //     const discussion_label = PayloadMapper.createDiscussionLabelFromPayload(payload);
@@ -814,7 +857,6 @@ export class WebhookProcessor {
 
                 switch (payload.action) {
                     case WebhookAction.Labeled:
-                    case WebhookAction.Unlabeled:
                         await this.processLabel(payload, "issue");
                         break;
                     
@@ -832,11 +874,10 @@ export class WebhookProcessor {
             case WebhookEventType.PullRequest:
                 await this.processPullRequestEvent(payload);
 
-                // switch (payload.action) {
-                //     case WebhookAction.Labeled:
-                //     case WebhookAction.Unlabeled:
-                //         await this.processLabel(payload, "pull_request");
-                //         break;
+                switch (payload.action) {
+                    case WebhookAction.Labeled:
+                        await this.processLabel(payload, "pull_request");
+                        break;
 
                 //     case WebhookAction.Milestoned:
                 //     case WebhookAction.Demilestoned:
@@ -847,11 +888,13 @@ export class WebhookProcessor {
                 //     case WebhookAction.Unassigned:
                 //         await this.processAssignee(payload);
                 //         break;
-                // }
+                }
                 break;
-            // case WebhookEventType.IssueComment:
-            //     await this.processIssueCommentEvent(payload);
-            //     break;
+
+            case WebhookEventType.IssueComment:
+                await this.processIssueCommentEvent(payload);
+                break;
+
             // case WebhookEventType.Discussion:
             //     await this.processDiscussionEvent(payload);
 

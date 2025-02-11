@@ -107,35 +107,35 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createIssueCommentFromPayload(payload: any): types.IssueComment {
-	// 	return {
-	// 		id: payload.comment.id,
-	// 		node_id: payload.comment.node_id,
-	// 		url: payload.comment.url,
-	// 		body: payload.comment.body || "",
-	// 		created_by: payload.comment.user,
-	// 		created_at: new Date(payload.comment.created_at),
-	// 		updated_at: new Date(payload.comment.updated_at),
-	// 		issue_id: payload.issue.id,
-	// 		author_association: payload.comment.author_association,
-	// 	};
-	// }
+	static createIssueCommentFromPayload(payload: any): types.IssueComment {
+		return {
+			id: payload.comment.id,
+			node_id: payload.comment.node_id,
+			url: payload.comment.url,
+			body: payload.comment.body || "",
+			created_by: payload.comment.user,
+			created_at: new Date(payload.comment.created_at),
+			updated_at: new Date(payload.comment.updated_at),
+			issue_id: payload.issue.id,
+			author_association: payload.comment.author_association,
+		};
+	}
 
-	// static createIssueCommentReactionFromPayload(
-	// 	payload: any,
-	// ): types.IssueCommentReaction {
-	// 	return {
-	// 		issuecomment_id: payload.comment.id,
-	// 		plusone: payload.comment.reactions?.["+1"] || 0,
-	// 		minusone: payload.comment.reactions?.["-1"] || 0,
-	// 		laugh: payload.comment.reactions?.laugh || 0,
-	// 		hooray: payload.comment.reactions?.hooray || 0,
-	// 		confused: payload.comment.reactions?.confused || 0,
-	// 		heart: payload.comment.reactions?.heart || 0,
-	// 		rocket: payload.comment.reactions?.rocket || 0,
-	// 		eyes: payload.comment.reactions?.eyes || 0,
-	// 	};
-	// }
+	static createIssueCommentReactionFromPayload(
+		payload: any,
+	): types.IssueCommentReaction {
+		return {
+			issuecomment_id: payload.comment.id,
+			plusone: payload.comment.reactions?.["+1"] || 0,
+			minusone: payload.comment.reactions?.["-1"] || 0,
+			laugh: payload.comment.reactions?.laugh || 0,
+			hooray: payload.comment.reactions?.hooray || 0,
+			confused: payload.comment.reactions?.confused || 0,
+			heart: payload.comment.reactions?.heart || 0,
+			rocket: payload.comment.reactions?.rocket || 0,
+			eyes: payload.comment.reactions?.eyes || 0,
+		};
+	}
 
 	// static createDiscussionCategoriesFromPayload(
 	// 	payload: any,
@@ -242,6 +242,8 @@ export class PayloadMapper {
     // // }
 
     static createRepoLabelsFromPayload(payload: any, repo_id: number): types.RepoLabel {
+
+        // console.log(payload, repo_id)
         return {
             id: payload.id,
             node_id: payload.node_id,
@@ -253,10 +255,10 @@ export class PayloadMapper {
         };
     }
 
-    static createIssueLabelFromPayload(payload: any): types.IssueLabel {
+    static createIssueLabelFromPayload(issue_id: number, issue_label_id: number): types.IssueLabel {
         return {
-            issue_id: payload.id,
-            label_id: payload.id,
+            issue_id: issue_id,
+            label_id: issue_label_id,
         };
     }
 
@@ -274,12 +276,12 @@ export class PayloadMapper {
     //     };
     // }
 
-    // static createPullRequestLabelFromPayload(payload: any): types.PullRequestLabel {
-    //     return {
-    //         pull_request_id: payload.pull_request.id,
-    //         label_id: payload.label.id,
-    //     };
-    // }
+    static createPullRequestLabelFromPayload(pr_id: number, pr_label_id: number): types.PullRequestLabel {
+        return {
+            pull_request_id: pr_id,
+            label_id: pr_label_id,
+        };
+    }
 
     // static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
     //     return {

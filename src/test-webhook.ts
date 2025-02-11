@@ -74,7 +74,7 @@ async function testPullRequestWebhooks() {
 	try {
 		const processor = new WebhookProcessor(client);
 		console.log("Processing webhook...");
-		const pr_wh1 = sampleWebhook.PullRequestClosedWebhook;
+		const pr_wh1 = sampleWebhook.PullRequestLabeledWebhook;
 		await processor.processWebhook("pull_request", pr_wh1.payload);
 		console.log("Webhook processed successfully");
 
@@ -98,32 +98,32 @@ async function testPullRequestWebhooks() {
 	}
 }
 
-// async function testIssueCommentWebhooks() {
-// 	const pool = new Pool(config.database);
-// 	const client = await pool.connect();
+async function testIssueCommentWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
 
-// 	try {
-// 		const processor = new WebhookProcessor(client);
-// 		console.log("Processing webhook...");
-// 		const issue_comment_wh1 = sampleWebhook.issueCommentWebhook1;
-// 		await processor.processWebhook("issue_comment", issue_comment_wh1);
-// 		console.log("Webhook processed successfully");
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const issue_comment_wh1 = sampleWebhook.IssueCommentWebhook;
+		await processor.processWebhook("issue_comment", issue_comment_wh1.payload);
+		console.log("Webhook processed successfully");
 
-// 		// Query results
-// 		const issueCommentResult = await client.query(
-// 			"SELECT * FROM issuecomments WHERE id = $1",
-// 			[issue_comment_wh1.comment.id],
-// 		);
-// 		console.log("Issue Comment record:", issueCommentResult.rows[0]);
-// 	} catch (error) {
-// 		console.error("Error:", error);
-// 	} finally {
-// 		await client.release();
-// 		await pool.end();
-// 	}
-// }
+		// Query results
+		const issueCommentResult = await client.query(
+			"SELECT * FROM issuecomments WHERE id = $1",
+			[issue_comment_wh1.payload.comment.id],
+		);
+		console.log("Issue Comment record:", issueCommentResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
 
 // testRepoWebhooks();
-testIssueWebhooks();
+// testIssueWebhooks();
 // testPullRequestWebhooks();
-// testIssueCommentWebhooks();
+testIssueCommentWebhooks();

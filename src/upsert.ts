@@ -639,199 +639,199 @@ export class Upserts {
 		}
 	}
 
-	// public async insertIssueComment(comment: types.IssueComment): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issuecomments (
-    //     id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    // `;
+	public async insertIssueComment(comment: types.IssueComment): Promise<void> {
+		const query = `
+      INSERT INTO issuecomments (
+        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `;
 
-	// 	const values = [
-	// 		comment.id,
-	// 		comment.node_id,
-	// 		comment.url,
-	// 		comment.body,
-	// 		comment.created_by.id,
-	// 		comment.created_at,
-	// 		comment.updated_at,
-	// 		comment.issue_id,
-	// 		comment.author_association,
-	// 	];
+		const values = [
+			comment.id,
+			comment.node_id,
+			comment.url,
+			comment.body,
+			comment.created_by.id,
+			comment.created_at,
+			comment.updated_at,
+			comment.issue_id,
+			comment.author_association,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue comment inserted successfully:", comment.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting issue comment:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue comment inserted successfully:", comment.id);
+		} catch (error) {
+			console.error("Error inserting issue comment:", error);
+		}
+	}
 
-	// public async updateIssueComment(comment: types.IssueComment): Promise<void> {
-	// 	const query = `
-    //   UPDATE issuecomments SET
-    //     node_id = $2,
-    //     url = $3,
-    //     body = $4,
-    //     created_by = $5,
-    //     created_at = $6,
-    //     updated_at = $7,
-    //     issue_id = $8,
-    //     author_association = $9
-    //   WHERE id = $1
-    // `;
+	public async updateIssueComment(comment: types.IssueComment): Promise<void> {
+		const query = `
+      UPDATE issuecomments SET
+        node_id = $2,
+        url = $3,
+        body = $4,
+        created_by = $5,
+        created_at = $6,
+        updated_at = $7,
+        issue_id = $8,
+        author_association = $9
+      WHERE id = $1
+    `;
 
-	// 	const values = [
-	// 		comment.id,
-	// 		comment.node_id,
-	// 		comment.url,
-	// 		comment.body,
-	// 		comment.created_by.id,
-	// 		comment.created_at,
-	// 		comment.updated_at,
-	// 		comment.issue_id,
-	// 		comment.author_association,
-	// 	];
+		const values = [
+			comment.id,
+			comment.node_id,
+			comment.url,
+			comment.body,
+			comment.created_by.id,
+			comment.created_at,
+			comment.updated_at,
+			comment.issue_id,
+			comment.author_association,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue comment updated successfully:", comment.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating issue comment:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue comment updated successfully:", comment.id);
+		} catch (error) {
+			console.error("Error updating issue comment:", error);
+		}
+	}
 
-	// public async upsertIssueComment(comment: types.IssueComment): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issuecomments (
-    //     id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-    //   ) VALUES %L
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     node_id = excluded.node_id,
-    //     url = excluded.url,
-    //     body = excluded.body,
-    //     created_by = excluded.created_by,
-    //     created_at = excluded.created_at,
-    //     updated_at = excluded.updated_at,
-    //     issue_id = excluded.issue_id,
-    //     author_association = excluded.author_association
-    // `;
+	public async upsertIssueComment(comment: types.IssueComment): Promise<void> {
+		const query = `
+      INSERT INTO issuecomments (
+        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
+      ) VALUES %L
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        node_id = excluded.node_id,
+        url = excluded.url,
+        body = excluded.body,
+        created_by = excluded.created_by,
+        created_at = excluded.created_at,
+        updated_at = excluded.updated_at,
+        issue_id = excluded.issue_id,
+        author_association = excluded.author_association
+    `;
 
-	// 	await this.client.query(query, [
-	// 		comment.id,
-	// 		comment.node_id,
-	// 		comment.url,
-	// 		comment.body,
-	// 		comment.created_by,
-	// 		comment.created_at,
-	// 		comment.updated_at,
-	// 		comment.issue_id,
-	// 		comment.author_association,
-	// 	]);
-	// }
+		await this.client.query(query, [
+			comment.id,
+			comment.node_id,
+			comment.url,
+			comment.body,
+			comment.created_by,
+			comment.created_at,
+			comment.updated_at,
+			comment.issue_id,
+			comment.author_association,
+		]);
+	}
 
-	// public async insertIssueCommentReaction(
-	// 	reaction: types.IssueCommentReaction,
-	// ): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issuecommentreactions (
-    //     issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    // `;
+	public async insertIssueCommentReaction(
+		reaction: types.IssueCommentReaction,
+	): Promise<void> {
+		const query = `
+      INSERT INTO issuecommentreactions (
+        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `;
 
-	// 	const values = [
-	// 		reaction.issuecomment_id,
-	// 		reaction.plusone,
-	// 		reaction.minusone,
-	// 		reaction.laugh,
-	// 		reaction.hooray,
-	// 		reaction.confused,
-	// 		reaction.heart,
-	// 		reaction.rocket,
-	// 		reaction.eyes,
-	// 	];
+		const values = [
+			reaction.issuecomment_id,
+			reaction.plusone,
+			reaction.minusone,
+			reaction.laugh,
+			reaction.hooray,
+			reaction.confused,
+			reaction.heart,
+			reaction.rocket,
+			reaction.eyes,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log(
-	// 			"Issue comment reaction inserted successfully:",
-	// 			reaction.issuecomment_id,
-	// 		);
-	// 	} catch (error) {
-	// 		console.error("Error inserting issue comment reaction:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log(
+				"Issue comment reaction inserted successfully:",
+				reaction.issuecomment_id,
+			);
+		} catch (error) {
+			console.error("Error inserting issue comment reaction:", error);
+		}
+	}
 
-	// public async updateIssueCommentReaction(
-	// 	reaction: types.IssueCommentReaction,
-	// ): Promise<void> {
-	// 	const query = `
-    //   UPDATE issuecommentreactions SET
-    //     plusone = $2,
-    //     minusone = $3,
-    //     laugh = $4,
-    //     hooray = $5,
-    //     confused = $6,
-    //     heart = $7,
-    //     rocket = $8,
-    //     eyes = $9
-    //   WHERE issuecomment_id = $1
-    // `;
+	public async updateIssueCommentReaction(
+		reaction: types.IssueCommentReaction,
+	): Promise<void> {
+		const query = `
+      UPDATE issuecommentreactions SET
+        plusone = $2,
+        minusone = $3,
+        laugh = $4,
+        hooray = $5,
+        confused = $6,
+        heart = $7,
+        rocket = $8,
+        eyes = $9
+      WHERE issuecomment_id = $1
+    `;
 
-	// 	const values = [
-	// 		reaction.issuecomment_id,
-	// 		reaction.plusone,
-	// 		reaction.minusone,
-	// 		reaction.laugh,
-	// 		reaction.hooray,
-	// 		reaction.confused,
-	// 		reaction.heart,
-	// 		reaction.rocket,
-	// 		reaction.eyes,
-	// 	];
+		const values = [
+			reaction.issuecomment_id,
+			reaction.plusone,
+			reaction.minusone,
+			reaction.laugh,
+			reaction.hooray,
+			reaction.confused,
+			reaction.heart,
+			reaction.rocket,
+			reaction.eyes,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log(
-	// 			"Issue comment reaction updated successfully:",
-	// 			reaction.issuecomment_id,
-	// 		);
-	// 	} catch (error) {
-	// 		console.error("Error updating issue comment reaction:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log(
+				"Issue comment reaction updated successfully:",
+				reaction.issuecomment_id,
+			);
+		} catch (error) {
+			console.error("Error updating issue comment reaction:", error);
+		}
+	}
 
-	// public async upsertIssueCommentReaction(
-	// 	reaction: types.IssueCommentReaction,
-	// ): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO issuecommentreactions (
-    //     issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    //   ON CONFLICT (issuecomment_id) DO UPDATE SET
-    //     issuecomment_id = excluded.issuecomment_id,
-    //     plusone = excluded.plusone,
-    //     minusone = excluded.minusone,
-    //     laugh = excluded.laugh,
-    //     hooray = excluded.hooray,
-    //     confused = excluded.confused,
-    //     heart = excluded.heart,
-    //     rocket = excluded.rocket,
-    //     eyes = excluded.eyes
-    // `;
+	public async upsertIssueCommentReaction(
+		reaction: types.IssueCommentReaction,
+	): Promise<void> {
+		const query = `
+      INSERT INTO issuecommentreactions (
+        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      ON CONFLICT (issuecomment_id) DO UPDATE SET
+        issuecomment_id = excluded.issuecomment_id,
+        plusone = excluded.plusone,
+        minusone = excluded.minusone,
+        laugh = excluded.laugh,
+        hooray = excluded.hooray,
+        confused = excluded.confused,
+        heart = excluded.heart,
+        rocket = excluded.rocket,
+        eyes = excluded.eyes
+    `;
 
-	// 	await this.client.query(query, [
-	// 		reaction.issuecomment_id,
-	// 		reaction.plusone,
-	// 		reaction.minusone,
-	// 		reaction.laugh,
-	// 		reaction.hooray,
-	// 		reaction.confused,
-	// 		reaction.heart,
-	// 		reaction.rocket,
-	// 		reaction.eyes,
-	// 	]);
-	// }
+		await this.client.query(query, [
+			reaction.issuecomment_id,
+			reaction.plusone,
+			reaction.minusone,
+			reaction.laugh,
+			reaction.hooray,
+			reaction.confused,
+			reaction.heart,
+			reaction.rocket,
+			reaction.eyes,
+		]);
+	}
 
 	// public async insertDiscussionCategories(
 	// 	category: types.DiscussionCategory,
@@ -1596,18 +1596,17 @@ export class Upserts {
     public async updateRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
 		const query = `
       UPDATE repo_labels SET
-        id = $1,
         node_id = $2,
         name = $3,
         description = $4,
         color = $5,
-        is_default = $6
+        is_default = $6,
 		repository_id = $7
       WHERE id = $1
     `;
 
 		const values = [
-            repoLabels.id,
+			repoLabels.id,
 			repoLabels.node_id,
 			repoLabels.name,
 			repoLabels.description,
@@ -1635,7 +1634,7 @@ export class Upserts {
         name = excluded.name,
         description = excluded.description,
         color = excluded.color,
-        default = excluded.default,
+        default = excluded.is_default,
 		repository_id = excluded.repository_id
     `;
 
@@ -1815,60 +1814,60 @@ export class Upserts {
 	// 	]);
 	// }
 
-    // public async insertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO pull_request_labels (
-    //     pull_request_id, label_id
-    //   ) VALUES ($1, $2)
-    // `;
+    public async insertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+		const query = `
+      INSERT INTO pull_request_labels (
+        pull_request_id, label_id
+      ) VALUES ($1, $2)
+    `;
 
-	// 	const values = [
-    //         pullRequestLabels.pull_request_id,
-	// 		pullRequestLabels.label_id,
-	// 	];
+		const values = [
+            pullRequestLabels.pull_request_id,
+			pullRequestLabels.label_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request label inserted successfully:", pullRequestLabels.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting pull request label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request label inserted successfully:", pullRequestLabels.pull_request_id);
+		} catch (error) {
+			console.error("Error inserting pull request label:", error);
+		}
+	}
 
-    // public async updatePullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-	// 	const query = `
-    //   UPDATE pull_request_labels SET
-    //     pull_request_id = $1,
-    //     label_id = $2
-    //   WHERE pull_request_id = $1 AND label_id = $2
-    // `;
+    public async updatePullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+		const query = `
+      UPDATE pull_request_labels SET
+        pull_request_id = $1,
+        label_id = $2
+      WHERE pull_request_id = $1 AND label_id = $2
+    `;
 
-	// 	const values = [
-    //         pullRequestLabels.pull_request_id,
-	// 		pullRequestLabels.label_id,
-	// 	];
+		const values = [
+            pullRequestLabels.pull_request_id,
+			pullRequestLabels.label_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request label updated successfully:", pullRequestLabels.pull_request_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating pull request label:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request label updated successfully:", pullRequestLabels.pull_request_id);
+		} catch (error) {
+			console.error("Error updating pull request label:", error);
+		}
+	}
 
-    // public async upsertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO pull_request_labels (
-    //     pull_request_id, label_id
-    //   ) VALUES ($1, $2)
-    //   ON CONFLICT (pull_request_id, label_id) DO NOTHING
-    // `;
+    public async upsertPullRequestLabels(pullRequestLabels: types.PullRequestLabel): Promise<void> {
+		const query = `
+      INSERT INTO pull_request_labels (
+        pull_request_id, label_id
+      ) VALUES ($1, $2)
+      ON CONFLICT (pull_request_id, label_id) DO NOTHING
+    `;
 
-	// 	await this.client.query(query, [
-    //         pullRequestLabels.pull_request_id,
-	// 		pullRequestLabels.label_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            pullRequestLabels.pull_request_id,
+			pullRequestLabels.label_id,
+		]);
+	}
 
     // public async insertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
 	// 	const query = `
