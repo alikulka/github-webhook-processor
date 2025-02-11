@@ -833,623 +833,611 @@ export class Upserts {
 		]);
 	}
 
-	// public async insertDiscussionCategories(
-	// 	category: types.DiscussionCategory,
-	// ): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncategories (
-    //     id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    // `;
+	public async insertDiscussionCategories(
+		category: types.DiscussionCategory,
+	): Promise<void> {
+		const query = `
+      INSERT INTO discussioncategories (
+        id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `;
 
-	// 	const values = [
-	// 		category.id,
-	// 		category.created_at,
-	// 		category.description,
-	// 		category.emoji,
-	// 		category.is_answerable,
-	// 		category.name,
-	// 		category.repository_id,
-	// 		category.slug,
-	// 		category.updated_at,
-	// 	];
+		const values = [
+			category.id,
+			category.created_at,
+			category.description,
+			category.emoji,
+			category.is_answerable,
+			category.name,
+			category.repository_id,
+			category.slug,
+			category.updated_at,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion category inserted successfully:", category.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion category:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Discussion category inserted successfully:", category.id);
+		} catch (error) {
+			console.error("Error inserting discussion category:", error);
+		}
+	}
 
-	// public async updateDiscussionCategories(
-	// 	category: types.DiscussionCategory,
-	// ): Promise<void> {
-	// 	const query = `
-    //   UPDATE discussioncategories SET
-    //     created_at = $2,
-    //     description = $3,
-    //     emoji = $4,
-    //     is_answerable = $5,
-    //     name = $6,
-    //     repository_id = $7,
-    //     slug = $8,
-    //     updated_at = $9
-    //   WHERE id = $1
-    // `;
+	public async updateDiscussionCategories(
+		category: types.DiscussionCategory,
+	): Promise<void> {
+		const query = `
+      UPDATE discussioncategories SET
+        created_at = $2,
+        description = $3,
+        emoji = $4,
+        is_answerable = $5,
+        name = $6,
+        repository_id = $7,
+        slug = $8,
+        updated_at = $9
+      WHERE id = $1
+    `;
 
-	// 	const values = [
-	// 		category.id,
-	// 		category.created_at,
-	// 		category.description,
-	// 		category.emoji,
-	// 		category.is_answerable,
-	// 		category.name,
-	// 		category.repository_id,
-	// 		category.slug,
-	// 		category.updated_at,
-	// 	];
+		const values = [
+			category.id,
+			category.created_at,
+			category.description,
+			category.emoji,
+			category.is_answerable,
+			category.name,
+			category.repository_id,
+			category.slug,
+			category.updated_at,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion category updated successfully:", category.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion category:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Discussion category updated successfully:", category.id);
+		} catch (error) {
+			console.error("Error updating discussion category:", error);
+		}
+	}
 
-	// public async upsertDiscussionCategories(
-	// 	category: types.DiscussionCategory,
-	// ): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncategories (
-    //     id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     created_at = excluded.created_at,
-    //     description = excluded.description,
-    //     emoji = excluded.emoji,
-    //     is_answerable = excluded.is_answerable,
-    //     name = excluded.name,
-    //     repository_id = excluded.repository_id,
-    //     slug = excluded.slug,
-    //     updated_at = excluded.updated_at
-    // `;
+	public async upsertDiscussionCategories(
+		category: types.DiscussionCategory,
+	): Promise<void> {
+		const query = `
+      INSERT INTO discussioncategories (
+        id, created_at, description, emoji, is_answerable, name, repository_id, slug, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        created_at = excluded.created_at,
+        description = excluded.description,
+        emoji = excluded.emoji,
+        is_answerable = excluded.is_answerable,
+        name = excluded.name,
+        repository_id = excluded.repository_id,
+        slug = excluded.slug,
+        updated_at = excluded.updated_at
+    `;
 
-	// 	await this.client.query(query, [
-	// 		category.id,
-	// 		category.created_at,
-	// 		category.description,
-	// 		category.emoji,
-	// 		category.is_answerable,
-	// 		category.name,
-	// 		category.repository_id,
-	// 		category.slug,
-	// 		category.updated_at,
-	// 	]);
-	// }
+		await this.client.query(query, [
+			category.id,
+			category.created_at,
+			category.description,
+			category.emoji,
+			category.is_answerable,
+			category.name,
+			category.repository_id,
+			category.slug,
+			category.updated_at,
+		]);
+	}
 
-    // public async insertDiscussion(discussion: types.Discussion): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussions (
-    //     active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
-    //     is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
-    //     total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)
-    // `;
+    public async insertDiscussion(discussion: types.Discussion): Promise<void> {
+		const query = `
+		INSERT INTO discussions (
+				active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
+				is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at, total_reaction_count, repository_id,
+				state_reason, title, updated_at, total_upvote_count, url
+			) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
+		`;
 
-	// 	const values = [
-	// 		discussion.active_lock_reason,
-	// 		discussion.answer,
-	// 		discussion.answer_chosen_at,
-	// 		discussion.answer_chosen_by,
-	// 		discussion.created_by,
-	// 		discussion.author_association,
-	// 		discussion.body,
-	// 		discussion.category_id,
-	// 		discussion.is_closed,
-	// 		discussion.closed_at,
-	// 		discussion.created_at,
-	// 		discussion.id,
-	// 		discussion.is_answered,
-	// 		discussion.last_edited_at,
-	// 		discussion.is_locked,
-	// 		discussion.discussion_number,
-	// 		discussion.published_at,
-	// 		discussion.total_reaction_count,
-	// 		discussion.repository_id,
-	// 		discussion.state_reason,
-	// 		discussion.title,
-	// 		discussion.updated_at,
-	// 		discussion.total_upvote_count,
-	// 		discussion.url,
-	// 	];
+		await this.client.query(query, [
+			discussion.active_lock_reason,
+			discussion.answer,
+			discussion.answer_chosen_at,
+			discussion.answer_chosen_by,
+			discussion.created_by,
+			discussion.author_association,
+			discussion.body,
+			discussion.category_id,
+			discussion.is_closed,
+			discussion.closed_at,
+			discussion.created_at,
+			discussion.id,
+			discussion.is_answered,
+			discussion.last_edited_at,
+			discussion.is_locked,
+			discussion.discussion_number,
+			discussion.published_at,
+			discussion.total_reaction_count,
+			discussion.repository_id,
+			discussion.state_reason,
+			discussion.title,
+			discussion.updated_at,
+			discussion.total_upvote_count,
+			discussion.url,
+		]);
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion inserted successfully:", discussion.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion:", error);
-	// 	}
-	// }
+    public async updateDiscussion(discussion: types.Discussion): Promise<void> {
+		const query = `
+        UPDATE discussions SET
+          active_lock_reason = $1,
+          answer = $2,
+          answer_chosen_at = $3,
+          answer_chosen_by = $4,
+          created_by = $5,
+          author_association = $6,
+          body = $7,
+          category_id = $8,
+          is_closed = $9,
+          closed_at = $10,
+          created_at = $11,
+          id = $12,
+          is_answered = $13,
+          last_edited_at = $14,
+          is_locked = $15,
+          discussion_number = $16,
+          published_at = $17,
+          total_reaction_count = $18,
+          repository_id = $19,
+          state_reason = $20,
+          title = $21,
+          updated_at = $22,
+          total_upvote_count = $23,
+          url = $24
+        WHERE id = $12
+    `;
 
-    // public async updateDiscussion(discussion: types.Discussion): Promise<void> {
-	// 	const query = `
-    //     UPDATE discussions SET
-    //       active_lock_reason = $1,
-    //       answer = $2,
-    //       answer_chosen_at = $3,
-    //       answer_chosen_by = $4,
-    //       created_by = $5,
-    //       author_association = $6,
-    //       body = $7,
-    //       category_id = $8,
-    //       is_closed = $9,
-    //       closed_at = $10,
-    //       created_at = $11,
-    //       id = $12,
-    //       is_answered = $13,
-    //       last_edited_at = $14,
-    //       is_locked = $15,
-    //       discussion_number = $16,
-    //       published_at = $17,
-    //       total_reaction_count = $18,
-    //       repository_id = $19,
-    //       state_reason = $20,
-    //       title = $21,
-    //       updated_at = $22,
-    //       total_upvote_count = $23,
-    //       url = $24
-    //     WHERE id = $12
-    // `;
+		const values = [
+			discussion.active_lock_reason,
+			discussion.answer,
+			discussion.answer_chosen_at,
+			discussion.answer_chosen_by,
+			discussion.created_by,
+			discussion.author_association,
+			discussion.body,
+			discussion.category_id,
+			discussion.is_closed,
+			discussion.closed_at,
+			discussion.created_at,
+			discussion.id,
+			discussion.is_answered,
+			discussion.last_edited_at,
+			discussion.is_locked,
+			discussion.discussion_number,
+			discussion.published_at,
+			discussion.total_reaction_count,
+			discussion.repository_id,
+			discussion.state_reason,
+			discussion.title,
+			discussion.updated_at,
+			discussion.total_upvote_count,
+			discussion.url,
+		];
 
-	// 	const values = [
-	// 		discussion.active_lock_reason,
-	// 		discussion.answer,
-	// 		discussion.answer_chosen_at,
-	// 		discussion.answer_chosen_by,
-	// 		discussion.created_by,
-	// 		discussion.author_association,
-	// 		discussion.body,
-	// 		discussion.category_id,
-	// 		discussion.is_closed,
-	// 		discussion.closed_at,
-	// 		discussion.created_at,
-	// 		discussion.id,
-	// 		discussion.is_answered,
-	// 		discussion.last_edited_at,
-	// 		discussion.is_locked,
-	// 		discussion.discussion_number,
-	// 		discussion.published_at,
-	// 		discussion.total_reaction_count,
-	// 		discussion.repository_id,
-	// 		discussion.state_reason,
-	// 		discussion.title,
-	// 		discussion.updated_at,
-	// 		discussion.total_upvote_count,
-	// 		discussion.url,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion updated successfully:", discussion.id);
+		} catch (error) {
+			console.error("Error updating discussion:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion updated successfully:", discussion.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion:", error);
-	// 	}
-	// }
+	public async upsertDiscussion(discussion: types.Discussion): Promise<void> {
+		const query = `
+      INSERT INTO discussions (
+        active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
+        is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
+        total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
+      ) VALUES %L
+      ON CONFLICT (id) DO UPDATE SET
+        active_lock_reason = excluded.active_lock_reason,
+        answer = excluded.answer,
+        answer_chosen_at = excluded.answer_chosen_at,
+        answer_chosen_by = excluded.answer_chosen_by,
+        created_by = excluded.created_by,
+        author_association = excluded.author_association,
+        body = excluded.body,
+        category_id = excluded.category_id,
+        is_closed = excluded.is_closed,
+        closed_at = excluded.closed_at,
+        created_at = excluded.created_at,
+        id = excluded.id,
+        is_answered = excluded.is_answered,
+        last_edited_at = excluded.last_edited_at,
+        is_locked = excluded.is_locked,
+        discussion_number = excluded.discussion_number,
+        published_at = excluded.published_at,
+        total_reaction_count = excluded.total_reaction_count,
+        repository_id = excluded.repository_id,
+        state_reason = excluded.state_reason,
+        title = excluded.title,
+        updated_at = excluded.updated_at,
+        total_upvote_count = excluded.total_upvote_count,
+        url = excluded.url
+    `;
 
-	// public async upsertDiscussion(discussion: types.Discussion): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussions (
-    //     active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
-    //     is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
-    //     total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
-    //   ) VALUES %L
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     active_lock_reason = excluded.active_lock_reason,
-    //     answer = excluded.answer,
-    //     answer_chosen_at = excluded.answer_chosen_at,
-    //     answer_chosen_by = excluded.answer_chosen_by,
-    //     created_by = excluded.created_by,
-    //     author_association = excluded.author_association,
-    //     body = excluded.body,
-    //     category_id = excluded.category_id,
-    //     is_closed = excluded.is_closed,
-    //     closed_at = excluded.closed_at,
-    //     created_at = excluded.created_at,
-    //     id = excluded.id,
-    //     is_answered = excluded.is_answered,
-    //     last_edited_at = excluded.last_edited_at,
-    //     is_locked = excluded.is_locked,
-    //     discussion_number = excluded.discussion_number,
-    //     published_at = excluded.published_at,
-    //     total_reaction_count = excluded.total_reaction_count,
-    //     repository_id = excluded.repository_id,
-    //     state_reason = excluded.state_reason,
-    //     title = excluded.title,
-    //     updated_at = excluded.updated_at,
-    //     total_upvote_count = excluded.total_upvote_count,
-    //     url = excluded.url
-    // `;
+		await this.client.query(query, [
+			discussion.active_lock_reason,
+			discussion.answer,
+			discussion.answer_chosen_at,
+			discussion.answer_chosen_by,
+			discussion.created_by,
+			discussion.author_association,
+			discussion.body,
+			discussion.category_id,
+			discussion.is_closed,
+			discussion.closed_at,
+			discussion.created_at,
+			discussion.id,
+			discussion.is_answered,
+			discussion.last_edited_at,
+			discussion.is_locked,
+			discussion.discussion_number,
+			discussion.published_at,
+			discussion.total_reaction_count,
+			discussion.repository_id,
+			discussion.state_reason,
+			discussion.title,
+			discussion.updated_at,
+			discussion.total_upvote_count,
+			discussion.url,
+		]);
+	}
 
-	// 	await this.client.query(query, [
-	// 		discussion.active_lock_reason,
-	// 		discussion.answer,
-	// 		discussion.answer_chosen_at,
-	// 		discussion.answer_chosen_by,
-	// 		discussion.created_by,
-	// 		discussion.author_association,
-	// 		discussion.body,
-	// 		discussion.category_id,
-	// 		discussion.is_closed,
-	// 		discussion.closed_at,
-	// 		discussion.created_at,
-	// 		discussion.id,
-	// 		discussion.is_answered,
-	// 		discussion.last_edited_at,
-	// 		discussion.is_locked,
-	// 		discussion.discussion_number,
-	// 		discussion.published_at,
-	// 		discussion.total_reaction_count,
-	// 		discussion.repository_id,
-	// 		discussion.state_reason,
-	// 		discussion.title,
-	// 		discussion.updated_at,
-	// 		discussion.total_upvote_count,
-	// 		discussion.url,
-	// 	]);
-	// }
+	public async insertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+		const query = `
+      INSERT INTO discussionpolls (
+        poll_id, discussion_id, question, total_votes
+      ) VALUES ($1, $2, $3, $4)
+    `;
 
-	// public async insertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussionpolls (
-    //     poll_id, discussion_id, question, total_votes
-    //   ) VALUES ($1, $2, $3, $4)
-    // `;
+		const values = [
+			discussionPoll.poll_id,
+			discussionPoll.discussion_id,
+			discussionPoll.question,
+			discussionPoll.total_votes,
+		];
 
-	// 	const values = [
-	// 		discussionPoll.poll_id,
-	// 		discussionPoll.discussion_id,
-	// 		discussionPoll.question,
-	// 		discussionPoll.total_votes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion poll inserted successfully:", discussionPoll.poll_id);
+		} catch (error) {
+			console.error("Error inserting discussion poll:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion poll inserted successfully:", discussionPoll.poll_id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion poll:", error);
-	// 	}
-	// }
+    public async updateDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+		const query = `
+      UPDATE discussionpolls SET
+        poll_id = $1,
+        discussion_id = $2,
+        question = $3,
+        total_votes = $4
+      WHERE poll_id = $1 AND discussion_id = $2
+    `;
 
-    // public async updateDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-	// 	const query = `
-    //   UPDATE discussionpolls SET
-    //     poll_id = $1,
-    //     discussion_id = $2,
-    //     question = $3,
-    //     total_votes = $4
-    //   WHERE poll_id = $1 AND discussion_id = $2
-    // `;
+		const values = [
+			discussionPoll.poll_id,
+			discussionPoll.discussion_id,
+			discussionPoll.question,
+			discussionPoll.total_votes,
+		];
 
-	// 	const values = [
-	// 		discussionPoll.poll_id,
-	// 		discussionPoll.discussion_id,
-	// 		discussionPoll.question,
-	// 		discussionPoll.total_votes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion poll updated successfully:", discussionPoll.poll_id);
+		} catch (error) {
+			console.error("Error updating discussion poll:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion poll updated successfully:", discussionPoll.poll_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion poll:", error);
-	// 	}
-	// }
+    public async upsertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
+		const query = `
+      INSERT INTO discussionpolls (
+        poll_id, discussion_id, question, total_votes
+      ) VALUES ($1, $2, $3, $4)
+      ON CONFLICT (poll_id, discussion_id) DO UPDATE SET
+        poll_id = excluded.poll_id,
+        discussion_id = excluded.discussion_id,
+        question = excluded.question,
+        total_votes = excluded.total_votes
+    `;
 
-    // public async upsertDiscussionPoll(discussionPoll: types.DiscussionPoll): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussionpolls (
-    //     poll_id, discussion_id, question, total_votes
-    //   ) VALUES ($1, $2, $3, $4)
-    //   ON CONFLICT (poll_id, discussion_id) DO UPDATE SET
-    //     poll_id = excluded.poll_id,
-    //     discussion_id = excluded.discussion_id,
-    //     question = excluded.question,
-    //     total_votes = excluded.total_votes
-    // `;
+		await this.client.query(query, [
+			discussionPoll.poll_id,
+			discussionPoll.discussion_id,
+			discussionPoll.question,
+			discussionPoll.total_votes,
+		]);
+	}
 
-	// 	await this.client.query(query, [
-	// 		discussionPoll.poll_id,
-	// 		discussionPoll.discussion_id,
-	// 		discussionPoll.question,
-	// 		discussionPoll.total_votes,
-	// 	]);
-	// }
+    public async insertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+		const query = `
+      INSERT INTO discussionpolloptions (
+        option_id, poll_id, option, votes
+      ) VALUES ($1, $2, $3, $4)
+    `;
 
-    // public async insertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussionpolloptions (
-    //     option_id, poll_id, option, votes
-    //   ) VALUES ($1, $2, $3, $4)
-    // `;
+		const values = [
+            discussionPollOptions.option_id,
+			discussionPollOptions.poll_id,
+			discussionPollOptions.option,
+			discussionPollOptions.votes,
+		];
 
-	// 	const values = [
-    //         discussionPollOptions.option_id,
-	// 		discussionPollOptions.poll_id,
-	// 		discussionPollOptions.option,
-	// 		discussionPollOptions.votes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion poll option inserted successfully:", discussionPollOptions.poll_id);
+		} catch (error) {
+			console.error("Error inserting discussion poll option:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion poll option inserted successfully:", discussionPollOptions.poll_id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion poll option:", error);
-	// 	}
-	// }
+    public async updateDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+		const query = `
+      UPDATE discussionpolloptions SET
+        option_id = $1,
+        poll_id = $2,
+        option = $3,
+        votes = $4
+      WHERE option_id = $1 AND poll_id = $2
+    `;
 
-    // public async updateDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-	// 	const query = `
-    //   UPDATE discussionpolloptions SET
-    //     option_id = $1,
-    //     poll_id = $2,
-    //     option = $3,
-    //     votes = $4
-    //   WHERE option_id = $1 AND poll_id = $2
-    // `;
+		const values = [
+            discussionPollOptions.option_id,
+			discussionPollOptions.poll_id,
+			discussionPollOptions.option,
+			discussionPollOptions.votes,
+		];
 
-	// 	const values = [
-    //         discussionPollOptions.option_id,
-	// 		discussionPollOptions.poll_id,
-	// 		discussionPollOptions.option,
-	// 		discussionPollOptions.votes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion poll option updated successfully:", discussionPollOptions.poll_id);
+		} catch (error) {
+			console.error("Error updating discussion poll option:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion poll option updated successfully:", discussionPollOptions.poll_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion poll option:", error);
-	// 	}
-	// }
+    public async upsertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
+		const query = `
+      INSERT INTO discussionpolloptions (
+        option_id, poll_id, option, votes
+      ) VALUES ($1, $2, $3, $4)
+      ON CONFLICT (option_id, poll_id) DO UPDATE SET
+        option_id = excluded.option_id,
+        poll_id = excluded.poll_id,
+        option = excluded.option,
+        votes = excluded.votes
+    `;
 
-    // public async upsertDiscussionPollOptions(discussionPollOptions: types.DiscussionPollOption): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussionpolloptions (
-    //     option_id, poll_id, option, votes
-    //   ) VALUES ($1, $2, $3, $4)
-    //   ON CONFLICT (option_id, poll_id) DO UPDATE SET
-    //     option_id = excluded.option_id,
-    //     poll_id = excluded.poll_id,
-    //     option = excluded.option,
-    //     votes = excluded.votes
-    // `;
+		await this.client.query(query, [
+            discussionPollOptions.option_id,
+			discussionPollOptions.poll_id,
+			discussionPollOptions.option,
+			discussionPollOptions.votes,
+		]);
+	}
 
-	// 	await this.client.query(query, [
-    //         discussionPollOptions.option_id,
-	// 		discussionPollOptions.poll_id,
-	// 		discussionPollOptions.option,
-	// 		discussionPollOptions.votes,
-	// 	]);
-	// }
+    public async insertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+		const query = `
+      INSERT INTO discussioncomments (
+        id, created_by, created_at, author_association, body, deleted_at, discussion_id, edited_by,
+        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    `;
 
-    // public async insertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncomments (
-    //     id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
-    //     is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-    // `;
+		const values = [
+            discussionComment.id,
+			discussionComment.created_by,
+			discussionComment.created_at,
+			discussionComment.author_association,
+			discussionComment.body,
+			discussionComment.deleted_at,
+			discussionComment.discussion_id,
+			discussionComment.edited_by,
+			discussionComment.is_answer,
+			discussionComment.is_minimized,
+			discussionComment.last_edited_at,
+			discussionComment.minimized_reason,
+			discussionComment.published_at,
+			discussionComment.in_reply_to_id,
+		];
 
-	// 	const values = [
-    //         discussionComment.id,
-	// 		discussionComment.created_by,
-	// 		discussionComment.created_at,
-	// 		discussionComment.author_association,
-	// 		discussionComment.body,
-	// 		discussionComment.created_at,
-	// 		discussionComment.deleted_at,
-	// 		discussionComment.discussion_id,
-	// 		discussionComment.edited_by,
-	// 		discussionComment.is_answer,
-	// 		discussionComment.is_minimized,
-	// 		discussionComment.last_edited_at,
-	// 		discussionComment.minimized_reason,
-	// 		discussionComment.published_at,
-	// 		discussionComment.in_reply_to_id,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion comment inserted successfully:", discussionComment.id);
+		} catch (error) {
+			console.error("Error inserting discussion comment:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion comment inserted successfully:", discussionComment.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion comment:", error);
-	// 	}
-	// }
+    public async updateDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+		const query = `
+      UPDATE discussioncomments SET
+        id = $1,
+        created_by = $2,
+        created_at = $3,
+        author_association = $4,
+        body = $5,
+        deleted_at = $6,
+        discussion_id = $7,
+        edited_by = $8,
+        is_answer = $9,
+        is_minimized = $10,
+        lasted_edited_at = $11,
+        minimized_reason = $12,
+        published_at = $13,
+        in_reply_to_id = $14
+      WHERE id = $1
+    `;
 
-    // public async updateDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-	// 	const query = `
-    //   UPDATE discussioncomments SET
-    //     id = $1,
-    //     created_by = $2,
-    //     created_at = $3,
-    //     author_association = $4,
-    //     body = $5,
-    //     created_at = $6,
-    //     deleted_at = $7,
-    //     discussion_id = $8,
-    //     edited_by = $9,
-    //     is_answer = $10,
-    //     is_minimized = $11,
-    //     lasted_edited_at = $12,
-    //     minimized_reason = $13,
-    //     published_at = $14,
-    //     in_reply_to_id = $15
-    //   WHERE id = $1
-    // `;
+		const values = [
+            discussionComment.id,
+			discussionComment.created_by,
+			discussionComment.created_at,
+			discussionComment.author_association,
+			discussionComment.body,
+			discussionComment.deleted_at,
+			discussionComment.discussion_id,
+			discussionComment.edited_by,
+			discussionComment.is_answer,
+			discussionComment.is_minimized,
+			discussionComment.last_edited_at,
+			discussionComment.minimized_reason,
+			discussionComment.published_at,
+			discussionComment.in_reply_to_id,
+		];
 
-	// 	const values = [
-    //         discussionComment.id,
-	// 		discussionComment.created_by,
-	// 		discussionComment.created_at,
-	// 		discussionComment.author_association,
-	// 		discussionComment.body,
-	// 		discussionComment.created_at,
-	// 		discussionComment.deleted_at,
-	// 		discussionComment.discussion_id,
-	// 		discussionComment.edited_by,
-	// 		discussionComment.is_answer,
-	// 		discussionComment.is_minimized,
-	// 		discussionComment.last_edited_at,
-	// 		discussionComment.minimized_reason,
-	// 		discussionComment.published_at,
-	// 		discussionComment.in_reply_to_id,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion comment updated successfully:", discussionComment.id);
+		} catch (error) {
+			console.error("Error updating discussion comment:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion comment updated successfully:", discussionComment.id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion comment:", error);
-	// 	}
-	// }
+    public async upsertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
+		const query = `
+      INSERT INTO discussioncomments (
+        id, created_by, created_at, author_association, body, deleted_at, discussion_id, edited_by,
+        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+      ON CONFLICT (id) DO UPDATE SET
+        id = excluded.id,
+        created_by = excluded.created_by,
+        created_at = excluded.created_at,
+        author_association = excluded.author_association,
+        body = excluded.body,
+        deleted_at = excluded.deleted_at,
+        discussion_id = excluded.discussion_id,
+        edited_by = excluded.edited_by,
+        is_answer = excluded.is_answer,
+        is_minimized = excluded.is_minimized,
+        lasted_edited_at = excluded.last_edited_at,
+        minimized_reason = excluded.minimized_reason,
+        published_at = excluded.published_at,
+        in_reply_to_id = excluded.in_reply_to_id
+    `;
 
-    // public async upsertDiscussionComment(discussionComment: types.DiscussionComment): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncomments (
-    //     id, created_by, created_at, author_association, body, created_at, deleted_at, discussion_id, edited_by,
-    //     is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
-    //   ON CONFLICT (id) DO UPDATE SET
-    //     id = excluded.id,
-    //     created_by = excluded.created_by,
-    //     created_at = excluded.created_at,
-    //     author_association = excluded.author_association,
-    //     body = excluded.body,
-    //     created_at = excluded.created_at,
-    //     deleted_at = excluded.deleted_at,
-    //     discussion_id = excluded.discussion_id,
-    //     edited_by = excluded.edited_by,
-    //     is_answer = excluded.is_answer,
-    //     is_minimized = excluded.is_minimized,
-    //     lasted_edited_at = excluded.last_edited_at,
-    //     minimized_reason = excluded.minimized_reason,
-    //     published_at = excluded.published_at,
-    //     in_reply_to_id = excluded.in_reply_to_id
-    // `;
+		await this.client.query(query, [
+            discussionComment.id,
+			discussionComment.created_by,
+			discussionComment.created_at,
+			discussionComment.author_association,
+			discussionComment.body,
+			discussionComment.deleted_at,
+			discussionComment.discussion_id,
+			discussionComment.edited_by,
+			discussionComment.is_answer,
+			discussionComment.is_minimized,
+			discussionComment.last_edited_at,
+			discussionComment.minimized_reason,
+			discussionComment.published_at,
+			discussionComment.in_reply_to_id,
+		]);
+	}
 
-	// 	await this.client.query(query, [
-    //         discussionComment.id,
-	// 		discussionComment.created_by,
-	// 		discussionComment.created_at,
-	// 		discussionComment.author_association,
-	// 		discussionComment.body,
-	// 		discussionComment.created_at,
-	// 		discussionComment.deleted_at,
-	// 		discussionComment.discussion_id,
-	// 		discussionComment.edited_by,
-	// 		discussionComment.is_answer,
-	// 		discussionComment.is_minimized,
-	// 		discussionComment.last_edited_at,
-	// 		discussionComment.minimized_reason,
-	// 		discussionComment.published_at,
-	// 		discussionComment.in_reply_to_id,
-	// 	]);
-	// }
+    public async insertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+		const query = `
+      INSERT INTO discussioncommentreactions (
+        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `;
 
-    // public async insertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncommentreactions (
-    //     discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    // `;
+		const values = [
+            discussionCommentReactions.discussioncomment_id,
+			discussionCommentReactions.plusone,
+			discussionCommentReactions.minusone,
+			discussionCommentReactions.laugh,
+			discussionCommentReactions.hooray,
+			discussionCommentReactions.confused,
+			discussionCommentReactions.heart,
+			discussionCommentReactions.rocket,
+			discussionCommentReactions.eyes,
+		];
 
-	// 	const values = [
-    //         discussionCommentReactions.comment_id,
-	// 		discussionCommentReactions.plusone,
-	// 		discussionCommentReactions.minusone,
-	// 		discussionCommentReactions.laugh,
-	// 		discussionCommentReactions.hooray,
-	// 		discussionCommentReactions.confused,
-	// 		discussionCommentReactions.heart,
-	// 		discussionCommentReactions.rocket,
-	// 		discussionCommentReactions.eyes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion comment reactions inserted successfully:", discussionCommentReactions.discussioncomment_id);
+		} catch (error) {
+			console.error("Error inserting discussion comment reactions:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion comment reactions inserted successfully:", discussionCommentReactions.comment_id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting discussion comment reactions:", error);
-	// 	}
-	// }
+    public async updateDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+		const query = `
+      UPDATE discussioncommentreactions SET
+        discussioncomment_id = $1,
+        plusone = $2,
+        minusone = $3,
+        laugh = $4,
+        hooray = $5,
+        confused = $6,
+        heart = $7,
+        rocket = $8,
+        eyes = $9
+      WHERE discussioncomment_id = $1
+    `;
 
-    // public async updateDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-	// 	const query = `
-    //   UPDATE discussioncommentreactions SET
-    //     discussioncomment_id = $1,
-    //     plusone = $2,
-    //     minusone = $3,
-    //     laugh = $4,
-    //     hooray = $5,
-    //     confused = $6,
-    //     heart = $7,
-    //     rocket = $8,
-    //     eyes = $9
-    //   WHERE discussioncomment_id = $1
-    // `;
+		const values = [
+            discussionCommentReactions.discussioncomment_id,
+			discussionCommentReactions.plusone,
+			discussionCommentReactions.minusone,
+			discussionCommentReactions.laugh,
+			discussionCommentReactions.hooray,
+			discussionCommentReactions.confused,
+			discussionCommentReactions.heart,
+			discussionCommentReactions.rocket,
+			discussionCommentReactions.eyes,
+		];
 
-	// 	const values = [
-    //         discussionCommentReactions.comment_id,
-	// 		discussionCommentReactions.plusone,
-	// 		discussionCommentReactions.minusone,
-	// 		discussionCommentReactions.laugh,
-	// 		discussionCommentReactions.hooray,
-	// 		discussionCommentReactions.confused,
-	// 		discussionCommentReactions.heart,
-	// 		discussionCommentReactions.rocket,
-	// 		discussionCommentReactions.eyes,
-	// 	];
+		try {
+			this.client.query(query, values);
+			console.log("Discussion comment reactions updated successfully:", discussionCommentReactions.discussioncomment_id);
+		} catch (error) {
+			console.error("Error updating discussion comment reactions:", error);
+		}
+	}
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Discussion comment reactions updated successfully:", discussionCommentReactions.comment_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating discussion comment reactions:", error);
-	// 	}
-	// }
+    public async upsertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
+		const query = `
+      INSERT INTO discussioncommentreactions (
+        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      ON CONFLICT (discussioncomment_id) DO UPDATE SET
+        discussioncomment_id = excluded.discussioncomment_id,
+        plusone = excluded.plusone,
+        minusone = excluded.minusone,
+        laugh = excluded.laugh,
+        hooray = excluded.hooray,
+        confused = excluded.confused,
+        heart = excluded.heart,
+        rocket = excluded.rocket,
+        eyes = excluded.eyes
+    `;
 
-    // public async upsertDiscussionCommentReactions(discussionCommentReactions: types.DiscussionCommentReaction): Promise<void> {
-	// 	const query = `
-    //   INSERT INTO discussioncommentreactions (
-    //     discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-    //   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    //   ON CONFLICT (discussioncomment_id) DO UPDATE SET
-    //     discussioncomment_id = excluded.discussioncomment_id,
-    //     plusone = excluded.plusone,
-    //     minusone = excluded.minusone,
-    //     laugh = excluded.laugh,
-    //     hooray = excluded.hooray,
-    //     confused = excluded.confused,
-    //     heart = excluded.heart,
-    //     rocket = excluded.rocket,
-    //     eyes = excluded.eyes
-    // `;
-
-	// 	await this.client.query(query, [
-    //         discussionCommentReactions.comment_id,
-	// 		discussionCommentReactions.plusone,
-	// 		discussionCommentReactions.minusone,
-	// 		discussionCommentReactions.laugh,
-	// 		discussionCommentReactions.hooray,
-	// 		discussionCommentReactions.confused,
-	// 		discussionCommentReactions.heart,
-	// 		discussionCommentReactions.rocket,
-	// 		discussionCommentReactions.eyes,
-	// 	]);
-	// }
+		await this.client.query(query, [
+            discussionCommentReactions.discussioncomment_id,
+			discussionCommentReactions.plusone,
+			discussionCommentReactions.minusone,
+			discussionCommentReactions.laugh,
+			discussionCommentReactions.hooray,
+			discussionCommentReactions.confused,
+			discussionCommentReactions.heart,
+			discussionCommentReactions.rocket,
+			discussionCommentReactions.eyes,
+		]);
+	}
 
     public async insertMilestone(milestone: types.Milestone): Promise<void> {
 		const query = `

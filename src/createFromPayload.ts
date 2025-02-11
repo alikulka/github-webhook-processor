@@ -137,93 +137,133 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createDiscussionCategoriesFromPayload(
-	// 	payload: any,
-	// ): types.DiscussionCategory {
-	// 	return {
-	// 		id: payload.discussion_category.id,
-	// 		description: payload.discussion_category.description,
-	// 		emoji: payload.discussion_category.emoji,
-	// 		name: payload.discussion_category.name,
-	// 		created_at: new Date(payload.discussion_category.created_at),
-	// 		updated_at: new Date(payload.discussion_category.updated_at),
-	// 		is_answerable: payload.discussion_category.is_answerable,
-	// 		repository_id: payload.repository.id,
-	// 		slug: payload.discussion_category.slug,
-	// 	};
-	// }
+	static createDiscussionCategoriesFromPayload(
+		payload: any,
+	): types.DiscussionCategory {
+		return {
+			id: payload.discussion.category.id,
+			description: payload.discussion.category.description,
+			emoji: payload.discussion.category.emoji,
+			name: payload.discussion.category.name,
+			created_at: new Date(payload.discussion.category.created_at),
+			updated_at: new Date(payload.discussion.category.updated_at),
+			is_answerable: payload.discussion.category.is_answerable,
+			repository_id: payload.repository.id,
+			slug: payload.discussion.category.slug,
+		};
+	}
 
-    // // static createDiscussionFromPayload(payload: any): types.Discussion {
-    // //     return {
-    // //         id: payload.discussion.id,
-    // //         url: payload.discussion.url,
-    // //         title: payload.discussion.title,
-    // //         body: payload.discussion.body || "",
-    // //         created_by: payload.discussion.user,
-    // //         is_locked: payload.discussion.locked,
-    // //         active_lock_reason: payload.discussion.active_lock_reason,
-    // //         comments: payload.discussion.comments,
-    // //         created_at: new Date(payload.discussion.created_at),
-    // //         updated_at: new Date(payload.discussion.updated_at),
-    // //         closed_at: new Date(payload.discussion.closed_at),
-    // //         repository_id: payload.repository.id,
-    // //         author_association: payload.discussion.author_association,
-    // //         total_reaction_count: payload.discussion.reactions?.total_count || 0,
-    // //     };
-    // // }
+    static createDiscussionFromPayload(payload: any): types.Discussion {
+        return {
+            active_lock_reason: payload.discussion.active_lock_reason,
+            answer: payload.discussion.answer,
+            answer_chosen_at: new Date(payload.discussion.answer_chosen_at),
+            answer_chosen_by: payload.discussion.answer_chosen_by || null,
+            created_by: payload.discussion.user.id,
+            author_association: payload.discussion.author_association,
+            body: payload.discussion.body,
+            category_id: payload.discussion.category.id,
+            is_closed: payload.discussion.locked,
+            closed_at: payload.discussion.locked_at? new Date(payload.discussion.locked_at) : null,
+            // created_at: payload.discussion.created_at? new Date(payload.discussion.created_at) : new Date(),
+            created_at: new Date(payload.discussion.created_at),
+            id: payload.discussion.id,
+            is_answered: payload.discussion.answered,
+            last_edited_at: new Date(payload.discussion.updated_at),
+            is_locked: payload.discussion.locked,
+            discussion_number: payload.discussion.number,
+            // published_at: new Date(payload.discussion.created_at),
+            published_at: new Date(),
+            total_reaction_count: payload.discussion.reactions?.total_count || 0,
+            repository_id: payload.repository.id,
+            state_reason: payload.discussion.state_reason,
+            title: payload.discussion.title,
+            updated_at: new Date(payload.discussion.updated_at),
+            total_upvote_count: payload.discussion.reactions.total_count,
+            url: payload.discussion.repository_url,
+            // labels: payload.discussion.labels?.map((label: any) => {
+            //     return {
+            //         discussion_id: payload.discussion.id,
+            //         label_id: label.id,
+            //     };
+            // }),
+            // poll: payload.discussion.poll?.map((poll: any) => {
+            //     return {
+            //         discussion_id: payload.discussion.id,
+            //         poll_id: poll.id,
+            //         question: poll.question,
+            //         total_votes: poll.total_votes,
+            //     };
+            // }),
+            // pollOptions: payload.discussion.poll?.map((poll: any) => {
+            //     return {
+            //         poll_id: poll.id,
+            //         option_id: poll.option.id,
+            //         option: poll.option.option,
+            //         votes: poll.option.votes,
+            //     };
+            // }),
+            // comments: payload.discussion.comments?.map((comment: any) => {
+            //     return {
+            //         discussion_id: payload.discussion.id,
+            //         comment_id: comment.id,
+            //     };
+            // }),
+        };
+    }
 
-    // // static createDiscussionCommentFromPayload(payload: any): types.DiscussionComment {
-    // //     return {
-    // //         id: payload.comment.id,
-    // //         body: payload.comment.body || "",
-    // //         created_by: payload.comment.user,
-    // //         created_at: new Date(payload.comment.created_at),
-    // //         deleted_at: new Date(payload.comment.deleted_at),
-    // //         discussion_id: payload.discussion.id,
-    // //         edited_by: payload.comment.edited_by,
-    // //         is_answer: payload.comment.is_answer,
-    // //         is_minimized: payload.comment.is_minimized,
-    // //         last_edited_at: new Date(payload.comment.last_edited_at),
-    // //         minimized_reason: payload.comment.minimized_reason,
-    // //         published_at: new Date(payload.comment.published_at),
-    // //         author_association: payload.comment.author_association,
-    // //         in_reply_to_id: 
-    // //     };
-    // // }
+    static createDiscussionCommentFromPayload(payload: any): types.DiscussionComment {
+        return {
+            id: payload.comment.id,
+            body: payload.comment.body || "",
+            created_by: payload.comment.user.id,
+            created_at: payload.comment.created_at? new Date(payload.comment.created_at) : new Date(),
+            deleted_at: payload.comment.deleted_at? new Date(payload.comment.deleted_at) : new Date(),
+            discussion_id: payload.discussion.id,
+            edited_by: payload.comment.edited_by,
+            is_answer: payload.comment.is_answer? payload.comment.is_answer : false,
+            is_minimized: payload.comment.is_minimized ? payload.comment.is_minimized : false,
+            last_edited_at: payload.comment.last_edited_at? new Date(payload.comment.last_edited_at) : new Date(),
+            minimized_reason: payload.comment.minimized_reason,
+            published_at: payload.comment.published_at? new Date(payload.comment.published_at) : new Date(),
+            author_association: payload.comment.author_association,
+            in_reply_to_id: payload.comment.id
+        };
+    }
 
-    // static createDiscussionCommentReactionFromPayload(
-    //     payload: any,
-    // ): types.DiscussionCommentReaction {
+    static createDiscussionCommentReactionFromPayload(
+        payload: any,
+    ): types.DiscussionCommentReaction {
+        return {
+            discussioncomment_id: payload.comment.id,
+            plusone: payload.comment.reactions?.["+1"] || 0,
+            minusone: payload.comment.reactions?.["-1"] || 0,
+            laugh: payload.comment.reactions?.laugh || 0,
+            hooray: payload.comment.reactions?.hooray || 0,
+            confused: payload.comment.reactions?.confused || 0,
+            heart: payload.comment.reactions?.heart || 0,
+            rocket: payload.comment.reactions?.rocket || 0,
+            eyes: payload.comment.reactions?.eyes || 0,
+        };
+    }
+
+    // static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
     //     return {
-    //         discussioncomment_id: payload.comment.id,
-    //         plusone: payload.comment.reactions?.["+1"] || 0,
-    //         minusone: payload.comment.reactions?.["-1"] || 0,
-    //         laugh: payload.comment.reactions?.laugh || 0,
-    //         hooray: payload.comment.reactions?.hooray || 0,
-    //         confused: payload.comment.reactions?.confused || 0,
-    //         heart: payload.comment.reactions?.heart || 0,
-    //         rocket: payload.comment.reactions?.rocket || 0,
-    //         eyes: payload.comment.reactions?.eyes || 0,
+    //         poll_id: payload.option.id,
+    //         discussion_id: payload.discussion.id,
+    //         question: payload.option.id,
+    //         total_votes: payload.option.votes,
     //     };
     // }
 
-    // // static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
-    // //     return {
-    // //         poll_id: payload.option.id,
-    // //         discussion_id: payload.discussion.id,
-    // //         option_id: payload.option.id,
-    // //         total_votes: payload.option.votes,
-    // //     };
-    // // }
-
-    // // static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
-    // //     return {
-    // //         id: payload.option.id,
-    // //         discussion_id: payload.discussion.id,
-    // //         option: payload.option.option,
-    // //         votes: payload.option.votes,
-    // //     };
-    // // }
+    // static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
+    //     return {
+    //         id: payload.option.id,
+    //         discussion_id: payload.discussion.id,
+    //         option: payload.option.option,
+    //         votes: payload.option.votes,
+    //     };
+    // }
 
     static createMilestonesFromPayload(payload: any): types.Milestone {
         return {

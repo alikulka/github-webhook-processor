@@ -133,80 +133,80 @@ export class WebhookProcessor {
             identifierColumn: "issuecomment_id",
         };
 
-    // private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
-    //     {
-    //         tableName: "discussioncategories",
-    //         operations: {
-    //             insert: (discussion_category) =>
-    //                 this.upserts.insertDiscussionCategories(discussion_category),
-    //             update: (discussion_category) =>
-    //                 this.upserts.updateDiscussionCategories(discussion_category),
-    //             upsert: (discussion_category) =>
-    //                 this.upserts.upsertDiscussionCategories(discussion_category),
-    //         },
-    //         entityName: "Discussion Categories",
-    //         identifierColumn: "id",
-    //     };
+    private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
+        {
+            tableName: "discussioncategories",
+            operations: {
+                insert: (discussion_category) =>
+                    this.upserts.insertDiscussionCategories(discussion_category),
+                update: (discussion_category) =>
+                    this.upserts.updateDiscussionCategories(discussion_category),
+                upsert: (discussion_category) =>
+                    this.upserts.upsertDiscussionCategories(discussion_category),
+            },
+            entityName: "Discussion Categories",
+            identifierColumn: "id",
+        };
     
-    // private discussionCommentReactionOperations: DatabaseOperations<types.DiscussionCommentReaction> =
-    //     {
-    //         tableName: "discussioncommentreactions",
-    //         operations: {
-    //             insert: (discussion_comment_reaction) =>
-    //                 this.upserts.insertDiscussionCommentReactions(discussion_comment_reaction),
-    //             update: (discussion_comment_reaction) =>
-    //                 this.upserts.updateDiscussionCommentReactions(discussion_comment_reaction),
-    //             upsert: (discussion_comment_reaction) =>
-    //                 this.upserts.upsertDiscussionCommentReactions(discussion_comment_reaction),
-    //         },
-    //         entityName: "Discussion Comment Reaction",
-    //         identifierColumn: "discussioncomment_id",
-    //     };
+    private discussionCommentReactionOperations: DatabaseOperations<types.DiscussionCommentReaction> =
+        {
+            tableName: "discussioncommentreactions",
+            operations: {
+                insert: (discussion_comment_reaction) =>
+                    this.upserts.insertDiscussionCommentReactions(discussion_comment_reaction),
+                update: (discussion_comment_reaction) =>
+                    this.upserts.updateDiscussionCommentReactions(discussion_comment_reaction),
+                upsert: (discussion_comment_reaction) =>
+                    this.upserts.upsertDiscussionCommentReactions(discussion_comment_reaction),
+            },
+            entityName: "Discussion Comment Reaction",
+            identifierColumn: "discussioncomment_id",
+        };
     
-    // private discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
-    //     {
-    //         tableName: "discussioncomments",
-    //         operations: {
-    //             insert: (discussion_comment) =>
-    //                 this.upserts.insertDiscussionComment(discussion_comment),
-    //             update: (discussion_comment) =>
-    //                 this.upserts.updateDiscussionComment(discussion_comment),
-    //             upsert: (discussion_comment) =>
-    //                 this.upserts.upsertDiscussionComment(discussion_comment),
-    //         },
-    //         entityName: "Discussion Comment",
-    //         identifierColumn: "id",
-    //     };
+    private discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
+        {
+            tableName: "discussioncomments",
+            operations: {
+                insert: (discussion_comment) =>
+                    this.upserts.insertDiscussionComment(discussion_comment),
+                update: (discussion_comment) =>
+                    this.upserts.updateDiscussionComment(discussion_comment),
+                upsert: (discussion_comment) =>
+                    this.upserts.upsertDiscussionComment(discussion_comment),
+            },
+            entityName: "Discussion Comment",
+            identifierColumn: "id",
+        };
 
-    // private discussionPollOperations: DatabaseOperations<types.DiscussionPoll> =
-    //     {
-    //         tableName: "discussionpolls",
-    //         operations: {
-    //             insert: (discussion_poll) =>
-    //                 this.upserts.insertDiscussionPoll(discussion_poll),
-    //             update: (discussion_poll) =>
-    //                 this.upserts.updateDiscussionPoll(discussion_poll),
-    //             upsert: (discussion_poll) =>
-    //                 this.upserts.upsertDiscussionPoll(discussion_poll),
-    //         },
-    //         entityName: "Discussion Poll",
-    //         identifierColumn: "id",
-    //     };
+    private discussionPollOperations: DatabaseOperations<types.DiscussionPoll> =
+        {
+            tableName: "discussionpolls",
+            operations: {
+                insert: (discussion_poll) =>
+                    this.upserts.insertDiscussionPoll(discussion_poll),
+                update: (discussion_poll) =>
+                    this.upserts.updateDiscussionPoll(discussion_poll),
+                upsert: (discussion_poll) =>
+                    this.upserts.upsertDiscussionPoll(discussion_poll),
+            },
+            entityName: "Discussion Poll",
+            identifierColumn: "id",
+        };
 
-    // private discussionPollOptionsOperations: DatabaseOperations<types.DiscussionPollOption> =
-    //     {
-    //         tableName: "discussionpolloptions",
-    //         operations: {
-    //             insert: (discussion_poll_option) =>
-    //                 this.upserts.insertDiscussionPollOptions(discussion_poll_option),
-    //             update: (discussion_poll_option) =>
-    //                 this.upserts.updateDiscussionPollOptions(discussion_poll_option),
-    //             upsert: (discussion_poll_option) =>
-    //                 this.upserts.upsertDiscussionPollOptions(discussion_poll_option),
-    //         },
-    //         entityName: "Discussion Poll Option",
-    //         identifierColumn: "id",
-    //     };
+    private discussionPollOptionsOperations: DatabaseOperations<types.DiscussionPollOption> =
+        {
+            tableName: "discussionpolloptions",
+            operations: {
+                insert: (discussion_poll_option) =>
+                    this.upserts.insertDiscussionPollOptions(discussion_poll_option),
+                update: (discussion_poll_option) =>
+                    this.upserts.updateDiscussionPollOptions(discussion_poll_option),
+                upsert: (discussion_poll_option) =>
+                    this.upserts.upsertDiscussionPollOptions(discussion_poll_option),
+            },
+            entityName: "Discussion Poll Option",
+            identifierColumn: "id",
+        };
 
     private milestoneOperations: DatabaseOperations<types.Milestone> =
         {
@@ -254,6 +254,20 @@ export class WebhookProcessor {
             identifierColumn: "issue_id",
         };
     
+    private discussionOperations: DatabaseOperations<types.Discussion> =
+        {
+            tableName: "discussions",
+            operations: {
+                insert: (discussion) =>
+                    this.upserts.insertDiscussion(discussion),
+                update: (discussion) =>
+                    this.upserts.updateDiscussion(discussion),
+                upsert: (discussion) =>
+                    this.upserts.upsertDiscussion(discussion),
+            },
+            entityName: "Discussion",
+            identifierColumn: "id",
+        };
     // private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
     //     {
     //         tableName: "discussionlabels",
@@ -658,43 +672,50 @@ export class WebhookProcessor {
         );
     }
 
-    // private async processDiscussionCategories(payload: any): Promise<void> {
-    //     const discussion_category =
-    //         PayloadMapper.createDiscussionCategoriesFromPayload(payload);
+    private async processDiscussionCategories(payload: any): Promise<void> {
+        const discussion_category =
+            PayloadMapper.createDiscussionCategoriesFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         discussion_category,
-    //         this.discussionCategoriesOperations,
-    //         discussion_category.id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            discussion_category,
+            this.discussionCategoriesOperations,
+            discussion_category.id,
+        );
+    }
 
-    // private async processDiscussionCommentReaction(payload: any) : Promise<void> {
-    //     const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
+    private async processDiscussionCommentReaction(payload: any) : Promise<void> {
+        const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         reaction,
-    //         this.discussionCommentReactionOperations,
-    //         reaction.discussioncomment_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            reaction,
+            this.discussionCommentReactionOperations,
+            reaction.discussioncomment_id,
+        );
+    }
 
-    // private async processDiscussionComments(payload: any): Promise<void> {
-    //     const discussion_comment = PayloadMapper.createDiscussionCommentFromPayload(payload);
-    //     const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
+    private async processDiscussionComments(payload: any): Promise<void> {
+        const discussion = PayloadMapper.createDiscussionFromPayload(payload);
+        const discussion_comment = PayloadMapper.createDiscussionCommentFromPayload(payload);
+        const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         discussion_comment,
-    //         this.discussionCommentOperations,
-    //         discussion_comment.id,
-    //     );
+        await this.handleDatabaseOperation(
+            discussion,
+            this.discussionOperations,
+            discussion.id,
+        );
 
-    //     await this.handleDatabaseOperation(
-    //         reaction,
-    //         this.discussionCommentReactionOperations,
-    //         reaction.discussioncomment_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            discussion_comment,
+            this.discussionCommentOperations,
+            discussion_comment.id,
+        );
+
+        await this.handleDatabaseOperation(
+            reaction,
+            this.discussionCommentReactionOperations,
+            reaction.discussioncomment_id,
+        );
+    }
 
     // private async processDiscussionPolls(payload: any): Promise<void> {
     //     const discussion_poll = PayloadMapper.createDiscussionPollsFromPayload(payload);
@@ -702,7 +723,7 @@ export class WebhookProcessor {
     //     await this.handleDatabaseOperation(
     //         discussion_poll,
     //         this.discussionPollOperations,
-    //         discussion_poll.id,
+    //         discussion_poll.discussion_id,
     //     );
     // }
 
@@ -712,54 +733,57 @@ export class WebhookProcessor {
     //     await this.handleDatabaseOperation(
     //         discussion_poll_options,
     //         this.discussionPollOptionsOperations,
-    //         discussion_poll_options.id,
+    //         discussion_poll_options.poll_id,
     //     );
     // }
 
-    // private async processDiscussionEvent(payload: any): Promise<void> {
-    //     const discussion = PayloadMapper.createDiscussionFromPayload(payload);
-    //     const owner = PayloadMapper.createOwnerFromPayload(payload.discussion.user);
-    //     const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
-    //     const discussion_category = PayloadMapper.createDiscussionCategoriesFromPayload(payload);
-    //     const discussion_comment = PayloadMapper.createDiscussionCommentFromPayload(payload);
-    //     const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
+    private async processDiscussionEvent(payload: any): Promise<void> {
+        const owner = PayloadMapper.createOwnerFromPayload(payload.discussion.user);
+        const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
+        const discussion_category = PayloadMapper.createDiscussionCategoriesFromPayload(payload);
+        // const discussion_comment = PayloadMapper.createDiscussionCommentFromPayload(payload);
+        // const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
+        const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 
-    //     await this.handleDatabaseOperation(
-    //         discussion,
-    //         this.discussionOperations,
-    //         discussion.id,
-    //     );
+        await this.handleDatabaseOperation(
+            owner,
+            this.ownerOperations,
+            owner.id,
+        );
 
-    //     await this.handleDatabaseOperation(
-    //         owner,
-    //         this.ownerOperations,
-    //         owner.id,
-    //     );
+        await this.handleDatabaseOperation(
+            repo,
+            this.repositoryOperations,
+            repo.id,
+        );
 
-    //     await this.handleDatabaseOperation(
-    //         repo,
-    //         this.repositoryOperations,
-    //         repo.id,
-    //     );
+        await this.handleDatabaseOperation(
+            discussion_category,
+            this.discussionCategoriesOperations,
+            discussion_category.id,
+        );
 
-    //     await this.handleDatabaseOperation(
-    //         discussion_category,
-    //         this.discussionCategoriesOperations,
-    //         discussion_category.id,
-    //     );
+        // if (discussion_comment) {
+        //     await this.handleDatabaseOperation(
+        //         discussion_comment,
+        //         this.discussionCommentOperations,
+        //         discussion_comment.id,
+        //     );
+        // }
 
-    //     await this.handleDatabaseOperation(
-    //         discussion_comment,
-    //         this.discussionCommentOperations,
-    //         discussion_comment.id,
-    //     );
+        // await this.handleDatabaseOperation(
+        //     reaction,
+        //     this.discussionCommentReactionOperations,
+        //     reaction.discussioncomment_id,
+        // );
 
-    //     await this.handleDatabaseOperation(
-    //         reaction,
-    //         this.discussionCommentReactionOperations,
-    //         reaction.discussioncomment_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            discussion,
+            this.discussionOperations,
+            discussion.id,
+        );
+
+    }
     // discussionOperations(discussion: types.Discussion, discussionOperations: any, id: string) {
     //     throw new Error("Method not implemented.");
     // }
@@ -895,27 +919,31 @@ export class WebhookProcessor {
                 await this.processIssueCommentEvent(payload);
                 break;
 
-            // case WebhookEventType.Discussion:
-            //     await this.processDiscussionEvent(payload);
+            case WebhookEventType.Discussion:
+                await this.processDiscussionEvent(payload);
 
-            //     switch (payload.action) {
-            //         case WebhookAction.Labeled:
-            //         case WebhookAction.Unlabeled:
-            //             await this.processLabel(payload, "discussion");
-            //             break;
-            //     }
-            //     break;
-            // case WebhookEventType.DiscussionComment:
-            //     await this.processDiscussionComments(payload);
+                switch (payload.action) {
+                    case WebhookAction.Labeled:
+                    case WebhookAction.Unlabeled:
+                        await this.processLabel(payload, "discussion");
+                        break;
 
-            //     switch (payload.action) {
-            //         case WebhookAction.Labeled:
-            //         case WebhookAction.Unlabeled:
-            //             await this.processLabel(payload, "discussion_comment");
-            //             break;
-            //     }
+                    case WebhookAction.Answered:
+                        break;
+                    
+                }
+                break;
+            case WebhookEventType.DiscussionComment:
+                await this.processDiscussionComments(payload);
 
-            //     break;
+                // switch (payload.action) {
+                //     case WebhookAction.Labeled:
+                //     case WebhookAction.Unlabeled:
+                //         await this.processLabel(payload, "discussion_comment");
+                //         break;
+                // }
+
+                break;
             // case WebhookEventType.SubIssue:
             //     // processing function needs to change mostly
             //     await this.processSubIssueList(payload);
