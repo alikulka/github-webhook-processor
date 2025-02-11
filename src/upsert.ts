@@ -1571,18 +1571,18 @@ export class Upserts {
     public async insertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
 		const query = `
       INSERT INTO repo_labels (
-        id, repository_id, node_id, name, description, color, is_default
+        id, node_id, name, description, color, is_default, repository_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
 
 		const values = [
             repoLabels.id,
-			repoLabels.repository_id,
 			repoLabels.node_id,
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
 			repoLabels.default,
+			repoLabels.repository_id,
 		];
 
 		try {
@@ -1597,23 +1597,23 @@ export class Upserts {
 		const query = `
       UPDATE repo_labels SET
         id = $1,
-        repository_id = $2,
-        node_id = $3,
-        name = $4,
-        description = $5,
-        color = $6,
-        is_default = $7
+        node_id = $2,
+        name = $3,
+        description = $4,
+        color = $5,
+        is_default = $6
+		repository_id = $7
       WHERE id = $1
     `;
 
 		const values = [
             repoLabels.id,
-			repoLabels.repository_id,
 			repoLabels.node_id,
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
 			repoLabels.default,
+			repoLabels.repository_id
 		];
 
 		try {
@@ -1627,26 +1627,26 @@ export class Upserts {
     public async upsertRepoLabels(repoLabels: types.RepoLabel): Promise<void> {
 		const query = `
       INSERT INTO repo_labels (
-        id, repository_id, node_id, name, description, color, is_default
+        id, node_id, name, description, color, is_default, repository_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7)
       ON CONFLICT (id) DO UPDATE SET
         id = excluded.id,
-        repository_id = excluded.repository_id,
         node_id = excluded.node_id,
         name = excluded.name,
         description = excluded.description,
         color = excluded.color,
-        default = excluded.default
+        default = excluded.default,
+		repository_id = excluded.repository_id
     `;
 
 		await this.client.query(query, [
             repoLabels.id,
-			repoLabels.repository_id,
 			repoLabels.node_id,
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
 			repoLabels.default,
+			repoLabels.repository_id,
 		]);
 	}
 

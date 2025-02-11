@@ -241,7 +241,7 @@ export class PayloadMapper {
     // //     };
     // // }
 
-    static createRepoLabelsFromPayload(payload: any): types.RepoLabel {
+    static createRepoLabelsFromPayload(payload: any, repo_id: number): types.RepoLabel {
         return {
             id: payload.id,
             node_id: payload.node_id,
@@ -249,7 +249,7 @@ export class PayloadMapper {
             color: payload.color,
             default: payload.default,
             description: payload.description || "",
-            repository_id: payload.repository.id,
+            repository_id: repo_id,
         };
     }
 

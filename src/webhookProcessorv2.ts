@@ -464,23 +464,31 @@ export class WebhookProcessor {
 
     private async processLabel(payload: any, context: string): Promise<void> {
         // First, ensure the label exists in repo_labels
-        const label = PayloadMapper.createRepoLabelsFromPayload(payload);
-        await this.handleDatabaseOperation(
-          label,
-          this.repoLabelOperations,
-          label.id
-        );
+        // const label = PayloadMapper.createRepoLabelsFromPayload(payload);
+        // await this.handleDatabaseOperation(
+        //   label,
+        //   this.repoLabelOperations,
+        //   label.id
+        // );
     
         // Then handle the junction table based on context
         switch(context) {
           case 'issue': {
-            console.log(payload.issue.labels);
-            const issueLabel = PayloadMapper.createIssueLabelFromPayload(payload.issue.labels);
-            await this.handleDatabaseOperation(
-              issueLabel,
-              this.issueLabelOperations,
-              issueLabel.issue_id
-            );
+            // console.log(payload.issue.labels);
+
+            const repo_id = payload.repository.id;
+
+            for (const labelData of payload.issue.labels) {
+                console.log(labelData)
+                const issueLabel = PayloadMapper.createRepoLabelsFromPayload(labelData, repo_id);
+                // console.log(issueLabel);
+                await this.handleDatabaseOperation(
+                  issueLabel,
+                  this.repoLabelOperations,
+                  issueLabel.id
+                );
+            
+            }
             break;
           }
           
@@ -714,7 +722,7 @@ export class WebhookProcessor {
     // }
 
     private async processRepoLabels(payload: any): Promise<void> {
-        const repo_label = PayloadMapper.createRepoLabelsFromPayload(payload);
+        const repo_label = PayloadMapper.createRepoLabelsFromPayload(payload, payload.repository.id);
 
         await this.handleDatabaseOperation(
             repo_label,

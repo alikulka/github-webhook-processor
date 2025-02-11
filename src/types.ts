@@ -99,18 +99,9 @@ export interface Issue {
 	total_reaction_count: number;
 	sub_or_parent_issue: "SUB" | "SUB_AND_PARENT" | "PARENT" | "NEITHER";
 
-	labels?: Label[];
+	labels?: RepoLabel[];
 	assignees?: Owner[];
 	milestone?: Milestone;
-}
-
-export interface Label {
-	id: number;
-	node_id: string;
-	name: string;
-	description: string | null;
-	color: string;
-	default: boolean;
 }
 
 export interface PullRequest {
@@ -320,12 +311,12 @@ export interface Milestone {
 
 export interface RepoLabel {
 	id: number;
-	repository_id: Repository;
 	node_id: string;
 	name: string;
 	description: string;
 	color: string;
 	default: boolean;
+	repository_id: number;
 }
 
 export interface IssueLabel {
