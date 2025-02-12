@@ -361,6 +361,6 @@ export interface PullRequestMilestone {
 }
 
 export interface SubIssueList {
-	parent_id: Issue;
-	sub_id: Issue;
+	parent_id: number;
+	sub_id: number;
 }

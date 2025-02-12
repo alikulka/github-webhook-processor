@@ -389,10 +389,10 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createSubIssueListFromPayload(payload_parent_id: number, payload_sub_id: number): types.SubIssueList {
-	//     return {
-	//         parent_id: payload_parent_id,
-	//         sub_id: payload_sub_id,
-	//     };
-	// }
+	static createSubIssueListFromPayload(payload_parent_id: number, payload_sub_id: number): types.SubIssueList {
+	    return {
+	        parent_id: payload_parent_id,
+	        sub_id: payload_sub_id,
+	    };
+	}
 }

@@ -358,20 +358,20 @@ export class WebhookProcessor {
             identifierColumn: "pull_request_id",
         };
 
-	// private subIssueListOperations: DatabaseOperations<types.SubIssueList> =
-	//     {
-	//         tableName: "subissuelists",
-	//         operations: {
-	//             insert: (sub_issue_list) =>
-	//                 this.upserts.insertSubIssueList(sub_issue_list),
-	//             update: (sub_issue_list) =>
-	//                 this.upserts.updateSubIssueList(sub_issue_list),
-	//             upsert: (sub_issue_list) =>
-	//                 this.upserts.upsertSubIssueList(sub_issue_list),
-	//         },
-	//         entityName: "Sub Issue List",
-	//         identifierColumn: "id",
-	//     };
+	private subIssueListOperations: DatabaseOperations<types.SubIssueList> =
+	    {
+	        tableName: "subissuelists",
+	        operations: {
+	            insert: (sub_issue_list) =>
+	                this.upserts.insertSubIssueList(sub_issue_list),
+	            update: (sub_issue_list) =>
+	                this.upserts.updateSubIssueList(sub_issue_list),
+	            upsert: (sub_issue_list) =>
+	                this.upserts.upsertSubIssueList(sub_issue_list),
+	        },
+	        entityName: "Sub Issue List",
+	        identifierColumn: "id",
+	    };
 
 	constructor(private client: PoolClient) {
 		this.upserts = new Upserts(client);
@@ -710,7 +710,7 @@ export class WebhookProcessor {
                     issue.id,
                 );
 
-                const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, issue.assignees.id);
+                const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, issue.assignee.id);
                 await this.handleDatabaseOperation(
                     issueAssignee,
                     this.issueAssigneeOperations,
@@ -899,15 +899,15 @@ export class WebhookProcessor {
 		);
 	}
 
-    // private async processSubIssueList(payload: any): Promise<void> {
-    //     const sub_issue_list = PayloadMapper.createSubIssueList(payload);
+    private async processSubIssueList(payload: any): Promise<void> {
+        const sub_issue_list = PayloadMapper.createSubIssueListFromPayload(payload.parent_issue_id, payload.sub_issue_id);
 
-    //     await this.handleDatabaseOperation(
-    //         sub_issue_list,
-    //         this.subIssueListOperations,
-    //         sub_issue_list.parent_id,
-    //     );
-    // }
+        await this.handleDatabaseOperation(
+            sub_issue_list,
+            this.subIssueListOperations,
+            sub_issue_list.parent_id,
+        );
+    }
 
 
 	async processWebhook(eventType: string, payload: any): Promise<void> {
@@ -987,9 +987,9 @@ export class WebhookProcessor {
 
 				break;
 
-			// case WebhookEventType.SubIssue:
-			//     await this.processSubIssueList(payload);
-			//     break;
+			case WebhookEventType.SubIssue:
+			    await this.processSubIssueList(payload);
+			    break;
 			default:
 				console.log(`Unhandled event type: ${eventType}`);
 		}
