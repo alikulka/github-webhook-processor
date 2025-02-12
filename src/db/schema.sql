@@ -228,18 +228,18 @@ CREATE TABLE "discussioncomments" (
   "created_at" timestamp NOT NULL,
   "deleted_at" timestamp,
   "discussion_id" text NOT NULL,
-  "id" text UNIQUE PRIMARY KEY NOT NULL,
+  "id" int UNIQUE PRIMARY KEY NOT NULL,
   "edited_by" int,
   "is_answer" boolean NOT NULL,
   "is_minimized" boolean NOT NULL,
   "lasted_edited_at" timestamp,
   "minimized_reason" "DiscussionCommentMinimizedReason",
   "published_at" timestamp,
-  "in_reply_to_id" text
+  "in_reply_to_id" int
 );
 
 CREATE TABLE "discussioncommentreactions" (
-  "discussioncomment_id" text NOT NULL,
+  "discussioncomment_id" int NOT NULL,
   "plusone" int,
   "minusone" int,
   "laugh" int,
