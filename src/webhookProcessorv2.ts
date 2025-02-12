@@ -452,13 +452,6 @@ export class WebhookProcessor {
 	}
 
 	private async processLabel(payload: any, context: string): Promise<void> {
-		// First, ensure the label exists in repo_labels
-		// const label = PayloadMapper.createRepoLabelsFromPayload(payload);
-		// await this.handleDatabaseOperation(
-		//   label,
-		//   this.repoLabelOperations,
-		//   label.id
-		// );
 
 		// Then handle the junction table based on context
 		switch (context) {
@@ -621,29 +614,6 @@ export class WebhookProcessor {
 		}
 	}
 
-	//   private async processReaction(payload: any, context: string): Promise<void> {
-	//     switch(context) {
-	//       case 'issue_comment': {
-	//         const commentReaction = PayloadMapper.createIssueCommentReactionFromPayload(payload);
-	//         await this.handleDatabaseOperation(
-	//           commentReaction,
-	//           this.issueCommentReactionOperations,
-	//           commentReaction.issuecomment_id
-	//         );
-	//         break;
-	//       }
-
-	//       case 'discussion_comment': {
-	//         const discussionCommentReaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
-	//         await this.handleDatabaseOperation(
-	//           discussionCommentReaction,
-	//           this.discussionCommentReactionOperations,
-	//           discussionCommentReaction.discussioncomment_id
-	//         );
-	//         break;
-	//       }
-	//     }
-	//   }
 
 	private async processMilestone(payload: any, context: string): Promise<void> {
 		// First, ensure the milestone exists
@@ -700,18 +670,6 @@ export class WebhookProcessor {
 		}
 	}
 
-	//   private async processIssueCommentReaction(payload: any): Promise<void> {
-	//     const reaction =
-	//         PayloadMapper.createIssueCommentReactionFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         reaction,
-	//         this.issueCommentReactionOperations,
-	//         reaction.issuecomment_id,
-	//     );
-	// }
-
-	// // This needs to check if reactions are present or not and pass to processIssueCommentReactions() if present
 	private async processIssueCommentEvent(payload: any): Promise<void> {
 		const comment = PayloadMapper.createIssueCommentFromPayload(payload);
 		const issue = PayloadMapper.createIssueFromPayload(payload);
@@ -872,75 +830,6 @@ export class WebhookProcessor {
 		);
 	}
 
-	// private async processIssueLabels(payload: any): Promise<void> {
-	//     const issue_label = PayloadMapper.createIssueLabelFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         issue_label,
-	//         this.issueLabelOperations,
-	//         issue_label.issue_id,
-	//     );
-	// }
-
-	// private async processDiscussionLabels(payload: any): Promise<void> {
-	//     const discussion_label = PayloadMapper.createDiscussionLabelFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         discussion_label,
-	//         this.discussionLabelOperations,
-	//         discussion_label.discussion_id,
-	//     );
-	// }
-
-	// private async processMilestoneLabels(payload: any): Promise<void> {
-	//     const milestone_label = PayloadMapper.createMilestoneLabelFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         milestone_label,
-	//         this.milestoneLabelOperations,
-	//         milestone_label.milestone_id,
-	//     );
-	// }
-
-	// private async processPullRequestLabels(payload: any): Promise<void> {
-	//     const pullrequest_label = PayloadMapper.createPullRequestLabelFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         pullrequest_label,
-	//         this.pullRequestLabelOperations,
-	//         pullrequest_label.pull_request_id,
-	//     );
-	// }
-
-	// private async processIssueMilestones(payload: any): Promise<void> {
-	//     const issue_milestone = PayloadMapper.createIssueMilestoneFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         issue_milestone,
-	//         this.issueMilestoneOperations,
-	//         issue_milestone.issue_id,
-	//     );
-	// }
-
-	// private async processPullRequestMilestones(payload: any): Promise<void> {
-	//     const pullrequest_milestone = PayloadMapper.createPullRequestMilestoneFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         pullrequest_milestone,
-	//         this.pullRequestMilestoneOperations,
-	//         pullrequest_milestone.pull_request_id,
-	//     );
-	// }
-
-	// private async processSubIssueList(payload: any): Promise<void> {
-	//     const sub_issue_list = PayloadMapper.createSubIssueListFromPayload(payload);
-
-	//     await this.handleDatabaseOperation(
-	//         sub_issue_list,
-	//         this.subIssueListOperations,
-	//         sub_issue_list.parent_id,
-	//     );
-	// }
 
 	async processWebhook(eventType: string, payload: any): Promise<void> {
 		console.log(
@@ -1010,12 +899,12 @@ export class WebhookProcessor {
 			case WebhookEventType.DiscussionComment:
 				await this.processDiscussionComments(payload);
 
-				// switch (payload.action) {
-				//     case WebhookAction.Labeled:
-				//     case WebhookAction.Unlabeled:
-				//         await this.processLabel(payload, "discussion_comment");
-				//         break;
-				// }
+				switch (payload.action) {
+				    case WebhookAction.Labeled:
+				    case WebhookAction.Unlabeled:
+				        await this.processLabel(payload, "discussion_comment");
+				        break;
+				}
 
 				break;
 			// case WebhookEventType.SubIssue:
