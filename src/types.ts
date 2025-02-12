@@ -1,4 +1,4 @@
-// This files contains all the types that match the shapes of data in the database 
+// This files contains all the types that match the shapes of data in the database
 
 export interface DatabaseConfig {
 	host: string;

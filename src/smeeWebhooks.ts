@@ -3964,7 +3964,7 @@ export const IssueMilestonedWebhook = {
 			created_at: "2025-02-11T21:14:44Z",
 			updated_at: "2025-02-11T21:17:30Z",
 			closed_at: null,
-			author_association: "COLLABORATOR",
+			author_association: "collaborator",
 			sub_issues_summary: { total: 0, completed: 0, percent_completed: 0 },
 			active_lock_reason: null,
 			body: "I'm making a test issue to see if we can catch a milestone webhook",

@@ -129,7 +129,7 @@
 // 			entityName: "Discussion Categories",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private discussionCommentReactionOperations: DatabaseOperations<types.DiscussionCommentReaction> =
 // 		{
 // 			tableName: "discussioncommentreactions",
@@ -144,7 +144,7 @@
 // 			entityName: "Discussion Comment Reaction",
 // 			identifierColumn: "discussioncomment_id",
 // 		};
-    
+
 //     private  discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
 // 		{
 // 			tableName: "discussioncomments",
@@ -189,7 +189,7 @@
 // 			entityName: "Discussion Poll Option",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private repoLabelOperations: DatabaseOperations<types.RepoLabel> =
 // 		{
 // 			tableName: "repolabels",
@@ -205,7 +205,6 @@
 // 			identifierColumn: "id",
 // 		};
 
-    
 //     private issueLabelOperations: DatabaseOperations<types.IssueLabel> =
 // 		{
 // 			tableName: "issuelabels",
@@ -220,7 +219,7 @@
 // 			entityName: "Issue Label",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
 // 		{
 // 			tableName: "discussionlabels",
@@ -235,7 +234,7 @@
 // 			entityName: "Discussion Label",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private milestoneLabelOperations: DatabaseOperations<types.MilestoneLabel> =
 // 		{
 // 			tableName: "milestonelabels",
@@ -250,7 +249,7 @@
 // 			entityName: "Milestone Label",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private pullRequestLabelOperations: DatabaseOperations<types.PullRequestLabel> =
 // 		{
 // 			tableName: "pullrequestlabels",
@@ -265,7 +264,7 @@
 // 			entityName: "Pull Request Label",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private issueMilestoneOperations: DatabaseOperations<types.IssueMilestone> =
 // 		{
 // 			tableName: "issuemilestones",
@@ -295,7 +294,7 @@
 // 			entityName: "Pull Request Milestone",
 // 			identifierColumn: "id",
 // 		};
-    
+
 //     private subIssueListOperations: DatabaseOperations<types.SubIssueList> =
 // 		{
 // 			tableName: "subissuelists",
@@ -310,7 +309,6 @@
 // 			entityName: "Sub Issue List",
 // 			identifierColumn: "id",
 // 		};
-    
 
 // 	constructor(private client: PoolClient) {
 // 		this.upserts = new Upserts(client);

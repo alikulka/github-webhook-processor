@@ -162,7 +162,10 @@ async function testDiscussionCommentWebhooks() {
 		const processor = new WebhookProcessor(client);
 		console.log("Processing webhook...");
 		const discussion_comment_wh = sampleWebhook.DiscussionCommentWebhook;
-		await processor.processWebhook("discussion_comment", discussion_comment_wh.payload);
+		await processor.processWebhook(
+			"discussion_comment",
+			discussion_comment_wh.payload,
+		);
 		console.log("Webhook processed successfully");
 
 		// Query results
@@ -183,7 +186,6 @@ async function testDiscussionCommentWebhooks() {
 		await client.release();
 		await pool.end();
 	}
-
 }
 
 async function testIssueMilestoneWebhooks() {
@@ -198,9 +200,10 @@ async function testIssueMilestoneWebhooks() {
 		console.log("Webhook processed successfully");
 
 		const issueMilestoneResult = await client.query(
-			"SELECT * FROM issue_milestones WHERE id = $1",
-			[issue_milestone_wh1.payload.milestone.id],
-		)
+			"SELECT * FROM issue_milestones WHERE issue_id = $1",
+			[issue_milestone_wh1.payload.issue.id],
+		);
+		console.log("Issue Milestone Record: ", issueMilestoneResult.rows[0]);
 	} catch (error) {
 		console.error("Error:", error);
 	} finally {
@@ -214,5 +217,5 @@ async function testIssueMilestoneWebhooks() {
 // testPullRequestWebhooks();
 // //testIssueCommentWebhooks();
 // testDiscussionWebhooks();
-testDiscussionCommentWebhooks();
+// testDiscussionCommentWebhooks();
 testIssueMilestoneWebhooks();

@@ -153,212 +153,246 @@ export class PayloadMapper {
 		};
 	}
 
-    static createDiscussionFromPayload(payload: any): types.Discussion {
-        return {
-            active_lock_reason: payload.discussion.active_lock_reason,
-            answer: payload.discussion.answer,
-            answer_chosen_at: new Date(payload.discussion.answer_chosen_at),
-            answer_chosen_by: payload.discussion.answer_chosen_by || null,
-            created_by: payload.discussion.user.id,
-            author_association: payload.discussion.author_association,
-            body: payload.discussion.body,
-            category_id: payload.discussion.category.id,
-            is_closed: payload.discussion.locked,
-            closed_at: payload.discussion.locked_at? new Date(payload.discussion.locked_at) : null,
-            // created_at: payload.discussion.created_at? new Date(payload.discussion.created_at) : new Date(),
-            created_at: new Date(payload.discussion.created_at),
-            id: payload.discussion.id,
-            is_answered: payload.discussion.answered,
-            last_edited_at: new Date(payload.discussion.updated_at),
-            is_locked: payload.discussion.locked,
-            discussion_number: payload.discussion.number,
-            // published_at: new Date(payload.discussion.created_at),
-            published_at: new Date(),
-            total_reaction_count: payload.discussion.reactions?.total_count || 0,
-            repository_id: payload.repository.id,
-            state_reason: payload.discussion.state_reason,
-            title: payload.discussion.title,
-            updated_at: new Date(payload.discussion.updated_at),
-            total_upvote_count: payload.discussion.reactions.total_count,
-            url: payload.discussion.repository_url,
-            // labels: payload.discussion.labels?.map((label: any) => {
-            //     return {
-            //         discussion_id: payload.discussion.id,
-            //         label_id: label.id,
-            //     };
-            // }),
-            // poll: payload.discussion.poll?.map((poll: any) => {
-            //     return {
-            //         discussion_id: payload.discussion.id,
-            //         poll_id: poll.id,
-            //         question: poll.question,
-            //         total_votes: poll.total_votes,
-            //     };
-            // }),
-            // pollOptions: payload.discussion.poll?.map((poll: any) => {
-            //     return {
-            //         poll_id: poll.id,
-            //         option_id: poll.option.id,
-            //         option: poll.option.option,
-            //         votes: poll.option.votes,
-            //     };
-            // }),
-            // comments: payload.discussion.comments?.map((comment: any) => {
-            //     return {
-            //         discussion_id: payload.discussion.id,
-            //         comment_id: comment.id,
-            //     };
-            // }),
-        };
-    }
+	static createDiscussionFromPayload(payload: any): types.Discussion {
+		return {
+			active_lock_reason: payload.discussion.active_lock_reason,
+			answer: payload.discussion.answer,
+			answer_chosen_at: new Date(payload.discussion.answer_chosen_at),
+			answer_chosen_by: payload.discussion.answer_chosen_by || null,
+			created_by: payload.discussion.user.id,
+			author_association: payload.discussion.author_association,
+			body: payload.discussion.body,
+			category_id: payload.discussion.category.id,
+			is_closed: payload.discussion.locked,
+			closed_at: payload.discussion.locked_at
+				? new Date(payload.discussion.locked_at)
+				: new Date(),
+			// created_at: payload.discussion.created_at? new Date(payload.discussion.created_at) : new Date(),
+			created_at: new Date(payload.discussion.created_at),
+			id: payload.discussion.id,
+			is_answered: payload.discussion.answered,
+			last_edited_at: new Date(payload.discussion.updated_at),
+			is_locked: payload.discussion.locked,
+			discussion_number: payload.discussion.number,
+			// published_at: new Date(payload.discussion.created_at),
+			published_at: new Date(),
+			total_reaction_count: payload.discussion.reactions?.total_count || 0,
+			repository_id: payload.repository.id,
+			state_reason: payload.discussion.state_reason,
+			title: payload.discussion.title,
+			updated_at: new Date(payload.discussion.updated_at),
+			total_upvote_count: payload.discussion.reactions.total_count,
+			url: payload.discussion.repository_url,
+			// labels: payload.discussion.labels?.map((label: any) => {
+			//     return {
+			//         discussion_id: payload.discussion.id,
+			//         label_id: label.id,
+			//     };
+			// }),
+			// poll: payload.discussion.poll?.map((poll: any) => {
+			//     return {
+			//         discussion_id: payload.discussion.id,
+			//         poll_id: poll.id,
+			//         question: poll.question,
+			//         total_votes: poll.total_votes,
+			//     };
+			// }),
+			// pollOptions: payload.discussion.poll?.map((poll: any) => {
+			//     return {
+			//         poll_id: poll.id,
+			//         option_id: poll.option.id,
+			//         option: poll.option.option,
+			//         votes: poll.option.votes,
+			//     };
+			// }),
+			// comments: payload.discussion.comments?.map((comment: any) => {
+			//     return {
+			//         discussion_id: payload.discussion.id,
+			//         comment_id: comment.id,
+			//     };
+			// }),
+		};
+	}
 
-    static createDiscussionCommentFromPayload(payload: any): types.DiscussionComment {
-        return {
-            id: payload.comment.id,
-            body: payload.comment.body || "",
-            created_by: payload.comment.user.id,
-            created_at: payload.comment.created_at? new Date(payload.comment.created_at) : new Date(),
-            deleted_at: payload.comment.deleted_at? new Date(payload.comment.deleted_at) : new Date(),
-            discussion_id: payload.discussion.id,
-            edited_by: payload.comment.edited_by,
-            is_answer: payload.comment.is_answer? payload.comment.is_answer : false,
-            is_minimized: payload.comment.is_minimized ? payload.comment.is_minimized : false,
-            last_edited_at: payload.comment.last_edited_at? new Date(payload.comment.last_edited_at) : new Date(),
-            minimized_reason: payload.comment.minimized_reason,
-            published_at: payload.comment.published_at? new Date(payload.comment.published_at) : new Date(),
-            author_association: payload.comment.author_association,
-            in_reply_to_id: payload.comment.id
-        };
-    }
+	static createDiscussionCommentFromPayload(
+		payload: any,
+	): types.DiscussionComment {
+		return {
+			id: payload.comment.id,
+			body: payload.comment.body || "",
+			created_by: payload.comment.user.id,
+			created_at: payload.comment.created_at
+				? new Date(payload.comment.created_at)
+				: new Date(),
+			deleted_at: payload.comment.deleted_at
+				? new Date(payload.comment.deleted_at)
+				: new Date(),
+			discussion_id: payload.discussion.id,
+			edited_by: payload.comment.edited_by,
+			is_answer: payload.comment.is_answer ? payload.comment.is_answer : false,
+			is_minimized: payload.comment.is_minimized
+				? payload.comment.is_minimized
+				: false,
+			last_edited_at: payload.comment.last_edited_at
+				? new Date(payload.comment.last_edited_at)
+				: new Date(),
+			minimized_reason: payload.comment.minimized_reason,
+			published_at: payload.comment.published_at
+				? new Date(payload.comment.published_at)
+				: new Date(),
+			author_association: payload.comment.author_association,
+			in_reply_to_id: payload.comment.id,
+		};
+	}
 
-    static createDiscussionCommentReactionFromPayload(
-        payload: any,
-    ): types.DiscussionCommentReaction {
-        return {
-            discussioncomment_id: payload.comment.id,
-            plusone: payload.comment.reactions?.["+1"] || 0,
-            minusone: payload.comment.reactions?.["-1"] || 0,
-            laugh: payload.comment.reactions?.laugh || 0,
-            hooray: payload.comment.reactions?.hooray || 0,
-            confused: payload.comment.reactions?.confused || 0,
-            heart: payload.comment.reactions?.heart || 0,
-            rocket: payload.comment.reactions?.rocket || 0,
-            eyes: payload.comment.reactions?.eyes || 0,
-        };
-    }
+	static createDiscussionCommentReactionFromPayload(
+		payload: any,
+	): types.DiscussionCommentReaction {
+		return {
+			discussioncomment_id: payload.comment.id,
+			plusone: payload.comment.reactions?.["+1"] || 0,
+			minusone: payload.comment.reactions?.["-1"] || 0,
+			laugh: payload.comment.reactions?.laugh || 0,
+			hooray: payload.comment.reactions?.hooray || 0,
+			confused: payload.comment.reactions?.confused || 0,
+			heart: payload.comment.reactions?.heart || 0,
+			rocket: payload.comment.reactions?.rocket || 0,
+			eyes: payload.comment.reactions?.eyes || 0,
+		};
+	}
 
-    // static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
-    //     return {
-    //         poll_id: payload.option.id,
-    //         discussion_id: payload.discussion.id,
-    //         question: payload.option.id,
-    //         total_votes: payload.option.votes,
-    //     };
-    // }
+	// static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
+	//     return {
+	//         poll_id: payload.option.id,
+	//         discussion_id: payload.discussion.id,
+	//         question: payload.option.id,
+	//         total_votes: payload.option.votes,
+	//     };
+	// }
 
-    // static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
-    //     return {
-    //         id: payload.option.id,
-    //         discussion_id: payload.discussion.id,
-    //         option: payload.option.option,
-    //         votes: payload.option.votes,
-    //     };
-    // }
+	// static createDiscussionPollOptionsFromPayload(payload: any): types.DiscussionPollOption {
+	//     return {
+	//         id: payload.option.id,
+	//         discussion_id: payload.discussion.id,
+	//         option: payload.option.option,
+	//         votes: payload.option.votes,
+	//     };
+	// }
 
-    static createMilestonesFromPayload(payload: any): types.Milestone {
-        return {
-            id: payload.milestone.id,
-            node_id: payload.milestone.node_id,
-            url: payload.milestone.url,
-            milestone_number: payload.milestone.number,
-            state: payload.milestone.state,
-            title: payload.milestone.title,
-            description: payload.milestone.description || "",
-            created_by: payload.milestone.creator.id,
-            open_issues: payload.milestone.open_issues,
-            closed_issues: payload.milestone.closed_issues,
-            created_at: new Date(payload.milestone.created_at),
-            updated_at: new Date(payload.milestone.updated_at),
-            closed_at: new Date(payload.milestone.closed_at),
-            due_on: new Date(payload.milestone.due_on),
-            repository_id: payload.repository.id,
-        };
-    }
+	static createMilestonesFromPayload(payload: any): types.Milestone {
+		return {
+			id: payload.milestone.id,
+			node_id: payload.milestone.node_id,
+			url: payload.milestone.url,
+			milestone_number: payload.milestone.number,
+			state: payload.milestone.state,
+			title: payload.milestone.title,
+			description: payload.milestone.description || "",
+			created_by: payload.milestone.creator.id,
+			open_issues: payload.milestone.open_issues,
+			closed_issues: payload.milestone.closed_issues,
+			created_at: new Date(payload.milestone.created_at),
+			updated_at: new Date(payload.milestone.updated_at),
+			closed_at: new Date(payload.milestone.closed_at),
+			due_on: new Date(payload.milestone.due_on),
+			repository_id: payload.repository.id,
+		};
+	}
 
-    static createRepoLabelsFromPayload(payload: any, repo_id: number): types.RepoLabel {
+	static createRepoLabelsFromPayload(
+		payload: any,
+		repo_id: number,
+	): types.RepoLabel {
+		// console.log(payload, repo_id)
+		return {
+			id: payload.id,
+			node_id: payload.node_id,
+			name: payload.name,
+			color: payload.color,
+			default: payload.default,
+			description: payload.description || "",
+			repository_id: repo_id,
+		};
+	}
 
-        // console.log(payload, repo_id)
-        return {
-            id: payload.id,
-            node_id: payload.node_id,
-            name: payload.name,
-            color: payload.color,
-            default: payload.default,
-            description: payload.description || "",
-            repository_id: repo_id,
-        };
-    }
+	static createIssueLabelFromPayload(
+		issue_id: number,
+		issue_label_id: number,
+	): types.IssueLabel {
+		return {
+			issue_id: issue_id,
+			label_id: issue_label_id,
+		};
+	}
 
-    static createIssueLabelFromPayload(issue_id: number, issue_label_id: number): types.IssueLabel {
-        return {
-            issue_id: issue_id,
-            label_id: issue_label_id,
-        };
-    }
+	static createDiscussionLabelFromPayload(
+		payload_discussion_id: number,
+		payload_label_id: number,
+	): types.DiscussionLabel {
+		return {
+			discussion_id: payload_discussion_id,
+			label_id: payload_label_id,
+		};
+	}
 
-    // static createDiscussionLabelFromPayload(payload: any): types.DiscussionLabel {
-    //     return {
-    //         discussion_id: payload.discussion.id,
-    //         label_id: payload.label.id,
-    //     };
-    // }
+	static createMilestoneLabelFromPayload(
+		payload_milestone_id: number,
+		payload_label_id: number,
+	): types.MilestoneLabel {
+		return {
+			milestone_id: payload_milestone_id,
+			label_id: payload_label_id,
+		};
+	}
 
-    // static createMilestoneLabelFromPayload(payload: any): types.MilestoneLabel {
-    //     return {
-    //         milestone_id: payload.milestone.id,
-    //         label_id: payload.label.id,
-    //     };
-    // }
+	static createPullRequestLabelFromPayload(
+		pr_id: number,
+		pr_label_id: number,
+	): types.PullRequestLabel {
+		return {
+			pull_request_id: pr_id,
+			label_id: pr_label_id,
+		};
+	}
 
-    static createPullRequestLabelFromPayload(pr_id: number, pr_label_id: number): types.PullRequestLabel {
-        return {
-            pull_request_id: pr_id,
-            label_id: pr_label_id,
-        };
-    }
+	// static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
+	//     return {
+	//         issue_id: payload.issue.id,
+	//         assignee_id: payload.assignee.id,
+	//     };
+	// }
 
-    // static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
-    //     return {
-    //         issue_id: payload.issue.id,
-    //         assignee_id: payload.assignee.id,
-    //     };
-    // }
+	// static createPullRequestAssigneeFromPayload(payload: any): types.PullRequestAssignee {
+	//     return {
+	//         pullrequest_id: payload.pull_request.id,
+	//         assignee_id: payload.assignee.id,
+	//     };
+	// }
 
-    // static createPullRequestAssigneeFromPayload(payload: any): types.PullRequestAssignee {
-    //     return {
-    //         pullrequest_id: payload.pull_request.id,
-    //         assignee_id: payload.assignee.id,
-    //     };
-    // }
+	static createIssueMilestoneFromPayload(
+		payload_issue_id: number,
+		payload_milestone_id: number,
+	): types.IssueMilestone {
+		return {
+			issue_id: payload_issue_id,
+			milestone_id: payload_milestone_id,
+		};
+	}
 
-    static createIssueMilestoneFromPayload(payload: any): types.IssueMilestone {
-        return {
-            issue_id: payload.issue.id,
-            milestone_id: payload.milestone.id,
-        };
-    }
+	static createPullRequestMilestoneFromPayload(
+		payload_pr_id: number,
+		payload_milestone_id: number,
+	): types.PullRequestMilestone {
+		return {
+			pull_request_id: payload_pr_id,
+			milestone_id: payload_milestone_id,
+		};
+	}
 
-    // static createPullRequestMilestoneFromPayload(payload: any): types.PullRequestMilestone {
-    //     return {
-    //         pull_request_id: payload.pull_request.id,
-    //         milestone_id: payload.milestone.id,
-    //     };
-    // }
-
-    // static createSubIssueListFromPayload(payload: any): types.SubIssueList {
-    //     return {
-    //         parent_id: payload.issue.id,
-    //         sub_id: payload.sub_issue.id,
-    //     };
-    // }
+	// static createSubIssueListFromPayload(payload: any): types.SubIssueList {
+	//     return {
+	//         parent_id: payload.issue.id,
+	//         sub_id: payload.sub_issue.id,
+	//     };
+	// }
 }
