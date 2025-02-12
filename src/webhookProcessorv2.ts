@@ -328,6 +328,35 @@ export class WebhookProcessor {
 			entityName: "Pull Request Milestone",
 			identifierColumn: "id",
 		};
+    
+    private issueAssigneeOperations: DatabaseOperations<types.IssueAssignee> = {
+        tableName: "issue_assignees",
+        operations: {
+            insert: (issue_assignee) =>
+                this.upserts.insertIssueAssignee(issue_assignee),
+            update: (issue_assignee) =>
+                this.upserts.updateIssueAssignee(issue_assignee),
+            upsert: (issue_assignee) =>
+                this.upserts.upsertIssueAssignee(issue_assignee),
+        },
+        entityName: "Issue Assignee",
+        identifierColumn: "issue_id",
+    };
+
+    private pullRequestAssigneeOperations: DatabaseOperations<types.PullRequestAssignee> =
+        {
+            tableName: "pull_request_assignees",
+            operations: {
+                insert: (pull_request_assignee) =>
+                    this.upserts.insertPullRequestAssignee(pull_request_assignee),
+                update: (pull_request_assignee) =>
+                    this.upserts.updatePullRequestAssignee(pull_request_assignee),
+                upsert: (pull_request_assignee) =>
+                    this.upserts.upsertPullRequestAssignee(pull_request_assignee),
+            },
+            entityName: "Pull Request Assignee",
+            identifierColumn: "pull_request_id",
+        };
 
 	// private subIssueListOperations: DatabaseOperations<types.SubIssueList> =
 	//     {
@@ -670,6 +699,46 @@ export class WebhookProcessor {
 		}
 	}
 
+    private async processAssignee(payload: any, context: string): Promise<void> {
+        switch (context) {
+            case "issue": {
+                const issue = PayloadMapper.createIssueFromPayload(payload);
+
+                await this.handleDatabaseOperation(
+                    issue,
+                    this.issueOperations,
+                    issue.id,
+                );
+
+                const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, issue.assignees.id);
+                await this.handleDatabaseOperation(
+                    issueAssignee,
+                    this.issueAssigneeOperations,
+                    issueAssignee.issue_id,
+                );
+                break;
+            }
+
+            case "pull_request": {
+                const pr = PayloadMapper.createPullRequestFromPayload(payload);
+
+                await this.handleDatabaseOperation(
+                    pr,
+                    this.pullRequestOperations,
+                    pr.id,
+                );
+
+                const prAssignee = PayloadMapper.createPullRequestAssigneeFromPayload(pr.id, pr.assignee.id);
+                await this.handleDatabaseOperation(
+                    prAssignee,
+                    this.pullRequestAssigneeOperations,
+                    prAssignee.pullrequest_id,
+                );
+                break;
+            }
+        }
+    }
+
 	private async processIssueCommentEvent(payload: any): Promise<void> {
 		const comment = PayloadMapper.createIssueCommentFromPayload(payload);
 		const issue = PayloadMapper.createIssueFromPayload(payload);
@@ -830,6 +899,16 @@ export class WebhookProcessor {
 		);
 	}
 
+    // private async processSubIssueList(payload: any): Promise<void> {
+    //     const sub_issue_list = PayloadMapper.createSubIssueList(payload);
+
+    //     await this.handleDatabaseOperation(
+    //         sub_issue_list,
+    //         this.subIssueListOperations,
+    //         sub_issue_list.parent_id,
+    //     );
+    // }
+
 
 	async processWebhook(eventType: string, payload: any): Promise<void> {
 		console.log(
@@ -853,10 +932,10 @@ export class WebhookProcessor {
 						await this.processMilestone(payload, "issue");
 						break;
 
-					// case WebhookAction.Assigned:
-					// case WebhookAction.Unassigned:
-					//     await this.processAssignee(payload);
-					//     break;
+					case WebhookAction.Assigned:
+					case WebhookAction.Unassigned:
+					    await this.processAssignee(payload, "issue");
+					    break;
 				}
 				break;
 			case WebhookEventType.PullRequest:
@@ -872,10 +951,10 @@ export class WebhookProcessor {
 						await this.processMilestone(payload, "pull_request");
 						break;
 
-					//     case WebhookAction.Assigned:
-					//     case WebhookAction.Unassigned:
-					//         await this.processAssignee(payload);
-					//         break;
+					    case WebhookAction.Assigned:
+					    case WebhookAction.Unassigned:
+					        await this.processAssignee(payload, "pull_request");
+					        break;
 				}
 				break;
 
@@ -907,8 +986,8 @@ export class WebhookProcessor {
 				}
 
 				break;
+
 			// case WebhookEventType.SubIssue:
-			//     // processing function needs to change mostly
 			//     await this.processSubIssueList(payload);
 			//     break;
 			default:

@@ -355,19 +355,19 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createIssueAssigneeFromPayload(payload: any): types.IssueAssignee {
-	//     return {
-	//         issue_id: payload.issue.id,
-	//         assignee_id: payload.assignee.id,
-	//     };
-	// }
+	static createIssueAssigneeFromPayload(payload_issue_id: number, payload_assignee_id: number): types.IssueAssignee {
+	    return {
+	        issue_id: payload_issue_id,
+	        assignee_id: payload_assignee_id,
+	    };
+	}
 
-	// static createPullRequestAssigneeFromPayload(payload: any): types.PullRequestAssignee {
-	//     return {
-	//         pullrequest_id: payload.pull_request.id,
-	//         assignee_id: payload.assignee.id,
-	//     };
-	// }
+	static createPullRequestAssigneeFromPayload(payload_pr_id: number, payload_assignee_id: number): types.PullRequestAssignee {
+	    return {
+	        pullrequest_id: payload_pr_id,
+	        assignee_id: payload_assignee_id,
+	    };
+	}
 
 	static createIssueMilestoneFromPayload(
 		payload_issue_id: number,
@@ -389,10 +389,10 @@ export class PayloadMapper {
 		};
 	}
 
-	// static createSubIssueListFromPayload(payload: any): types.SubIssueList {
+	// static createSubIssueListFromPayload(payload_parent_id: number, payload_sub_id: number): types.SubIssueList {
 	//     return {
-	//         parent_id: payload.issue.id,
-	//         sub_id: payload.sub_issue.id,
+	//         parent_id: payload_parent_id,
+	//         sub_id: payload_sub_id,
 	//     };
 	// }
 }

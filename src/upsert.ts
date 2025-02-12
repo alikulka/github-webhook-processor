@@ -1749,7 +1749,7 @@ export class Upserts {
 			this.client.query(query, values);
 			console.log(
 				"Discussion label inserted successfully:",
-				discussionLabels.id,
+				discussionLabels.discussion_id,
 			);
 		} catch (error) {
 			console.error("Error inserting discussion label:", error);
@@ -1808,7 +1808,7 @@ export class Upserts {
 
 		try {
 			this.client.query(query, values);
-			console.log("Milestone label inserted successfully:", milestoneLabels.id);
+			console.log("Milestone label inserted successfully:", milestoneLabels.milestone_id);
 		} catch (error) {
 			console.error("Error inserting milestone label:", error);
 		}
@@ -1920,115 +1920,115 @@ export class Upserts {
 		]);
 	}
 
-	// public async insertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO issue_assignees (
-	//     issue_id, assignee_id
-	//   ) VALUES ($1, $2)
-	// `;
+	public async insertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+		const query = `
+	  INSERT INTO issue_assignees (
+	    issue_id, assignee_id
+	  ) VALUES ($1, $2)
+	`;
 
-	// 	const values = [
-	//         issueAssignee.issue_id,
-	// 		issueAssignee.assignee_id,
-	// 	];
+		const values = [
+	        issueAssignee.issue_id,
+			issueAssignee.assignee_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue assignee inserted successfully:", issueAssignee.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting issue assignee:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue assignee inserted successfully:", issueAssignee.id);
+		} catch (error) {
+			console.error("Error inserting issue assignee:", error);
+		}
+	}
 
-	// public async updateIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-	// 	const query = `
-	//   UPDATE issue_assignees SET
-	//     issue_id = $1,
-	//     assignee_id = $2
-	//   WHERE issue_id = $1 AND assignee_id = $2
-	// `;
+	public async updateIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+		const query = `
+	  UPDATE issue_assignees SET
+	    issue_id = $1,
+	    assignee_id = $2
+	  WHERE issue_id = $1 AND assignee_id = $2
+	`;
 
-	// 	const values = [
-	//         issueAssignee.issue_id,
-	// 		issueAssignee.assignee_id,
-	// 	];
+		const values = [
+	        issueAssignee.issue_id,
+			issueAssignee.assignee_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Issue assignee updated successfully:", issueAssignee.issue_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating issue assignee:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Issue assignee updated successfully:", issueAssignee.issue_id);
+		} catch (error) {
+			console.error("Error updating issue assignee:", error);
+		}
+	}
 
-	// public async upsertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO issue_assignees (
-	//     issue_id, assignee_id
-	//   ) VALUES ($1, $2)
-	//   ON CONFLICT (issue_id, assignee_id) DO NOTHING
-	// `;
+	public async upsertIssueAssignee(issueAssignee: types.IssueAssignee): Promise<void> {
+		const query = `
+	  INSERT INTO issue_assignees (
+	    issue_id, assignee_id
+	  ) VALUES ($1, $2)
+	  ON CONFLICT (issue_id, assignee_id) DO NOTHING
+	`;
 
-	// 	await this.client.query(query, [
-	//         issueAssignee.issue_id,
-	// 		issueAssignee.assignee_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+	        issueAssignee.issue_id,
+			issueAssignee.assignee_id,
+		]);
+	}
 
-	// public async insertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO pull_request_assignees (
-	//     pull_request_id, assignee_id
-	//   ) VALUES ($1, $2)
-	// `;
+	public async insertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+		const query = `
+	  INSERT INTO pull_request_assignees (
+	    pull_request_id, assignee_id
+	  ) VALUES ($1, $2)
+	`;
 
-	// 	const values = [
-	//         pullRequestAssignee.pull_request_id,
-	// 		pullRequestAssignee.assignee_id,
-	// 	];
+		const values = [
+	        pullRequestAssignee.pullrequest_id,
+			pullRequestAssignee.assignee_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request assignee inserted successfully:", pullRequestAssignee.id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting pull request assignee:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request assignee inserted successfully:", pullRequestAssignee.pullrequest_id);
+		} catch (error) {
+			console.error("Error inserting pull request assignee:", error);
+		}
+	}
 
-	// public async updatePullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-	// 	const query = `
-	//   UPDATE pull_request_assignees SET
-	//     pull_request_id = $1,
-	//     assignee_id = $2
-	//   WHERE pull_request_id = $1 AND assignee_id = $2
-	// `;
+	public async updatePullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+		const query = `
+	  UPDATE pull_request_assignees SET
+	    pull_request_id = $1,
+	    assignee_id = $2
+	  WHERE pull_request_id = $1 AND assignee_id = $2
+	`;
 
-	// 	const values = [
-	//         pullRequestAssignee.pull_request_id,
-	// 		pullRequestAssignee.assignee_id,
-	// 	];
+		const values = [
+	        pullRequestAssignee.pullrequest_id,
+			pullRequestAssignee.assignee_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Pull request assignee updated successfully:", pullRequestAssignee.pull_request_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating pull request assignee:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Pull request assignee updated successfully:", pullRequestAssignee.pullrequest_id);
+		} catch (error) {
+			console.error("Error updating pull request assignee:", error);
+		}
+	}
 
-	// public async upsertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO pull_request_assignees (
-	//     pull_request_id, assignee_id
-	//   ) VALUES ($1, $2)
-	//   ON CONFLICT (pull_request_id, assignee_id) DO NOTHING
-	// `;
+	public async upsertPullRequestAssignee(pullRequestAssignee: types.PullRequestAssignee): Promise<void> {
+		const query = `
+	  INSERT INTO pull_request_assignees (
+	    pull_request_id, assignee_id
+	  ) VALUES ($1, $2)
+	  ON CONFLICT (pull_request_id, assignee_id) DO NOTHING
+	`;
 
-	// 	await this.client.query(query, [
-	//         pullRequestAssignee.pull_request_id,
-	// 		pullRequestAssignee.assignee_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+	        pullRequestAssignee.pullrequest_id,
+			pullRequestAssignee.assignee_id,
+		]);
+	}
 
 	public async insertIssueMilestone(
 		issueMilestone: types.IssueMilestone,
@@ -2109,7 +2109,7 @@ export class Upserts {
 			this.client.query(query, values);
 			console.log(
 				"Pull request milestone inserted successfully:",
-				pullRequestMilestone.id,
+				pullRequestMilestone.pull_request_id,
 			);
 		} catch (error) {
 			console.error("Error inserting pull request milestone:", error);
@@ -2158,58 +2158,58 @@ export class Upserts {
 		]);
 	}
 
-	// public async insertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO sub_issue_lists (
-	//     parent_id, sub_id
-	//   ) VALUES ($1, $2)
-	// `;
+	public async insertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+		const query = `
+	  INSERT INTO sub_issue_lists (
+	    parent_id, sub_id
+	  ) VALUES ($1, $2)
+	`;
 
-	// 	const values = [
-	//         subIssueList.parent_id,
-	// 		subIssueList.sub_id,
-	// 	];
+		const values = [
+	        subIssueList.parent_id,
+			subIssueList.sub_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Sub issue list inserted successfully:", subIssueList.sub_id);
-	// 	} catch (error) {
-	// 		console.error("Error inserting sub issue list:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Sub issue list inserted successfully:", subIssueList.sub_id);
+		} catch (error) {
+			console.error("Error inserting sub issue list:", error);
+		}
+	}
 
-	// public async updateSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-	// 	const query = `
-	//   UPDATE sub_issue_lists SET
-	//     parent_id = $1,
-	//     sub_id = $2
-	//   WHERE parent_id = $1 AND sub_id = $2
-	// `;
+	public async updateSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+		const query = `
+	  UPDATE sub_issue_lists SET
+	    parent_id = $1,
+	    sub_id = $2
+	  WHERE parent_id = $1 AND sub_id = $2
+	`;
 
-	// 	const values = [
-	//         subIssueList.parent_id,
-	// 		subIssueList.sub_id,
-	// 	];
+		const values = [
+	        subIssueList.parent_id,
+			subIssueList.sub_id,
+		];
 
-	// 	try {
-	// 		this.client.query(query, values);
-	// 		console.log("Sub issue list updated successfully:", subIssueList.parent_id);
-	// 	} catch (error) {
-	// 		console.error("Error updating sub issue list:", error);
-	// 	}
-	// }
+		try {
+			this.client.query(query, values);
+			console.log("Sub issue list updated successfully:", subIssueList.parent_id);
+		} catch (error) {
+			console.error("Error updating sub issue list:", error);
+		}
+	}
 
-	// public async upsertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
-	// 	const query = `
-	//   INSERT INTO sub_issue_lists (
-	//     parent_id, sub_id
-	//   ) VALUES ($1, $2)
-	//   ON CONFLICT (parent_id, sub_id) DO NOTHING
-	// `;
+	public async upsertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
+		const query = `
+	  INSERT INTO sub_issue_lists (
+	    parent_id, sub_id
+	  ) VALUES ($1, $2)
+	  ON CONFLICT (parent_id, sub_id) DO NOTHING
+	`;
 
-	// 	await this.client.query(query, [
-	//         subIssueList.parent_id,
-	// 		subIssueList.sub_id,
-	// 	]);
-	// }
+		await this.client.query(query, [
+	        subIssueList.parent_id,
+			subIssueList.sub_id,
+		]);
+	}
 }
