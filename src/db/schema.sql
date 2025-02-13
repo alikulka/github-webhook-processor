@@ -286,7 +286,7 @@ CREATE TABLE "repo_labels" (
   "name" text NOT NULL,
   "description" text,
   "color" text NOT NULL,
-  "default" boolean NOT NULL
+  "is_default" boolean NOT NULL
 );
 
 CREATE TABLE "org_types" (
@@ -296,7 +296,7 @@ CREATE TABLE "org_types" (
   "name" text NOT NULL,
   "description" text,
   "color" text NOT NULL,
-  "default" boolean NOT NULL
+  "is_default" boolean NOT NULL
 );
 
 CREATE TABLE "issue_labels" (

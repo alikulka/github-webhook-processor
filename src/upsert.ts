@@ -15,7 +15,7 @@ export class Upserts {
         size, default_branch, open_issues_count, is_fork, is_private, has_issues,
         has_projects, has_wiki, has_pages, has_downloads, has_discussions,
         forking_allowed, is_archived, is_disabled, visibility
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, 
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
        $20, $21, $22, $23, $24, $25, $26, $27)
     `;
 
@@ -133,11 +133,11 @@ export class Upserts {
 		const query = `
       INSERT INTO repositories (
         id, node_id, name, full_name, owner, url, description,
-        created_at, updated_at, pushed_at, watchers_count, forks_count, 
+        created_at, updated_at, pushed_at, watchers_count, forks_count,
         size, default_branch, open_issues_count, is_fork, is_private, has_issues,
         has_projects, has_wiki, has_pages, has_downloads, has_discussions,
         forking_allowed, is_archived, is_disabled, visibility
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, 
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
        $20, $21, $22, $23, $24, $25, $26, $27)
       ON CONFLICT (id) DO UPDATE SET
         node_id = EXCLUDED.node_id,
@@ -280,7 +280,7 @@ export class Upserts {
 	public async upsertOwner(owner: types.Owner): Promise<void> {
 		const query = `
       INSERT INTO owners (
-        id, login, node_id, url, avatar_url, description, company, email, created_at, 
+        id, login, node_id, url, avatar_url, description, company, email, created_at,
         updated_at, is_verified, is_organization
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       ON CONFLICT (id) DO UPDATE SET
@@ -1617,7 +1617,7 @@ export class Upserts {
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
-			repoLabels.default,
+			repoLabels.is_default,
 			repoLabels.repository_id,
 		];
 
@@ -1647,7 +1647,7 @@ export class Upserts {
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
-			repoLabels.default,
+			repoLabels.is_default,
 			repoLabels.repository_id,
 		];
 
@@ -1670,7 +1670,7 @@ export class Upserts {
         name = excluded.name,
         description = excluded.description,
         color = excluded.color,
-        default = excluded.is_default,
+        is_default = excluded.is_default,
 		repository_id = excluded.repository_id
     `;
 
@@ -1680,7 +1680,7 @@ export class Upserts {
 			repoLabels.name,
 			repoLabels.description,
 			repoLabels.color,
-			repoLabels.default,
+			repoLabels.is_default,
 			repoLabels.repository_id,
 		]);
 	}
@@ -1934,7 +1934,7 @@ export class Upserts {
 
 		try {
 			this.client.query(query, values);
-			console.log("Issue assignee inserted successfully:", issueAssignee.id);
+			console.log("Issue assignee inserted successfully:", issueAssignee.assignee_id);
 		} catch (error) {
 			console.error("Error inserting issue assignee:", error);
 		}

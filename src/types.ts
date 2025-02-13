@@ -141,6 +141,10 @@ export interface PullRequest {
 	merged_at: Date;
 	diff_url: string;
 	draft: boolean;
+
+	labels?: RepoLabel[];
+	assignees?: Owner[];
+	milestone?: Milestone;
 }
 
 export interface IssueComment {
@@ -316,7 +320,7 @@ export interface RepoLabel {
 	name: string;
 	description: string;
 	color: string;
-	default: boolean;
+	is_default: boolean;
 	repository_id: number;
 }
 
