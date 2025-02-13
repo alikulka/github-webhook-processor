@@ -42,7 +42,7 @@ export const IssueOpenedWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "open",
+			state: "OPEN",
 			locked: false,
 			assignee: null,
 			assignees: [],
@@ -51,7 +51,7 @@ export const IssueOpenedWebhook = {
 			created_at: "2025-02-10T17:47:05Z",
 			updated_at: "2025-02-10T17:47:05Z",
 			closed_at: null,
-			author_association: "owner",
+			author_association: "OWNER",
 			sub_issues_summary: {
 				total: 0,
 				completed: 0,
@@ -281,7 +281,7 @@ export const IssueClosedWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "closed",
+			state: "CLOSED",
 			locked: false,
 			assignee: null,
 			assignees: [],
@@ -309,7 +309,7 @@ export const IssueClosedWebhook = {
 			timeline_url:
 				"https://api.github.com/repos/alikulka/demo-repo/issues/6/timeline",
 			performed_via_github_app: null,
-			state_reason: "completed",
+			state_reason: "COMPLETED",
 		},
 		repository: {
 			id: 917924793,
@@ -486,7 +486,7 @@ export const PullRequestOpenedWebhook = {
 			patch_url: "https://github.com/alikulka/demo-repo/pull/7.patch",
 			issue_url: "https://api.github.com/repos/alikulka/demo-repo/issues/7",
 			number: 7,
-			state: "open",
+			state: "OPEN",
 			locked: false,
 			title: "Create pr-branch-test.txt",
 			user: {
@@ -915,7 +915,7 @@ export const PullRequestOpenedWebhook = {
 					href: "https://api.github.com/repos/alikulka/demo-repo/statuses/45a79501064a9c7dfaebe36ca2e2315de07864e3",
 				},
 			},
-			author_association: "owner",
+			author_association: "OWNER",
 			auto_merge: null,
 			active_lock_reason: null,
 			merged: false,
@@ -1106,7 +1106,7 @@ export const PullRequestClosedWebhook = {
 			patch_url: "https://github.com/alikulka/demo-repo/pull/7.patch",
 			issue_url: "https://api.github.com/repos/alikulka/demo-repo/issues/7",
 			number: 7,
-			state: "closed",
+			state: "CLOSED",
 			locked: false,
 			title: "Create pr-branch-test.txt",
 			user: {
@@ -1535,7 +1535,7 @@ export const PullRequestClosedWebhook = {
 					href: "https://api.github.com/repos/alikulka/demo-repo/statuses/45a79501064a9c7dfaebe36ca2e2315de07864e3",
 				},
 			},
-			author_association: "owner",
+			author_association: "OWNER",
 			auto_merge: null,
 			active_lock_reason: null,
 			merged: false,
@@ -1766,7 +1766,7 @@ export const IssueLabeledWebhook = {
 					description: "Something isn't working",
 				},
 			],
-			state: "open",
+			state: "OPEN",
 			locked: false,
 			assignee: null,
 			assignees: [],
@@ -1775,7 +1775,7 @@ export const IssueLabeledWebhook = {
 			created_at: "2025-02-10T22:58:12Z",
 			updated_at: "2025-02-10T22:58:28Z",
 			closed_at: null,
-			author_association: "owner",
+			author_association: "OWNER",
 			sub_issues_summary: { total: 0, completed: 0, percent_completed: 0 },
 			active_lock_reason: null,
 			body: "this is a test issue that is labeled",
@@ -2020,7 +2020,7 @@ export const IssueCommentWebhook = {
 					description: "Something isn't working",
 				},
 			],
-			state: "open",
+			state: "OPEN",
 			locked: false,
 			assignee: null,
 			assignees: [],
@@ -2029,7 +2029,7 @@ export const IssueCommentWebhook = {
 			created_at: "2025-02-10T22:58:12Z",
 			updated_at: "2025-02-11T17:27:11Z",
 			closed_at: null,
-			author_association: "owner",
+			author_association: "OWNER",
 			sub_issues_summary: { total: 0, completed: 0, percent_completed: 0 },
 			active_lock_reason: null,
 			body: "this is a test issue that is labeled",
@@ -2084,7 +2084,7 @@ export const IssueCommentWebhook = {
 			},
 			created_at: "2025-02-11T17:27:10Z",
 			updated_at: "2025-02-11T17:27:10Z",
-			author_association: "owner",
+			author_association: "OWNER",
 			body: "this is a comment on the issue",
 			reactions: {
 				url: "https://api.github.com/repos/alikulka/demo-repo/issues/comments/2651535540/reactions",
@@ -2313,13 +2313,13 @@ export const DiscussionWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "open",
+			state: "OPEN",
 			state_reason: null,
 			locked: false,
 			comments: 0,
 			created_at: "2025-02-11T17:45:11Z",
 			updated_at: "2025-02-11T17:45:11Z",
-			author_association: "collaborator",
+			author_association: "COLLABORATOR",
 			active_lock_reason: null,
 			body: "test discussion body 2",
 			reactions: {
@@ -2545,7 +2545,7 @@ export const DiscussionCommentWebhook = {
 			child_comment_count: 0,
 			repository_url: "awslabs/aws-github-test",
 			discussion_id: 7947996,
-			author_association: "collaborator",
+			author_association: "COLLABORATOR",
 			user: {
 				login: "alikulka",
 				id: 191903916,
@@ -2635,13 +2635,13 @@ export const DiscussionCommentWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "open",
+			state: "OPEN",
 			state_reason: null,
 			locked: false,
 			comments: 1,
 			created_at: "2025-02-11T17:45:11Z",
 			updated_at: "2025-02-11T19:49:40Z",
-			author_association: "collaborator",
+			author_association: "COLLABORATOR",
 			active_lock_reason: null,
 			body: "test discussion body 2",
 			reactions: {
@@ -2931,13 +2931,13 @@ export const DiscussionAnsweredWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "open",
-			state_reason: "reopened",
+			state: "OPEN",
+			state_reason: "REOPENED",
 			locked: false,
 			comments: 1,
 			created_at: "2023-11-23T01:18:16Z",
 			updated_at: "2025-02-11T22:09:34Z",
-			author_association: "contributor",
+			author_association: "CONTRIBUTOR",
 			active_lock_reason: null,
 			body: "05",
 			reactions: {
@@ -3219,7 +3219,7 @@ export const PullRequestLabeledWebhook = {
 			patch_url: "https://github.com/alikulka/demo-repo/pull/8.patch",
 			issue_url: "https://api.github.com/repos/alikulka/demo-repo/issues/8",
 			number: 8,
-			state: "closed",
+			state: "CLOSED",
 			locked: false,
 			title: "Create pr-branch-test.txt",
 			user: {
@@ -3658,7 +3658,7 @@ export const PullRequestLabeledWebhook = {
 					href: "https://api.github.com/repos/alikulka/demo-repo/statuses/45a79501064a9c7dfaebe36ca2e2315de07864e3",
 				},
 			},
-			author_association: "owner",
+			author_association: "OWNER",
 			auto_merge: null,
 			active_lock_reason: null,
 			merged: true,
@@ -3912,7 +3912,7 @@ export const IssueMilestonedWebhook = {
 				site_admin: false,
 			},
 			labels: [],
-			state: "open",
+			state: "OPEN",
 			locked: false,
 			assignee: null,
 			assignees: [],
@@ -3954,7 +3954,7 @@ export const IssueMilestonedWebhook = {
 				},
 				open_issues: 1,
 				closed_issues: 0,
-				state: "open",
+				state: "OPEN",
 				created_at: "2025-02-11T21:16:51Z",
 				updated_at: "2025-02-11T21:17:30Z",
 				due_on: "2026-03-01T08:00:00Z",
@@ -3964,7 +3964,7 @@ export const IssueMilestonedWebhook = {
 			created_at: "2025-02-11T21:14:44Z",
 			updated_at: "2025-02-11T21:17:30Z",
 			closed_at: null,
-			author_association: "collaborator",
+			author_association: "COLLABORATOR",
 			sub_issues_summary: { total: 0, completed: 0, percent_completed: 0 },
 			active_lock_reason: null,
 			body: "I'm making a test issue to see if we can catch a milestone webhook",
@@ -4023,7 +4023,7 @@ export const IssueMilestonedWebhook = {
 			},
 			open_issues: 1,
 			closed_issues: 0,
-			state: "open",
+			state: "OPEN",
 			created_at: "2025-02-11T21:16:51Z",
 			updated_at: "2025-02-11T21:17:30Z",
 			due_on: "2026-03-01T08:00:00Z",
@@ -4160,6 +4160,1052 @@ export const IssueMilestonedWebhook = {
 			visibility: "public",
 			forks: 0,
 			open_issues: 3,
+			watchers: 0,
+			default_branch: "main",
+		},
+		sender: {
+			login: "lehmanmj",
+			id: 192139820,
+			node_id: "U_kgDOC3PSLA",
+			avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/lehmanmj",
+			html_url: "https://github.com/lehmanmj",
+			followers_url: "https://api.github.com/users/lehmanmj/followers",
+			following_url:
+				"https://api.github.com/users/lehmanmj/following{/other_user}",
+			gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/lehmanmj/subscriptions",
+			organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+			repos_url: "https://api.github.com/users/lehmanmj/repos",
+			events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/lehmanmj/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+	},
+};
+
+export const IssueAssignedWebhook = {
+	event: "issues",
+	payload: {
+		action: "assigned",
+		issue: {
+			url: "https://api.github.com/repos/alikulka/demo-repo/issues/10",
+			repository_url: "https://api.github.com/repos/alikulka/demo-repo",
+			labels_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/10/labels{/name}",
+			comments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/10/comments",
+			events_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/10/events",
+			html_url: "https://github.com/alikulka/demo-repo/issues/10",
+			id: 2846525103,
+			node_id: "I_kwDONrZruc6pqoav",
+			number: 10,
+			title: "Milestone Test Issue",
+			user: {
+				login: "lehmanmj",
+				id: 192139820,
+				node_id: "U_kgDOC3PSLA",
+				avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/lehmanmj",
+				html_url: "https://github.com/lehmanmj",
+				followers_url: "https://api.github.com/users/lehmanmj/followers",
+				following_url:
+					"https://api.github.com/users/lehmanmj/following{/other_user}",
+				gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/lehmanmj/subscriptions",
+				organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+				repos_url: "https://api.github.com/users/lehmanmj/repos",
+				events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/lehmanmj/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			labels: [],
+			state: "OPEN",
+			locked: false,
+			assignee: {
+				login: "lehmanmj",
+				id: 192139820,
+				node_id: "U_kgDOC3PSLA",
+				avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/lehmanmj",
+				html_url: "https://github.com/lehmanmj",
+				followers_url: "https://api.github.com/users/lehmanmj/followers",
+				following_url:
+					"https://api.github.com/users/lehmanmj/following{/other_user}",
+				gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/lehmanmj/subscriptions",
+				organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+				repos_url: "https://api.github.com/users/lehmanmj/repos",
+				events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/lehmanmj/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			assignees: [
+				{
+					login: "lehmanmj",
+					id: 192139820,
+					node_id: "U_kgDOC3PSLA",
+					avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+					gravatar_id: "",
+					url: "https://api.github.com/users/lehmanmj",
+					html_url: "https://github.com/lehmanmj",
+					followers_url: "https://api.github.com/users/lehmanmj/followers",
+					following_url:
+						"https://api.github.com/users/lehmanmj/following{/other_user}",
+					gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+					starred_url:
+						"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+					subscriptions_url:
+						"https://api.github.com/users/lehmanmj/subscriptions",
+					organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+					repos_url: "https://api.github.com/users/lehmanmj/repos",
+					events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+					received_events_url:
+						"https://api.github.com/users/lehmanmj/received_events",
+					type: "User",
+					user_view_type: "public",
+					site_admin: false,
+				},
+			],
+			milestone: {
+				url: "https://api.github.com/repos/alikulka/demo-repo/milestones/1",
+				html_url: "https://github.com/alikulka/demo-repo/milestone/1",
+				labels_url:
+					"https://api.github.com/repos/alikulka/demo-repo/milestones/1/labels",
+				id: 12301219,
+				node_id: "MI_kwDONrZruc4Au7Oj",
+				number: 1,
+				title: "Test Milestone",
+				description:
+					"This is a test milestone. We just want to capture the webhook for it. ",
+				creator: {
+					login: "lehmanmj",
+					id: 192139820,
+					node_id: "U_kgDOC3PSLA",
+					avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+					gravatar_id: "",
+					url: "https://api.github.com/users/lehmanmj",
+					html_url: "https://github.com/lehmanmj",
+					followers_url: "https://api.github.com/users/lehmanmj/followers",
+					following_url:
+						"https://api.github.com/users/lehmanmj/following{/other_user}",
+					gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+					starred_url:
+						"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+					subscriptions_url:
+						"https://api.github.com/users/lehmanmj/subscriptions",
+					organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+					repos_url: "https://api.github.com/users/lehmanmj/repos",
+					events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+					received_events_url:
+						"https://api.github.com/users/lehmanmj/received_events",
+					type: "User",
+					user_view_type: "public",
+					site_admin: false,
+				},
+				open_issues: 1,
+				closed_issues: 0,
+				state: "OPEN",
+				created_at: "2025-02-11T21:16:51Z",
+				updated_at: "2025-02-11T21:17:30Z",
+				due_on: "2026-03-01T08:00:00Z",
+				closed_at: null,
+			},
+			comments: 0,
+			created_at: "2025-02-11T21:14:44Z",
+			updated_at: "2025-02-12T19:00:37Z",
+			closed_at: null,
+			author_association: "COLLABORATOR",
+			sub_issues_summary: { total: 0, completed: 0, percent_completed: 0 },
+			active_lock_reason: null,
+			body: "I'm making a test issue to see if we can catch a milestone webhook",
+			reactions: {
+				url: "https://api.github.com/repos/alikulka/demo-repo/issues/10/reactions",
+				total_count: 0,
+				"+1": 0,
+				"-1": 0,
+				laugh: 0,
+				hooray: 0,
+				confused: 0,
+				heart: 0,
+				rocket: 0,
+				eyes: 0,
+			},
+			timeline_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/10/timeline",
+			performed_via_github_app: null,
+			state_reason: null,
+		},
+		assignee: {
+			login: "lehmanmj",
+			id: 192139820,
+			node_id: "U_kgDOC3PSLA",
+			avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/lehmanmj",
+			html_url: "https://github.com/lehmanmj",
+			followers_url: "https://api.github.com/users/lehmanmj/followers",
+			following_url:
+				"https://api.github.com/users/lehmanmj/following{/other_user}",
+			gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/lehmanmj/subscriptions",
+			organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+			repos_url: "https://api.github.com/users/lehmanmj/repos",
+			events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/lehmanmj/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+		repository: {
+			id: 917924793,
+			node_id: "R_kgDONrZruQ",
+			name: "demo-repo",
+			full_name: "alikulka/demo-repo",
+			private: false,
+			owner: {
+				login: "alikulka",
+				id: 191903916,
+				node_id: "U_kgDOC3A4rA",
+				avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/alikulka",
+				html_url: "https://github.com/alikulka",
+				followers_url: "https://api.github.com/users/alikulka/followers",
+				following_url:
+					"https://api.github.com/users/alikulka/following{/other_user}",
+				gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/alikulka/subscriptions",
+				organizations_url: "https://api.github.com/users/alikulka/orgs",
+				repos_url: "https://api.github.com/users/alikulka/repos",
+				events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/alikulka/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			html_url: "https://github.com/alikulka/demo-repo",
+			description: null,
+			fork: false,
+			url: "https://api.github.com/repos/alikulka/demo-repo",
+			forks_url: "https://api.github.com/repos/alikulka/demo-repo/forks",
+			keys_url: "https://api.github.com/repos/alikulka/demo-repo/keys{/key_id}",
+			collaborators_url:
+				"https://api.github.com/repos/alikulka/demo-repo/collaborators{/collaborator}",
+			teams_url: "https://api.github.com/repos/alikulka/demo-repo/teams",
+			hooks_url: "https://api.github.com/repos/alikulka/demo-repo/hooks",
+			issue_events_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/events{/number}",
+			events_url: "https://api.github.com/repos/alikulka/demo-repo/events",
+			assignees_url:
+				"https://api.github.com/repos/alikulka/demo-repo/assignees{/user}",
+			branches_url:
+				"https://api.github.com/repos/alikulka/demo-repo/branches{/branch}",
+			tags_url: "https://api.github.com/repos/alikulka/demo-repo/tags",
+			blobs_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/blobs{/sha}",
+			git_tags_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/tags{/sha}",
+			git_refs_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/refs{/sha}",
+			trees_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/trees{/sha}",
+			statuses_url:
+				"https://api.github.com/repos/alikulka/demo-repo/statuses/{sha}",
+			languages_url:
+				"https://api.github.com/repos/alikulka/demo-repo/languages",
+			stargazers_url:
+				"https://api.github.com/repos/alikulka/demo-repo/stargazers",
+			contributors_url:
+				"https://api.github.com/repos/alikulka/demo-repo/contributors",
+			subscribers_url:
+				"https://api.github.com/repos/alikulka/demo-repo/subscribers",
+			subscription_url:
+				"https://api.github.com/repos/alikulka/demo-repo/subscription",
+			commits_url:
+				"https://api.github.com/repos/alikulka/demo-repo/commits{/sha}",
+			git_commits_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/commits{/sha}",
+			comments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/comments{/number}",
+			issue_comment_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/comments{/number}",
+			contents_url:
+				"https://api.github.com/repos/alikulka/demo-repo/contents/{+path}",
+			compare_url:
+				"https://api.github.com/repos/alikulka/demo-repo/compare/{base}...{head}",
+			merges_url: "https://api.github.com/repos/alikulka/demo-repo/merges",
+			archive_url:
+				"https://api.github.com/repos/alikulka/demo-repo/{archive_format}{/ref}",
+			downloads_url:
+				"https://api.github.com/repos/alikulka/demo-repo/downloads",
+			issues_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues{/number}",
+			pulls_url:
+				"https://api.github.com/repos/alikulka/demo-repo/pulls{/number}",
+			milestones_url:
+				"https://api.github.com/repos/alikulka/demo-repo/milestones{/number}",
+			notifications_url:
+				"https://api.github.com/repos/alikulka/demo-repo/notifications{?since,all,participating}",
+			labels_url:
+				"https://api.github.com/repos/alikulka/demo-repo/labels{/name}",
+			releases_url:
+				"https://api.github.com/repos/alikulka/demo-repo/releases{/id}",
+			deployments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/deployments",
+			created_at: "2025-01-16T22:39:51Z",
+			updated_at: "2025-02-10T22:46:15Z",
+			pushed_at: "2025-02-10T22:46:11Z",
+			git_url: "git://github.com/alikulka/demo-repo.git",
+			ssh_url: "git@github.com:alikulka/demo-repo.git",
+			clone_url: "https://github.com/alikulka/demo-repo.git",
+			svn_url: "https://github.com/alikulka/demo-repo",
+			homepage: null,
+			size: 3,
+			stargazers_count: 0,
+			watchers_count: 0,
+			language: null,
+			has_issues: true,
+			has_projects: true,
+			has_downloads: true,
+			has_wiki: true,
+			has_pages: false,
+			has_discussions: false,
+			forks_count: 0,
+			mirror_url: null,
+			archived: false,
+			disabled: false,
+			open_issues_count: 3,
+			license: null,
+			allow_forking: true,
+			is_template: false,
+			web_commit_signoff_required: false,
+			topics: [],
+			visibility: "public",
+			forks: 0,
+			open_issues: 3,
+			watchers: 0,
+			default_branch: "main",
+		},
+		sender: {
+			login: "lehmanmj",
+			id: 192139820,
+			node_id: "U_kgDOC3PSLA",
+			avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/lehmanmj",
+			html_url: "https://github.com/lehmanmj",
+			followers_url: "https://api.github.com/users/lehmanmj/followers",
+			following_url:
+				"https://api.github.com/users/lehmanmj/following{/other_user}",
+			gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/lehmanmj/subscriptions",
+			organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+			repos_url: "https://api.github.com/users/lehmanmj/repos",
+			events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/lehmanmj/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+	},
+};
+
+export const PullRequestAssignedWebhook = {
+	event: "pull_request",
+	payload: {
+		action: "assigned",
+		number: 11,
+		pull_request: {
+			url: "https://api.github.com/repos/alikulka/demo-repo/pulls/11",
+			id: 2332091905,
+			node_id: "PR_kwDONrZruc6LAOYB",
+			html_url: "https://github.com/alikulka/demo-repo/pull/11",
+			diff_url: "https://github.com/alikulka/demo-repo/pull/11.diff",
+			patch_url: "https://github.com/alikulka/demo-repo/pull/11.patch",
+			issue_url: "https://api.github.com/repos/alikulka/demo-repo/issues/11",
+			number: 11,
+			state: "OPEN",
+			locked: false,
+			title: "PR Assign Test",
+			user: {
+				login: "lehmanmj",
+				id: 192139820,
+				node_id: "U_kgDOC3PSLA",
+				avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/lehmanmj",
+				html_url: "https://github.com/lehmanmj",
+				followers_url: "https://api.github.com/users/lehmanmj/followers",
+				following_url:
+					"https://api.github.com/users/lehmanmj/following{/other_user}",
+				gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/lehmanmj/subscriptions",
+				organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+				repos_url: "https://api.github.com/users/lehmanmj/repos",
+				events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/lehmanmj/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			body: "I'm trying to catch a webhook for assigning a PR.",
+			created_at: "2025-02-12T19:04:30Z",
+			updated_at: "2025-02-12T19:04:43Z",
+			closed_at: null,
+			merged_at: null,
+			merge_commit_sha: "4ee8d3fa63c669e0c3da0daedaa2b73da2031b29",
+			assignee: {
+				login: "lehmanmj",
+				id: 192139820,
+				node_id: "U_kgDOC3PSLA",
+				avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/lehmanmj",
+				html_url: "https://github.com/lehmanmj",
+				followers_url: "https://api.github.com/users/lehmanmj/followers",
+				following_url:
+					"https://api.github.com/users/lehmanmj/following{/other_user}",
+				gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/lehmanmj/subscriptions",
+				organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+				repos_url: "https://api.github.com/users/lehmanmj/repos",
+				events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/lehmanmj/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			assignees: [
+				{
+					login: "lehmanmj",
+					id: 192139820,
+					node_id: "U_kgDOC3PSLA",
+					avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+					gravatar_id: "",
+					url: "https://api.github.com/users/lehmanmj",
+					html_url: "https://github.com/lehmanmj",
+					followers_url: "https://api.github.com/users/lehmanmj/followers",
+					following_url:
+						"https://api.github.com/users/lehmanmj/following{/other_user}",
+					gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+					starred_url:
+						"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+					subscriptions_url:
+						"https://api.github.com/users/lehmanmj/subscriptions",
+					organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+					repos_url: "https://api.github.com/users/lehmanmj/repos",
+					events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+					received_events_url:
+						"https://api.github.com/users/lehmanmj/received_events",
+					type: "User",
+					user_view_type: "public",
+					site_admin: false,
+				},
+			],
+			requested_reviewers: [],
+			requested_teams: [],
+			labels: [],
+			milestone: null,
+			draft: false,
+			commits_url:
+				"https://api.github.com/repos/alikulka/demo-repo/pulls/11/commits",
+			review_comments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/pulls/11/comments",
+			review_comment_url:
+				"https://api.github.com/repos/alikulka/demo-repo/pulls/comments{/number}",
+			comments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/11/comments",
+			statuses_url:
+				"https://api.github.com/repos/alikulka/demo-repo/statuses/45f9d088ac9af9e7a5f14a521d68dfdc032f5888",
+			head: {
+				label: "alikulka:pr-assignee-test",
+				ref: "pr-assignee-test",
+				sha: "45f9d088ac9af9e7a5f14a521d68dfdc032f5888",
+				user: {
+					login: "alikulka",
+					id: 191903916,
+					node_id: "U_kgDOC3A4rA",
+					avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+					gravatar_id: "",
+					url: "https://api.github.com/users/alikulka",
+					html_url: "https://github.com/alikulka",
+					followers_url: "https://api.github.com/users/alikulka/followers",
+					following_url:
+						"https://api.github.com/users/alikulka/following{/other_user}",
+					gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+					starred_url:
+						"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+					subscriptions_url:
+						"https://api.github.com/users/alikulka/subscriptions",
+					organizations_url: "https://api.github.com/users/alikulka/orgs",
+					repos_url: "https://api.github.com/users/alikulka/repos",
+					events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+					received_events_url:
+						"https://api.github.com/users/alikulka/received_events",
+					type: "User",
+					user_view_type: "public",
+					site_admin: false,
+				},
+				repo: {
+					id: 917924793,
+					node_id: "R_kgDONrZruQ",
+					name: "demo-repo",
+					full_name: "alikulka/demo-repo",
+					private: false,
+					owner: {
+						login: "alikulka",
+						id: 191903916,
+						node_id: "U_kgDOC3A4rA",
+						avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+						gravatar_id: "",
+						url: "https://api.github.com/users/alikulka",
+						html_url: "https://github.com/alikulka",
+						followers_url: "https://api.github.com/users/alikulka/followers",
+						following_url:
+							"https://api.github.com/users/alikulka/following{/other_user}",
+						gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+						starred_url:
+							"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+						subscriptions_url:
+							"https://api.github.com/users/alikulka/subscriptions",
+						organizations_url: "https://api.github.com/users/alikulka/orgs",
+						repos_url: "https://api.github.com/users/alikulka/repos",
+						events_url:
+							"https://api.github.com/users/alikulka/events{/privacy}",
+						received_events_url:
+							"https://api.github.com/users/alikulka/received_events",
+						type: "User",
+						user_view_type: "public",
+						site_admin: false,
+					},
+					html_url: "https://github.com/alikulka/demo-repo",
+					description: null,
+					fork: false,
+					url: "https://api.github.com/repos/alikulka/demo-repo",
+					forks_url: "https://api.github.com/repos/alikulka/demo-repo/forks",
+					keys_url:
+						"https://api.github.com/repos/alikulka/demo-repo/keys{/key_id}",
+					collaborators_url:
+						"https://api.github.com/repos/alikulka/demo-repo/collaborators{/collaborator}",
+					teams_url: "https://api.github.com/repos/alikulka/demo-repo/teams",
+					hooks_url: "https://api.github.com/repos/alikulka/demo-repo/hooks",
+					issue_events_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues/events{/number}",
+					events_url: "https://api.github.com/repos/alikulka/demo-repo/events",
+					assignees_url:
+						"https://api.github.com/repos/alikulka/demo-repo/assignees{/user}",
+					branches_url:
+						"https://api.github.com/repos/alikulka/demo-repo/branches{/branch}",
+					tags_url: "https://api.github.com/repos/alikulka/demo-repo/tags",
+					blobs_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/blobs{/sha}",
+					git_tags_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/tags{/sha}",
+					git_refs_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/refs{/sha}",
+					trees_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/trees{/sha}",
+					statuses_url:
+						"https://api.github.com/repos/alikulka/demo-repo/statuses/{sha}",
+					languages_url:
+						"https://api.github.com/repos/alikulka/demo-repo/languages",
+					stargazers_url:
+						"https://api.github.com/repos/alikulka/demo-repo/stargazers",
+					contributors_url:
+						"https://api.github.com/repos/alikulka/demo-repo/contributors",
+					subscribers_url:
+						"https://api.github.com/repos/alikulka/demo-repo/subscribers",
+					subscription_url:
+						"https://api.github.com/repos/alikulka/demo-repo/subscription",
+					commits_url:
+						"https://api.github.com/repos/alikulka/demo-repo/commits{/sha}",
+					git_commits_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/commits{/sha}",
+					comments_url:
+						"https://api.github.com/repos/alikulka/demo-repo/comments{/number}",
+					issue_comment_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues/comments{/number}",
+					contents_url:
+						"https://api.github.com/repos/alikulka/demo-repo/contents/{+path}",
+					compare_url:
+						"https://api.github.com/repos/alikulka/demo-repo/compare/{base}...{head}",
+					merges_url: "https://api.github.com/repos/alikulka/demo-repo/merges",
+					archive_url:
+						"https://api.github.com/repos/alikulka/demo-repo/{archive_format}{/ref}",
+					downloads_url:
+						"https://api.github.com/repos/alikulka/demo-repo/downloads",
+					issues_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues{/number}",
+					pulls_url:
+						"https://api.github.com/repos/alikulka/demo-repo/pulls{/number}",
+					milestones_url:
+						"https://api.github.com/repos/alikulka/demo-repo/milestones{/number}",
+					notifications_url:
+						"https://api.github.com/repos/alikulka/demo-repo/notifications{?since,all,participating}",
+					labels_url:
+						"https://api.github.com/repos/alikulka/demo-repo/labels{/name}",
+					releases_url:
+						"https://api.github.com/repos/alikulka/demo-repo/releases{/id}",
+					deployments_url:
+						"https://api.github.com/repos/alikulka/demo-repo/deployments",
+					created_at: "2025-01-16T22:39:51Z",
+					updated_at: "2025-02-10T22:46:15Z",
+					pushed_at: "2025-02-12T19:03:57Z",
+					git_url: "git://github.com/alikulka/demo-repo.git",
+					ssh_url: "git@github.com:alikulka/demo-repo.git",
+					clone_url: "https://github.com/alikulka/demo-repo.git",
+					svn_url: "https://github.com/alikulka/demo-repo",
+					homepage: null,
+					size: 3,
+					stargazers_count: 0,
+					watchers_count: 0,
+					language: null,
+					has_issues: true,
+					has_projects: true,
+					has_downloads: true,
+					has_wiki: true,
+					has_pages: false,
+					has_discussions: false,
+					forks_count: 0,
+					mirror_url: null,
+					archived: false,
+					disabled: false,
+					open_issues_count: 4,
+					license: null,
+					allow_forking: true,
+					is_template: false,
+					web_commit_signoff_required: false,
+					topics: [],
+					visibility: "public",
+					forks: 0,
+					open_issues: 4,
+					watchers: 0,
+					default_branch: "main",
+					allow_squash_merge: true,
+					allow_merge_commit: true,
+					allow_rebase_merge: true,
+					allow_auto_merge: false,
+					delete_branch_on_merge: false,
+					allow_update_branch: false,
+					use_squash_pr_title_as_default: false,
+					squash_merge_commit_message: "COMMIT_MESSAGES",
+					squash_merge_commit_title: "COMMIT_OR_PR_TITLE",
+					merge_commit_message: "PR_TITLE",
+					merge_commit_title: "MERGE_MESSAGE",
+				},
+			},
+			base: {
+				label: "alikulka:main",
+				ref: "main",
+				sha: "4c4c99bee5e73e27bee64a90fc3e6475012aebe1",
+				user: {
+					login: "alikulka",
+					id: 191903916,
+					node_id: "U_kgDOC3A4rA",
+					avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+					gravatar_id: "",
+					url: "https://api.github.com/users/alikulka",
+					html_url: "https://github.com/alikulka",
+					followers_url: "https://api.github.com/users/alikulka/followers",
+					following_url:
+						"https://api.github.com/users/alikulka/following{/other_user}",
+					gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+					starred_url:
+						"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+					subscriptions_url:
+						"https://api.github.com/users/alikulka/subscriptions",
+					organizations_url: "https://api.github.com/users/alikulka/orgs",
+					repos_url: "https://api.github.com/users/alikulka/repos",
+					events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+					received_events_url:
+						"https://api.github.com/users/alikulka/received_events",
+					type: "User",
+					user_view_type: "public",
+					site_admin: false,
+				},
+				repo: {
+					id: 917924793,
+					node_id: "R_kgDONrZruQ",
+					name: "demo-repo",
+					full_name: "alikulka/demo-repo",
+					private: false,
+					owner: {
+						login: "alikulka",
+						id: 191903916,
+						node_id: "U_kgDOC3A4rA",
+						avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+						gravatar_id: "",
+						url: "https://api.github.com/users/alikulka",
+						html_url: "https://github.com/alikulka",
+						followers_url: "https://api.github.com/users/alikulka/followers",
+						following_url:
+							"https://api.github.com/users/alikulka/following{/other_user}",
+						gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+						starred_url:
+							"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+						subscriptions_url:
+							"https://api.github.com/users/alikulka/subscriptions",
+						organizations_url: "https://api.github.com/users/alikulka/orgs",
+						repos_url: "https://api.github.com/users/alikulka/repos",
+						events_url:
+							"https://api.github.com/users/alikulka/events{/privacy}",
+						received_events_url:
+							"https://api.github.com/users/alikulka/received_events",
+						type: "User",
+						user_view_type: "public",
+						site_admin: false,
+					},
+					html_url: "https://github.com/alikulka/demo-repo",
+					description: null,
+					fork: false,
+					url: "https://api.github.com/repos/alikulka/demo-repo",
+					forks_url: "https://api.github.com/repos/alikulka/demo-repo/forks",
+					keys_url:
+						"https://api.github.com/repos/alikulka/demo-repo/keys{/key_id}",
+					collaborators_url:
+						"https://api.github.com/repos/alikulka/demo-repo/collaborators{/collaborator}",
+					teams_url: "https://api.github.com/repos/alikulka/demo-repo/teams",
+					hooks_url: "https://api.github.com/repos/alikulka/demo-repo/hooks",
+					issue_events_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues/events{/number}",
+					events_url: "https://api.github.com/repos/alikulka/demo-repo/events",
+					assignees_url:
+						"https://api.github.com/repos/alikulka/demo-repo/assignees{/user}",
+					branches_url:
+						"https://api.github.com/repos/alikulka/demo-repo/branches{/branch}",
+					tags_url: "https://api.github.com/repos/alikulka/demo-repo/tags",
+					blobs_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/blobs{/sha}",
+					git_tags_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/tags{/sha}",
+					git_refs_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/refs{/sha}",
+					trees_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/trees{/sha}",
+					statuses_url:
+						"https://api.github.com/repos/alikulka/demo-repo/statuses/{sha}",
+					languages_url:
+						"https://api.github.com/repos/alikulka/demo-repo/languages",
+					stargazers_url:
+						"https://api.github.com/repos/alikulka/demo-repo/stargazers",
+					contributors_url:
+						"https://api.github.com/repos/alikulka/demo-repo/contributors",
+					subscribers_url:
+						"https://api.github.com/repos/alikulka/demo-repo/subscribers",
+					subscription_url:
+						"https://api.github.com/repos/alikulka/demo-repo/subscription",
+					commits_url:
+						"https://api.github.com/repos/alikulka/demo-repo/commits{/sha}",
+					git_commits_url:
+						"https://api.github.com/repos/alikulka/demo-repo/git/commits{/sha}",
+					comments_url:
+						"https://api.github.com/repos/alikulka/demo-repo/comments{/number}",
+					issue_comment_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues/comments{/number}",
+					contents_url:
+						"https://api.github.com/repos/alikulka/demo-repo/contents/{+path}",
+					compare_url:
+						"https://api.github.com/repos/alikulka/demo-repo/compare/{base}...{head}",
+					merges_url: "https://api.github.com/repos/alikulka/demo-repo/merges",
+					archive_url:
+						"https://api.github.com/repos/alikulka/demo-repo/{archive_format}{/ref}",
+					downloads_url:
+						"https://api.github.com/repos/alikulka/demo-repo/downloads",
+					issues_url:
+						"https://api.github.com/repos/alikulka/demo-repo/issues{/number}",
+					pulls_url:
+						"https://api.github.com/repos/alikulka/demo-repo/pulls{/number}",
+					milestones_url:
+						"https://api.github.com/repos/alikulka/demo-repo/milestones{/number}",
+					notifications_url:
+						"https://api.github.com/repos/alikulka/demo-repo/notifications{?since,all,participating}",
+					labels_url:
+						"https://api.github.com/repos/alikulka/demo-repo/labels{/name}",
+					releases_url:
+						"https://api.github.com/repos/alikulka/demo-repo/releases{/id}",
+					deployments_url:
+						"https://api.github.com/repos/alikulka/demo-repo/deployments",
+					created_at: "2025-01-16T22:39:51Z",
+					updated_at: "2025-02-10T22:46:15Z",
+					pushed_at: "2025-02-12T19:03:57Z",
+					git_url: "git://github.com/alikulka/demo-repo.git",
+					ssh_url: "git@github.com:alikulka/demo-repo.git",
+					clone_url: "https://github.com/alikulka/demo-repo.git",
+					svn_url: "https://github.com/alikulka/demo-repo",
+					homepage: null,
+					size: 3,
+					stargazers_count: 0,
+					watchers_count: 0,
+					language: null,
+					has_issues: true,
+					has_projects: true,
+					has_downloads: true,
+					has_wiki: true,
+					has_pages: false,
+					has_discussions: false,
+					forks_count: 0,
+					mirror_url: null,
+					archived: false,
+					disabled: false,
+					open_issues_count: 4,
+					license: null,
+					allow_forking: true,
+					is_template: false,
+					web_commit_signoff_required: false,
+					topics: [],
+					visibility: "public",
+					forks: 0,
+					open_issues: 4,
+					watchers: 0,
+					default_branch: "main",
+					allow_squash_merge: true,
+					allow_merge_commit: true,
+					allow_rebase_merge: true,
+					allow_auto_merge: false,
+					delete_branch_on_merge: false,
+					allow_update_branch: false,
+					use_squash_pr_title_as_default: false,
+					squash_merge_commit_message: "COMMIT_MESSAGES",
+					squash_merge_commit_title: "COMMIT_OR_PR_TITLE",
+					merge_commit_message: "PR_TITLE",
+					merge_commit_title: "MERGE_MESSAGE",
+				},
+			},
+			_links: {
+				self: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/pulls/11",
+				},
+				html: { href: "https://github.com/alikulka/demo-repo/pull/11" },
+				issue: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/issues/11",
+				},
+				comments: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/issues/11/comments",
+				},
+				review_comments: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/pulls/11/comments",
+				},
+				review_comment: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/pulls/comments{/number}",
+				},
+				commits: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/pulls/11/commits",
+				},
+				statuses: {
+					href: "https://api.github.com/repos/alikulka/demo-repo/statuses/45f9d088ac9af9e7a5f14a521d68dfdc032f5888",
+				},
+			},
+			author_association: "COLLABORATOR",
+			auto_merge: null,
+			active_lock_reason: null,
+			merged: false,
+			mergeable: true,
+			rebaseable: true,
+			mergeable_state: "clean",
+			merged_by: null,
+			comments: 0,
+			review_comments: 0,
+			maintainer_can_modify: false,
+			commits: 1,
+			additions: 3,
+			deletions: 1,
+			changed_files: 1,
+		},
+		assignee: {
+			login: "lehmanmj",
+			id: 192139820,
+			node_id: "U_kgDOC3PSLA",
+			avatar_url: "https://avatars.githubusercontent.com/u/192139820?v=4",
+			gravatar_id: "",
+			url: "https://api.github.com/users/lehmanmj",
+			html_url: "https://github.com/lehmanmj",
+			followers_url: "https://api.github.com/users/lehmanmj/followers",
+			following_url:
+				"https://api.github.com/users/lehmanmj/following{/other_user}",
+			gists_url: "https://api.github.com/users/lehmanmj/gists{/gist_id}",
+			starred_url:
+				"https://api.github.com/users/lehmanmj/starred{/owner}{/repo}",
+			subscriptions_url: "https://api.github.com/users/lehmanmj/subscriptions",
+			organizations_url: "https://api.github.com/users/lehmanmj/orgs",
+			repos_url: "https://api.github.com/users/lehmanmj/repos",
+			events_url: "https://api.github.com/users/lehmanmj/events{/privacy}",
+			received_events_url:
+				"https://api.github.com/users/lehmanmj/received_events",
+			type: "User",
+			user_view_type: "public",
+			site_admin: false,
+		},
+		repository: {
+			id: 917924793,
+			node_id: "R_kgDONrZruQ",
+			name: "demo-repo",
+			full_name: "alikulka/demo-repo",
+			private: false,
+			owner: {
+				login: "alikulka",
+				id: 191903916,
+				node_id: "U_kgDOC3A4rA",
+				avatar_url: "https://avatars.githubusercontent.com/u/191903916?v=4",
+				gravatar_id: "",
+				url: "https://api.github.com/users/alikulka",
+				html_url: "https://github.com/alikulka",
+				followers_url: "https://api.github.com/users/alikulka/followers",
+				following_url:
+					"https://api.github.com/users/alikulka/following{/other_user}",
+				gists_url: "https://api.github.com/users/alikulka/gists{/gist_id}",
+				starred_url:
+					"https://api.github.com/users/alikulka/starred{/owner}{/repo}",
+				subscriptions_url:
+					"https://api.github.com/users/alikulka/subscriptions",
+				organizations_url: "https://api.github.com/users/alikulka/orgs",
+				repos_url: "https://api.github.com/users/alikulka/repos",
+				events_url: "https://api.github.com/users/alikulka/events{/privacy}",
+				received_events_url:
+					"https://api.github.com/users/alikulka/received_events",
+				type: "User",
+				user_view_type: "public",
+				site_admin: false,
+			},
+			html_url: "https://github.com/alikulka/demo-repo",
+			description: null,
+			fork: false,
+			url: "https://api.github.com/repos/alikulka/demo-repo",
+			forks_url: "https://api.github.com/repos/alikulka/demo-repo/forks",
+			keys_url: "https://api.github.com/repos/alikulka/demo-repo/keys{/key_id}",
+			collaborators_url:
+				"https://api.github.com/repos/alikulka/demo-repo/collaborators{/collaborator}",
+			teams_url: "https://api.github.com/repos/alikulka/demo-repo/teams",
+			hooks_url: "https://api.github.com/repos/alikulka/demo-repo/hooks",
+			issue_events_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/events{/number}",
+			events_url: "https://api.github.com/repos/alikulka/demo-repo/events",
+			assignees_url:
+				"https://api.github.com/repos/alikulka/demo-repo/assignees{/user}",
+			branches_url:
+				"https://api.github.com/repos/alikulka/demo-repo/branches{/branch}",
+			tags_url: "https://api.github.com/repos/alikulka/demo-repo/tags",
+			blobs_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/blobs{/sha}",
+			git_tags_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/tags{/sha}",
+			git_refs_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/refs{/sha}",
+			trees_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/trees{/sha}",
+			statuses_url:
+				"https://api.github.com/repos/alikulka/demo-repo/statuses/{sha}",
+			languages_url:
+				"https://api.github.com/repos/alikulka/demo-repo/languages",
+			stargazers_url:
+				"https://api.github.com/repos/alikulka/demo-repo/stargazers",
+			contributors_url:
+				"https://api.github.com/repos/alikulka/demo-repo/contributors",
+			subscribers_url:
+				"https://api.github.com/repos/alikulka/demo-repo/subscribers",
+			subscription_url:
+				"https://api.github.com/repos/alikulka/demo-repo/subscription",
+			commits_url:
+				"https://api.github.com/repos/alikulka/demo-repo/commits{/sha}",
+			git_commits_url:
+				"https://api.github.com/repos/alikulka/demo-repo/git/commits{/sha}",
+			comments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/comments{/number}",
+			issue_comment_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues/comments{/number}",
+			contents_url:
+				"https://api.github.com/repos/alikulka/demo-repo/contents/{+path}",
+			compare_url:
+				"https://api.github.com/repos/alikulka/demo-repo/compare/{base}...{head}",
+			merges_url: "https://api.github.com/repos/alikulka/demo-repo/merges",
+			archive_url:
+				"https://api.github.com/repos/alikulka/demo-repo/{archive_format}{/ref}",
+			downloads_url:
+				"https://api.github.com/repos/alikulka/demo-repo/downloads",
+			issues_url:
+				"https://api.github.com/repos/alikulka/demo-repo/issues{/number}",
+			pulls_url:
+				"https://api.github.com/repos/alikulka/demo-repo/pulls{/number}",
+			milestones_url:
+				"https://api.github.com/repos/alikulka/demo-repo/milestones{/number}",
+			notifications_url:
+				"https://api.github.com/repos/alikulka/demo-repo/notifications{?since,all,participating}",
+			labels_url:
+				"https://api.github.com/repos/alikulka/demo-repo/labels{/name}",
+			releases_url:
+				"https://api.github.com/repos/alikulka/demo-repo/releases{/id}",
+			deployments_url:
+				"https://api.github.com/repos/alikulka/demo-repo/deployments",
+			created_at: "2025-01-16T22:39:51Z",
+			updated_at: "2025-02-10T22:46:15Z",
+			pushed_at: "2025-02-12T19:03:57Z",
+			git_url: "git://github.com/alikulka/demo-repo.git",
+			ssh_url: "git@github.com:alikulka/demo-repo.git",
+			clone_url: "https://github.com/alikulka/demo-repo.git",
+			svn_url: "https://github.com/alikulka/demo-repo",
+			homepage: null,
+			size: 3,
+			stargazers_count: 0,
+			watchers_count: 0,
+			language: null,
+			has_issues: true,
+			has_projects: true,
+			has_downloads: true,
+			has_wiki: true,
+			has_pages: false,
+			has_discussions: false,
+			forks_count: 0,
+			mirror_url: null,
+			archived: false,
+			disabled: false,
+			open_issues_count: 4,
+			license: null,
+			allow_forking: true,
+			is_template: false,
+			web_commit_signoff_required: false,
+			topics: [],
+			visibility: "public",
+			forks: 0,
+			open_issues: 4,
 			watchers: 0,
 			default_branch: "main",
 		},

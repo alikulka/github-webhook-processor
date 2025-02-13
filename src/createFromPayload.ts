@@ -76,7 +76,7 @@ export class PayloadMapper {
 			repository_id: payload.repository.id,
 			author_association: payload.issue.author_association,
 			total_reaction_count: payload.issue.reactions?.total_count || 0,
-			sub_or_parent_issue: payload.issue.sub_or_parent_issue || "neither",
+			sub_or_parent_issue: payload.issue.sub_or_parent_issue || "NEITHER",
 		};
 	}
 
@@ -155,10 +155,10 @@ export class PayloadMapper {
 
 	static createDiscussionFromPayload(payload: any): types.Discussion {
 		return {
-			active_lock_reason: payload.discussion.active_lock_reason,
+      active_lock_reason: payload.discussion.active_lock_reason,
 			answer: payload.discussion.answer,
-			answer_chosen_at: new Date(payload.discussion.answer_chosen_at),
-			answer_chosen_by: payload.discussion.answer_chosen_by || null,
+			answer_chosen_at: new Date(payload.discussion.answer_chosen_at) || null,
+			answer_chosen_by: payload.discussion.answer_chosen_by?.id, //OPTIONAL CHAINING
 			created_by: payload.discussion.user.id,
 			author_association: payload.discussion.author_association,
 			body: payload.discussion.body,
@@ -309,7 +309,7 @@ export class PayloadMapper {
 			node_id: payload.node_id,
 			name: payload.name,
 			color: payload.color,
-			default: payload.default,
+			is_default: payload.default,
 			description: payload.description || "",
 			repository_id: repo_id,
 		};
