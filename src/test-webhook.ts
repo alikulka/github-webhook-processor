@@ -5,37 +5,6 @@ import { config } from "../src/config";
 import { WebhookProcessor } from "../src/webhookProcessorv2";
 import * as sampleWebhook from "./smeeWebhooks";
 
-// async function testRepoWebhooks() {
-// 	const pool = new Pool(config.database);
-// 	const client = await pool.connect();
-
-// 	try {
-// 		const processor = new WebhookProcessor(client);
-// 		console.log("Processing webhook...");
-// 		const repo_wh1 = sampleWebhook.repoWebhook4;
-// 		await processor.processWebhook("repository", repo_wh1);
-// 		console.log("Webhook processed successfully");
-
-// 		// Query results
-// 		const ownerResult = await client.query(
-// 			"SELECT * FROM owners WHERE id = $1",
-// 			[repo_wh1.repository.owner.id],
-// 		);
-// 		console.log("Owner record:", ownerResult.rows[0]);
-
-// 		const repoResult = await client.query(
-// 			"SELECT * FROM repositories WHERE id = $1",
-// 			[repo_wh1.repository.id],
-// 		);
-// 		console.log("Repository record:", repoResult.rows[0]);
-// 	} catch (error) {
-// 		console.error("Error:", error);
-// 	} finally {
-// 		await client.release();
-// 		await pool.end();
-// 	}
-// }
-
 async function testIssueWebhooks() {
 	const pool = new Pool(config.database);
 	const client = await pool.connect();
@@ -212,10 +181,9 @@ async function testIssueMilestoneWebhooks() {
 	}
 }
 
-// testRepoWebhooks();
 // testIssueWebhooks();
 // testPullRequestWebhooks();
-// //testIssueCommentWebhooks();
+// testIssueCommentWebhooks();
 // testDiscussionWebhooks();
 // testDiscussionCommentWebhooks();
-testIssueMilestoneWebhooks();
+// testIssueMilestoneWebhooks();

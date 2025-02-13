@@ -328,7 +328,7 @@ export class WebhookProcessor {
 			entityName: "Pull Request Milestone",
 			identifierColumn: "id",
 		};
-    
+
     private issueAssigneeOperations: DatabaseOperations<types.IssueAssignee> = {
         tableName: "issue_assignees",
         operations: {
@@ -710,12 +710,26 @@ export class WebhookProcessor {
                     issue.id,
                 );
 
-                const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, issue.assignee.id);
-                await this.handleDatabaseOperation(
-                    issueAssignee,
-                    this.issueAssigneeOperations,
-                    issueAssignee.issue_id,
-                );
+
+                // const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, issue.assignees.id);
+                // await this.handleDatabaseOperation(
+                //     issueAssignee,
+                //     this.issueAssigneeOperations,
+                //     issueAssignee.issue_id,
+                // );
+
+				if (issue.assignees) {
+					for (const assignee of issue.assignees) {
+						const issueAssignee = PayloadMapper.createIssueAssigneeFromPayload(issue.id, assignee.id);
+
+						await this.handleDatabaseOperation(
+							issueAssignee,
+							this.issueAssigneeOperations,
+							issueAssignee.issue_id,
+						)
+					}
+				}
+
                 break;
             }
 
@@ -728,12 +742,24 @@ export class WebhookProcessor {
                     pr.id,
                 );
 
-                const prAssignee = PayloadMapper.createPullRequestAssigneeFromPayload(pr.id, pr.assignee.id);
-                await this.handleDatabaseOperation(
-                    prAssignee,
-                    this.pullRequestAssigneeOperations,
-                    prAssignee.pullrequest_id,
-                );
+                // const prAssignee = PayloadMapper.createPullRequestAssigneeFromPayload(pr.id, pr.assignee.id);
+                // await this.handleDatabaseOperation(
+                //     prAssignee,
+                //     this.pullRequestAssigneeOperations,
+                //     prAssignee.pullrequest_id,
+                // );
+
+				if (pr.assignees) {
+					for (const assignee of pr.assignees) {
+						const prAssignee = PayloadMapper.createPullRequestAssigneeFromPayload(pr.id, assignee.id);
+
+						await this.handleDatabaseOperation(
+							prAssignee,
+							this.pullRequestAssigneeOperations,
+							prAssignee.pullrequest_id,
+						)
+					}
+				}
                 break;
             }
         }
@@ -794,11 +820,18 @@ export class WebhookProcessor {
 	}
 
 	private async processDiscussionComments(payload: any): Promise<void> {
+    const discussion_category = PayloadMapper.createDiscussionCategoriesFromPayload(payload);
 		const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 		const discussion_comment =
 			PayloadMapper.createDiscussionCommentFromPayload(payload);
 		const reaction =
 			PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
+
+    await this.handleDatabaseOperation(
+      discussion_category,
+      this.discussionCategoriesOperations,
+      discussion_category.id,
+    );
 
 		await this.handleDatabaseOperation(
 			discussion,
@@ -899,7 +932,7 @@ export class WebhookProcessor {
 		);
 	}
 
-    private async processSubIssueList(payload: any): Promise<void> {
+  private async processSubIssueList(payload: any): Promise<void> {
         const sub_issue_list = PayloadMapper.createSubIssueListFromPayload(payload.parent_issue_id, payload.sub_issue_id);
 
         await this.handleDatabaseOperation(
@@ -907,7 +940,7 @@ export class WebhookProcessor {
             this.subIssueListOperations,
             sub_issue_list.parent_id,
         );
-    }
+  }
 
 
 	async processWebhook(eventType: string, payload: any): Promise<void> {
