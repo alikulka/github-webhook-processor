@@ -181,9 +181,34 @@ async function testIssueMilestoneWebhooks() {
 	}
 }
 
+async function testDiscussionLabelWebhooks() {
+  const pool = new Pool(config.database);
+  const client = await pool.connect();
+
+  try {
+    const processor = new WebhookProcessor(client);
+    console.log("Processing webhook...");
+    const discussion_label_wh1 = sampleWebhook.DiscussionLabeledWebhook;
+    await processor.processWebhook("discussion", discussion_label_wh1.payload);
+    console.log("Webhook processed successfully");
+
+    const discussionLabelResult = await client.query(
+      "SELECT * FROM discussion_labels WHERE label_id = $1",
+      [discussion_label_wh1.payload.discussion.labels[0].id],
+    );
+    console.log("Discussion Label Record: ", discussionLabelResult.rows[0]);
+  } catch (error) {
+    console.error("Error:", error);
+  } finally {
+    await client.release();
+    await pool.end();
+  }
+}
+
 // testIssueWebhooks();
 // testPullRequestWebhooks();
 // testIssueCommentWebhooks();
 // testDiscussionWebhooks();
 // testDiscussionCommentWebhooks();
 // testIssueMilestoneWebhooks();
+testDiscussionLabelWebhooks();

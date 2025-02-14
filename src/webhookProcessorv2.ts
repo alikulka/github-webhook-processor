@@ -258,7 +258,7 @@ export class WebhookProcessor {
 	};
 	private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
 		{
-			tableName: "discussionlabels",
+			tableName: "discussion_labels",
 			operations: {
 				insert: (discussion_label) =>
 					this.upserts.insertDiscussionLabels(discussion_label),
@@ -268,7 +268,7 @@ export class WebhookProcessor {
 					this.upserts.upsertDiscussionLabels(discussion_label),
 			},
 			entityName: "Discussion Label",
-			identifierColumn: "id",
+			identifierColumn: "label_id",
 		};
 
 	private milestoneLabelOperations: DatabaseOperations<types.MilestoneLabel> = {
@@ -579,7 +579,7 @@ export class WebhookProcessor {
 						labelData,
 						repo_id,
 					);
-					// console.log(issueLabel);
+
 					await this.handleDatabaseOperation(
 						repoLabel,
 						this.repoLabelOperations,
@@ -588,7 +588,7 @@ export class WebhookProcessor {
 
 					const discussionLabel =
 						PayloadMapper.createDiscussionLabelFromPayload(
-							payload.issue.id,
+							payload.discussion.id,
 							labelData.id,
 						);
 
