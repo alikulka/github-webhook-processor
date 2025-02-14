@@ -205,10 +205,73 @@ async function testDiscussionLabelWebhooks() {
   }
 }
 
+async function testIssueAssignedWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const issue_assigned_wh1 = sampleWebhook.IssueAssignedWebhook;
+		await processor.processWebhook("issues", issue_assigned_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const issueAssigneeResult = await client.query(
+			"SELECT * FROM issue_assignees WHERE issue_id = $1",
+			[issue_assigned_wh1.payload.issue.id],
+		);
+		console.log("Issue Assignee record:", issueAssigneeResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
+async function testPullRequestAssignedWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const pr_assigned_wh1 = sampleWebhook.PullRequestAssignedWebhook;
+		await processor.processWebhook("pull_request", pr_assigned_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const prAssigneeResult = await client.query(
+			"SELECT * FROM pull_request_assignees WHERE pull_request_id = $1",
+			[pr_assigned_wh1.payload.pull_request.id],
+		);
+		console.log("Pull Request Assignee record:", prAssigneeResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
 // testIssueWebhooks();
 // testPullRequestWebhooks();
 // testIssueCommentWebhooks();
 // testDiscussionWebhooks();
 // testDiscussionCommentWebhooks();
 // testIssueMilestoneWebhooks();
-testDiscussionLabelWebhooks();
+// testDiscussionLabelWebhooks();
+// testIssueAssignedWebhooks();
+testPullRequestAssignedWebhooks();
