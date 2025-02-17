@@ -2160,13 +2160,13 @@ export class Upserts {
 
 	public async insertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
 		const query = `
-	  INSERT INTO sub_issue_lists (
+	  INSERT INTO sub_issue_list (
 	    parent_id, sub_id
 	  ) VALUES ($1, $2)
 	`;
 
 		const values = [
-	        subIssueList.parent_id,
+	    subIssueList.parent_id,
 			subIssueList.sub_id,
 		];
 

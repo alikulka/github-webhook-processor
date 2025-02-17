@@ -256,6 +256,7 @@ export class WebhookProcessor {
 		entityName: "Discussion",
 		identifierColumn: "id",
 	};
+
 	private discussionLabelOperations: DatabaseOperations<types.DiscussionLabel> =
 		{
 			tableName: "discussion_labels",
@@ -268,7 +269,7 @@ export class WebhookProcessor {
 					this.upserts.upsertDiscussionLabels(discussion_label),
 			},
 			entityName: "Discussion Label",
-			identifierColumn: "label_id",
+			identifierColumn: "discussion_id",
 		};
 
 	private milestoneLabelOperations: DatabaseOperations<types.MilestoneLabel> = {
@@ -359,7 +360,7 @@ export class WebhookProcessor {
 		};
 
 	private subIssueListOperations: DatabaseOperations<types.SubIssueList> = {
-		tableName: "subissuelists",
+		tableName: "sub_issue_list",
 		operations: {
 			insert: (sub_issue_list) =>
 				this.upserts.insertSubIssueList(sub_issue_list),
@@ -369,7 +370,7 @@ export class WebhookProcessor {
 				this.upserts.upsertSubIssueList(sub_issue_list),
 		},
 		entityName: "Sub Issue List",
-		identifierColumn: "id",
+		identifierColumn: "parent_id",
 	};
 
 	constructor(private client: PoolClient) {
@@ -562,14 +563,6 @@ export class WebhookProcessor {
 
 			case "discussion": {
 				const repo_id = payload.repository.id;
-
-				const discussion = PayloadMapper.createDiscussionFromPayload(payload);
-
-				await this.handleDatabaseOperation(
-					discussion,
-					this.discussionOperations,
-					discussion.id,
-				);
 
 				for (const labelData of payload.discussion.labels) {
 					console.log(labelData);

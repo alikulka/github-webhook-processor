@@ -266,6 +266,38 @@ async function testPullRequestAssignedWebhooks() {
 		await pool.end();
 	}
 }
+
+async function testSubIssueSubWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const sub_issue_wh1 = sampleWebhook.subIssueSubWebhook;
+		await processor.processWebhook("sub_issue", sub_issue_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const subIssueResult = await client.query(
+			"SELECT * FROM sub_issue_list WHERE sub_id = $1",
+			[sub_issue_wh1.payload.sub_issue_id],
+		);
+		console.log("Pull Request Assignee record:", subIssueResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
 // testIssueWebhooks();
 // testPullRequestWebhooks();
 // testIssueCommentWebhooks();
@@ -274,4 +306,5 @@ async function testPullRequestAssignedWebhooks() {
 // testIssueMilestoneWebhooks();
 // testDiscussionLabelWebhooks();
 // testIssueAssignedWebhooks();
-testPullRequestAssignedWebhooks();
+// testPullRequestAssignedWebhooks();
+testSubIssueSubWebhooks();
