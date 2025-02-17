@@ -384,17 +384,8 @@ export class WebhookProcessor {
 		identifier: number | string,
 	): Promise<void> {
 		try {
-			const query = `SELECT EXISTS(SELECT 1 FROM ${operations.tableName} WHERE ${operations.identifierColumn} = $1)`;
-			const result = await this.client.query(query, [identifier]);
-			const exists = result.rows[0].exists;
-
-			if (exists) {
-				console.log(`${operations.entityName} exists, updating...`);
-				await operations.operations.update(entity);
-			} else {
-				console.log(`${operations.entityName} doesn't exist, inserting...`);
-				await operations.operations.insert(entity);
-			}
+      console.log(`Performing upsert on ${operations.entityName}.`);
+      await operations.operations.upsert(entity);
 		} catch (error) {
 			console.error(
 				`Error handling ${operations.entityName} operation:`,
