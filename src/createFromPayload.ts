@@ -113,7 +113,7 @@ export class PayloadMapper {
 			node_id: payload.comment.node_id,
 			url: payload.comment.url,
 			body: payload.comment.body || "",
-			created_by: payload.comment.user,
+			created_by: payload.comment.user.id,
 			created_at: new Date(payload.comment.created_at),
 			updated_at: new Date(payload.comment.updated_at),
 			issue_id: payload.issue.id,

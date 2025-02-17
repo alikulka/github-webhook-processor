@@ -232,7 +232,7 @@ CREATE TABLE "discussioncomments" (
   "edited_by" int,
   "is_answer" boolean NOT NULL,
   "is_minimized" boolean NOT NULL,
-  "lasted_edited_at" timestamp,
+  "last_edited_at" timestamp,
   "minimized_reason" "DiscussionCommentMinimizedReason",
   "published_at" timestamp,
   "in_reply_to_id" int

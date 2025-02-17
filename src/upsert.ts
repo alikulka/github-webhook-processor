@@ -704,7 +704,7 @@ export class Upserts {
 		const query = `
       INSERT INTO issuecomments (
         id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-      ) VALUES %L
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       ON CONFLICT (id) DO UPDATE SET
         id = excluded.id,
         node_id = excluded.node_id,
@@ -1038,7 +1038,8 @@ export class Upserts {
         active_lock_reason, answer, answer_chosen_at, answer_chosen_by, created_by, author_association, body, category_id,
         is_closed, closed_at, created_at, id, is_answered, last_edited_at, is_locked, discussion_number, published_at,
         total_reaction_count, repository_id, state_reason, title, updated_at, total_upvote_count, url
-      ) VALUES %L
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
+       $20, $21, $22, $23, $24)
       ON CONFLICT (id) DO UPDATE SET
         active_lock_reason = excluded.active_lock_reason,
         answer = excluded.answer,
@@ -1258,7 +1259,7 @@ export class Upserts {
 		const query = `
       INSERT INTO discussioncomments (
         id, created_by, created_at, author_association, body, deleted_at, discussion_id, edited_by,
-        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+        is_answer, is_minimized, last_edited_at, minimized_reason, published_at, in_reply_to_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     `;
 
@@ -1305,7 +1306,7 @@ export class Upserts {
         edited_by = $8,
         is_answer = $9,
         is_minimized = $10,
-        lasted_edited_at = $11,
+        last_edited_at = $11,
         minimized_reason = $12,
         published_at = $13,
         in_reply_to_id = $14
@@ -1346,7 +1347,7 @@ export class Upserts {
 		const query = `
       INSERT INTO discussioncomments (
         id, created_by, created_at, author_association, body, deleted_at, discussion_id, edited_by,
-        is_answer, is_minimized, lasted_edited_at, minimized_reason, published_at, in_reply_to_id
+        is_answer, is_minimized, last_edited_at, minimized_reason, published_at, in_reply_to_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
       ON CONFLICT (id) DO UPDATE SET
         id = excluded.id,
@@ -1359,7 +1360,7 @@ export class Upserts {
         edited_by = excluded.edited_by,
         is_answer = excluded.is_answer,
         is_minimized = excluded.is_minimized,
-        lasted_edited_at = excluded.last_edited_at,
+        last_edited_at = excluded.last_edited_at,
         minimized_reason = excluded.minimized_reason,
         published_at = excluded.published_at,
         in_reply_to_id = excluded.in_reply_to_id
