@@ -138,7 +138,7 @@ export interface PullRequest {
 		| "MANNEQUIN"
 		| "NONE";
 	total_reaction_count: number;
-	merged_at: Date;
+	merged_at: Date | null;
 	diff_url: string;
 	draft: boolean;
 

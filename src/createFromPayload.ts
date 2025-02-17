@@ -101,7 +101,7 @@ export class PayloadMapper {
 			repository_id: payload.repository.id,
 			author_association: payload.pull_request.author_association,
 			total_reaction_count: payload.pull_request.reactions?.total_count || 0,
-			merged_at: new Date(payload.pull_request.merged_at),
+			merged_at: payload.pull_request.merged_at ? new Date(payload.pull_request.merged_at) : null,
 			diff_url: payload.pull_request.diff_url,
 			draft: payload.pull_request.draft || false,
 		};
