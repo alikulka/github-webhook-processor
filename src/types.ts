@@ -82,7 +82,7 @@ export interface Issue {
 	locked: boolean;
 	active_lock_reason: string;
 	num_comments: number;
-	closed_at: Date;
+	closed_at: Date | null;
 	created_at: Date;
 	updated_at: Date;
 	closed_by: Owner;
@@ -123,7 +123,7 @@ export interface PullRequest {
 		| "SPAM"
 		| "OTHER";
 	num_comments: number;
-	closed_at: Date;
+	closed_at: Date | null;
 	created_at: Date;
 	updated_at: Date;
 	closed_by: Owner;
@@ -204,7 +204,7 @@ export interface Discussion {
 	body: string;
 	category_id: DiscussionCategory;
 	is_closed: boolean;
-	closed_at?: Date;
+	closed_at: Date | null;
 	created_at: Date;
 	id: string;
 	is_answered: boolean;
@@ -309,7 +309,7 @@ export interface Milestone {
 	closed_issues: number;
 	created_at: Date;
 	updated_at: Date;
-	closed_at: Date;
+	closed_at: Date | null;
 	due_on: Date;
 	repository_id: number;
 }

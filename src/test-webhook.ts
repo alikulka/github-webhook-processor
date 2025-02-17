@@ -5,7 +5,38 @@ import { config } from "../src/config";
 import { WebhookProcessor } from "../src/webhookProcessorv2";
 import * as sampleWebhook from "./smeeWebhooks";
 
-async function testIssueWebhooks() {
+async function testIssueOpenedWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const issue_wh1 = sampleWebhook.IssueOpenedWebhook;
+		await processor.processWebhook("issues", issue_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const issueResult = await client.query(
+			"SELECT * FROM issues WHERE id = $1",
+			[issue_wh1.payload.issue.id],
+		);
+		console.log("Issue record:", issueResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
+async function testIssueLabeledWebhooks() {
 	const pool = new Pool(config.database);
 	const client = await pool.connect();
 
@@ -36,7 +67,39 @@ async function testIssueWebhooks() {
 	}
 }
 
-async function testPullRequestWebhooks() {
+async function testPullRequestOpenedWebhooks() {
+	const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing webhook...");
+		const pr_wh1 = sampleWebhook.PullRequestOpenedWebhook;
+		await processor.processWebhook("pull_request", pr_wh1.payload);
+		console.log("Webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[pr_wh1.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+
+		const prResult = await client.query(
+			"SELECT * FROM pull_requests WHERE id = $1",
+			[pr_wh1.payload.pull_request.id],
+		);
+		console.log("Pull Request record:", prResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
+async function testPullRequestLabeledWebhooks() {
 	const pool = new Pool(config.database);
 	const client = await pool.connect();
 
@@ -298,8 +361,10 @@ async function testSubIssueSubWebhooks() {
 	}
 }
 
-// testIssueWebhooks();
-// testPullRequestWebhooks();
+// testIssueOpenedWebhooks();
+// testIssueLabeledWebhooks();
+testPullRequestOpenedWebhooks();
+// testPullRequestLabeledWebhooks();
 // testIssueCommentWebhooks();
 // testDiscussionWebhooks();
 // testDiscussionCommentWebhooks();
@@ -307,4 +372,4 @@ async function testSubIssueSubWebhooks() {
 // testDiscussionLabelWebhooks();
 // testIssueAssignedWebhooks();
 // testPullRequestAssignedWebhooks();
-testSubIssueSubWebhooks();
+// testSubIssueSubWebhooks();
