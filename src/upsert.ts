@@ -703,8 +703,8 @@ export class Upserts {
 	public async upsertIssueComment(comment: types.IssueComment): Promise<void> {
 		const query = `
       INSERT INTO issuecomments (
-        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        id, node_id, url, body, created_by, created_at, updated_at, issue_id, author_association, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
       ON CONFLICT (id) DO UPDATE SET
         id = excluded.id,
         node_id = excluded.node_id,
@@ -714,7 +714,15 @@ export class Upserts {
         created_at = excluded.created_at,
         updated_at = excluded.updated_at,
         issue_id = excluded.issue_id,
-        author_association = excluded.author_association
+        author_association = excluded.author_association,
+        plusone = excluded.plusone,
+        minusone = excluded.minusone,
+        laugh = excluded.laugh,
+        hooray = excluded.hooray,
+        confused = excluded.confused,
+        heart = excluded.heart,
+        rocket = excluded.rocket,
+        eyes = excluded.eyes
     `;
 
 		await this.client.query(query, [
@@ -727,109 +735,14 @@ export class Upserts {
 			comment.updated_at,
 			comment.issue_id,
 			comment.author_association,
-		]);
-	}
-
-	public async insertIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO issuecommentreactions (
-        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Issue comment reaction inserted successfully:",
-				reaction.issuecomment_id,
-			);
-		} catch (error) {
-			console.error("Error inserting issue comment reaction:", error);
-		}
-	}
-
-	public async updateIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      UPDATE issuecommentreactions SET
-        plusone = $2,
-        minusone = $3,
-        laugh = $4,
-        hooray = $5,
-        confused = $6,
-        heart = $7,
-        rocket = $8,
-        eyes = $9
-      WHERE issuecomment_id = $1
-    `;
-
-		const values = [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Issue comment reaction updated successfully:",
-				reaction.issuecomment_id,
-			);
-		} catch (error) {
-			console.error("Error updating issue comment reaction:", error);
-		}
-	}
-
-	public async upsertIssueCommentReaction(
-		reaction: types.IssueCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO issuecommentreactions (
-        issuecomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      ON CONFLICT (issuecomment_id) DO UPDATE SET
-        issuecomment_id = excluded.issuecomment_id,
-        plusone = excluded.plusone,
-        minusone = excluded.minusone,
-        laugh = excluded.laugh,
-        hooray = excluded.hooray,
-        confused = excluded.confused,
-        heart = excluded.heart,
-        rocket = excluded.rocket,
-        eyes = excluded.eyes
-    `;
-
-		await this.client.query(query, [
-			reaction.issuecomment_id,
-			reaction.plusone,
-			reaction.minusone,
-			reaction.laugh,
-			reaction.hooray,
-			reaction.confused,
-			reaction.heart,
-			reaction.rocket,
-			reaction.eyes,
+      comment.plusone,
+      comment.minusone,
+      comment.laugh,
+      comment.hooray,
+      comment.confused,
+      comment.heart,
+      comment.rocket,
+      comment.eyes
 		]);
 	}
 
@@ -1347,8 +1260,8 @@ export class Upserts {
 		const query = `
       INSERT INTO discussioncomments (
         id, created_by, created_at, author_association, body, deleted_at, discussion_id, edited_by,
-        is_answer, is_minimized, last_edited_at, minimized_reason, published_at, in_reply_to_id
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+        is_answer, is_minimized, last_edited_at, minimized_reason, published_at, in_reply_to_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
       ON CONFLICT (id) DO UPDATE SET
         id = excluded.id,
         created_by = excluded.created_by,
@@ -1363,7 +1276,15 @@ export class Upserts {
         last_edited_at = excluded.last_edited_at,
         minimized_reason = excluded.minimized_reason,
         published_at = excluded.published_at,
-        in_reply_to_id = excluded.in_reply_to_id
+        in_reply_to_id = excluded.in_reply_to_id,
+        plusone = excluded.plusone,
+        minusone = excluded.minusone,
+        laugh = excluded.laugh,
+        hooray = excluded.hooray,
+        confused = excluded.confused,
+        heart = excluded.heart,
+        rocket = excluded.rocket,
+        eyes = excluded.eyes
     `;
 
 		await this.client.query(query, [
@@ -1381,110 +1302,14 @@ export class Upserts {
 			discussionComment.minimized_reason,
 			discussionComment.published_at,
 			discussionComment.in_reply_to_id,
-		]);
-	}
-
-	public async insertDiscussionCommentReactions(
-		discussionCommentReactions: types.DiscussionCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO discussioncommentreactions (
-        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    `;
-
-		const values = [
-			discussionCommentReactions.discussioncomment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Discussion comment reactions inserted successfully:",
-				discussionCommentReactions.discussioncomment_id,
-			);
-		} catch (error) {
-			console.error("Error inserting discussion comment reactions:", error);
-		}
-	}
-
-	public async updateDiscussionCommentReactions(
-		discussionCommentReactions: types.DiscussionCommentReaction,
-	): Promise<void> {
-		const query = `
-      UPDATE discussioncommentreactions SET
-        discussioncomment_id = $1,
-        plusone = $2,
-        minusone = $3,
-        laugh = $4,
-        hooray = $5,
-        confused = $6,
-        heart = $7,
-        rocket = $8,
-        eyes = $9
-      WHERE discussioncomment_id = $1
-    `;
-
-		const values = [
-			discussionCommentReactions.discussioncomment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
-		];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Discussion comment reactions updated successfully:",
-				discussionCommentReactions.discussioncomment_id,
-			);
-		} catch (error) {
-			console.error("Error updating discussion comment reactions:", error);
-		}
-	}
-
-	public async upsertDiscussionCommentReactions(
-		discussionCommentReactions: types.DiscussionCommentReaction,
-	): Promise<void> {
-		const query = `
-      INSERT INTO discussioncommentreactions (
-        discussioncomment_id, plusone, minusone, laugh, hooray, confused, heart, rocket, eyes
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      ON CONFLICT (discussioncomment_id) DO UPDATE SET
-        discussioncomment_id = excluded.discussioncomment_id,
-        plusone = excluded.plusone,
-        minusone = excluded.minusone,
-        laugh = excluded.laugh,
-        hooray = excluded.hooray,
-        confused = excluded.confused,
-        heart = excluded.heart,
-        rocket = excluded.rocket,
-        eyes = excluded.eyes
-    `;
-
-		await this.client.query(query, [
-			discussionCommentReactions.discussioncomment_id,
-			discussionCommentReactions.plusone,
-			discussionCommentReactions.minusone,
-			discussionCommentReactions.laugh,
-			discussionCommentReactions.hooray,
-			discussionCommentReactions.confused,
-			discussionCommentReactions.heart,
-			discussionCommentReactions.rocket,
-			discussionCommentReactions.eyes,
+      discussionComment.plusone,
+      discussionComment.minusone,
+      discussionComment.laugh,
+      discussionComment.hooray,
+      discussionComment.confused,
+      discussionComment.heart,
+      discussionComment.rocket,
+      discussionComment.eyes,
 		]);
 	}
 

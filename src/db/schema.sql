@@ -165,11 +165,7 @@ CREATE TABLE "issuecomments" (
   "created_at" timestamp NOT NULL,
   "updated_at" timestamp NOT NULL,
   "issue_id" bigint NOT NULL,
-  "author_association" "AuthorAssociation" NOT NULL
-);
-
-CREATE TABLE "issuecommentreactions" (
-  "issuecomment_id" bigint NOT NULL,
+  "author_association" "AuthorAssociation" NOT NULL,
   "plusone" int,
   "minusone" int,
   "laugh" int,
@@ -235,11 +231,7 @@ CREATE TABLE "discussioncomments" (
   "last_edited_at" timestamp,
   "minimized_reason" "DiscussionCommentMinimizedReason",
   "published_at" timestamp,
-  "in_reply_to_id" int
-);
-
-CREATE TABLE "discussioncommentreactions" (
-  "discussioncomment_id" int NOT NULL,
+  "in_reply_to_id" int,
   "plusone" int,
   "minusone" int,
   "laugh" int,

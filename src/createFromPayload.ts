@@ -118,15 +118,7 @@ export class PayloadMapper {
 			updated_at: new Date(payload.comment.updated_at),
 			issue_id: payload.issue.id,
 			author_association: payload.comment.author_association,
-		};
-	}
-
-	static createIssueCommentReactionFromPayload(
-		payload: any,
-	): types.IssueCommentReaction {
-		return {
-			issuecomment_id: payload.comment.id,
-			plusone: payload.comment.reactions?.["+1"] || 0,
+      plusone: payload.comment.reactions?.["+1"] || 0,
 			minusone: payload.comment.reactions?.["-1"] || 0,
 			laugh: payload.comment.reactions?.laugh || 0,
 			hooray: payload.comment.reactions?.hooray || 0,
@@ -241,6 +233,14 @@ export class PayloadMapper {
 				: new Date(),
 			author_association: payload.comment.author_association,
 			in_reply_to_id: payload.comment.id,
+			plusone: payload.comment.reactions?.["+1"] || 0,
+			minusone: payload.comment.reactions?.["-1"] || 0,
+			laugh: payload.comment.reactions?.laugh || 0,
+			hooray: payload.comment.reactions?.hooray || 0,
+			confused: payload.comment.reactions?.confused || 0,
+			heart: payload.comment.reactions?.heart || 0,
+			rocket: payload.comment.reactions?.rocket || 0,
+			eyes: payload.comment.reactions?.eyes || 0,
 		};
 	}
 
@@ -272,24 +272,16 @@ export class PayloadMapper {
 				: new Date(),
 			author_association: payload.answer.author_association,
 			in_reply_to_id: payload.answer.id,
+      plusone: payload.answer.reactions?.["+1"] || 0,
+			minusone: payload.answer.reactions?.["-1"] || 0,
+			laugh: payload.answer.reactions?.laugh || 0,
+			hooray: payload.answer.reactions?.hooray || 0,
+			confused: payload.answer.reactions?.confused || 0,
+			heart: payload.answer.reactions?.heart || 0,
+			rocket: payload.answer.reactions?.rocket || 0,
+			eyes: payload.answer.reactions?.eyes || 0,
 		};
   }
-
-	static createDiscussionCommentReactionFromPayload(
-		payload: any,
-	): types.DiscussionCommentReaction {
-		return {
-			discussioncomment_id: payload.comment.id,
-			plusone: payload.comment.reactions?.["+1"] || 0,
-			minusone: payload.comment.reactions?.["-1"] || 0,
-			laugh: payload.comment.reactions?.laugh || 0,
-			hooray: payload.comment.reactions?.hooray || 0,
-			confused: payload.comment.reactions?.confused || 0,
-			heart: payload.comment.reactions?.heart || 0,
-			rocket: payload.comment.reactions?.rocket || 0,
-			eyes: payload.comment.reactions?.eyes || 0,
-		};
-	}
 
 	// static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
 	//     return {

@@ -117,21 +117,19 @@ export class WebhookProcessor {
 		entityName: "Issue Comment",
 		identifierColumn: "id",
 	};
-
-	private issueCommentReactionOperations: DatabaseOperations<types.IssueCommentReaction> =
-		{
-			tableName: "issuecommentreactions",
-			operations: {
-				insert: (issue_comment_reaction) =>
-					this.upserts.insertIssueCommentReaction(issue_comment_reaction),
-				update: (issue_comment_reaction) =>
-					this.upserts.updateIssueCommentReaction(issue_comment_reaction),
-				upsert: (issue_comment_reaction) =>
-					this.upserts.upsertIssueCommentReaction(issue_comment_reaction),
-			},
-			entityName: "Issue Comment Reaction",
-			identifierColumn: "issuecomment_id",
-		};
+	// 	{
+	// 		tableName: "issuecommentreactions",
+	// 		operations: {
+	// 			insert: (issue_comment_reaction) =>
+	// 				this.upserts.insertIssueCommentReaction(issue_comment_reaction),
+	// 			update: (issue_comment_reaction) =>
+	// 				this.upserts.updateIssueCommentReaction(issue_comment_reaction),
+	// 			upsert: (issue_comment_reaction) =>
+	// 				this.upserts.upsertIssueCommentReaction(issue_comment_reaction),
+	// 		},
+	// 		entityName: "Issue Comment Reaction",
+	// 		identifierColumn: "issuecomment_id",
+	// 	};
 
 	private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
 		{
@@ -146,27 +144,6 @@ export class WebhookProcessor {
 			},
 			entityName: "Discussion Categories",
 			identifierColumn: "id",
-		};
-
-	private discussionCommentReactionOperations: DatabaseOperations<types.DiscussionCommentReaction> =
-		{
-			tableName: "discussioncommentreactions",
-			operations: {
-				insert: (discussion_comment_reaction) =>
-					this.upserts.insertDiscussionCommentReactions(
-						discussion_comment_reaction,
-					),
-				update: (discussion_comment_reaction) =>
-					this.upserts.updateDiscussionCommentReactions(
-						discussion_comment_reaction,
-					),
-				upsert: (discussion_comment_reaction) =>
-					this.upserts.upsertDiscussionCommentReactions(
-						discussion_comment_reaction,
-					),
-			},
-			entityName: "Discussion Comment Reaction",
-			identifierColumn: "discussioncomment_id",
 		};
 
 	private discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
@@ -757,8 +734,8 @@ export class WebhookProcessor {
 		const issue = PayloadMapper.createIssueFromPayload(payload);
 		const owner = PayloadMapper.createOwnerFromPayload(payload.comment.user);
 		const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
-		const reaction =
-			PayloadMapper.createIssueCommentReactionFromPayload(payload);
+		// const reaction =
+		// 	PayloadMapper.createIssueCommentReactionFromPayload(payload);
 
 		// Handle all entities in correct order
 		await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
@@ -777,11 +754,11 @@ export class WebhookProcessor {
 			comment.id,
 		);
 
-		await this.handleDatabaseOperation(
-			reaction,
-			this.issueCommentReactionOperations,
-			reaction.issuecomment_id,
-		);
+		// await this.handleDatabaseOperation(
+		// 	reaction,
+		// 	this.issueCommentReactionOperations,
+		// 	reaction.issuecomment_id,
+		// );
 	}
 
 	private async processDiscussionCategories(payload: any): Promise<void> {
@@ -795,16 +772,6 @@ export class WebhookProcessor {
 		);
 	}
 
-	private async processDiscussionCommentReaction(payload: any): Promise<void> {
-		const reaction =
-			PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
-
-		await this.handleDatabaseOperation(
-			reaction,
-			this.discussionCommentReactionOperations,
-			reaction.discussioncomment_id,
-		);
-	}
 
 	private async processDiscussionComments(payload: any): Promise<void> {
 		const discussion_category =
@@ -812,8 +779,6 @@ export class WebhookProcessor {
 		const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 		const discussion_comment =
 			PayloadMapper.createDiscussionCommentFromPayload(payload);
-		const reaction =
-			PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
 
 		await this.handleDatabaseOperation(
 			discussion_category,
@@ -831,12 +796,6 @@ export class WebhookProcessor {
 			discussion_comment,
 			this.discussionCommentOperations,
 			discussion_comment.id,
-		);
-
-		await this.handleDatabaseOperation(
-			reaction,
-			this.discussionCommentReactionOperations,
-			reaction.discussioncomment_id,
 		);
 	}
 

@@ -165,19 +165,14 @@ export interface IssueComment {
 		| "FIRST_TIME_CONTRIBUTOR"
 		| "MANNEQUIN"
 		| "NONE";
-	reactions?: IssueCommentReaction;
-}
-
-export interface IssueCommentReaction {
-	issuecomment_id: number;
-	plusone: number;
-	minusone: number;
-	laugh: number;
-	hooray: number;
-	confused: number;
-	heart: number;
-	rocket: number;
-	eyes: number;
+  plusone: number;
+  minusone: number;
+  laugh: number;
+  hooray: number;
+  confused: number;
+  heart: number;
+  rocket: number;
+  eyes: number;
 }
 
 export interface Discussion {
@@ -269,11 +264,6 @@ export interface DiscussionComment {
 		| "OTHER";
 	published_at: Date;
 	in_reply_to_id: DiscussionComment;
-	reactions?: DiscussionCommentReaction;
-}
-
-export interface DiscussionCommentReaction {
-	discussioncomment_id: number;
 	plusone: number;
 	minusone: number;
 	laugh: number;
