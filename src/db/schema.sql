@@ -440,3 +440,27 @@ ALTER TABLE "pull_request_milestones" ADD FOREIGN KEY ("milestone_id") REFERENCE
 ALTER TABLE "sub_issue_list" ADD FOREIGN KEY ("parent_id") REFERENCES "issues" ("id");
 
 ALTER TABLE "sub_issue_list" ADD FOREIGN KEY ("sub_id") REFERENCES "issues" ("id");
+
+ALTER TABLE "issue_labels" ADD PRIMARY KEY ("issue_id", "label_id");
+
+ALTER TABLE "discussion_labels" ADD PRIMARY KEY ("discussion_id", "label_id");
+
+ALTER TABLE "issue_assignees" ADD PRIMARY KEY ("issue_id", "assignee_id");
+
+ALTER TABLE "issue_milestones" ADD PRIMARY KEY ("issue_id", "milestone_id");
+
+ALTER TABLE "issue_type" ADD PRIMARY KEY ("issue_id", "type_id");
+
+ALTER TABLE "milestone_labels" ADD PRIMARY KEY ("milestone_id", "label_id");
+
+ALTER TABLE "pull_request_assignees" ADD PRIMARY KEY ("pull_request_id", "assignee_id");
+
+ALTER TABLE "pull_request_labels" ADD PRIMARY KEY ("pull_request_id", "label_id");
+
+ALTER TABLE "pull_request_milestones" ADD PRIMARY KEY ("pull_request_id", "milestone_id");
+
+ALTER TABLE "sub_issue_list" ADD PRIMARY KEY ("parent_id", "sub_id");
+
+ALTER TABLE "discussioncommentreactions" ADD PRIMARY KEY ("discussioncomment_id");
+
+ALTER TABLE "issuecommentreactions" ADD PRIMARY KEY ("issuecomment_id");

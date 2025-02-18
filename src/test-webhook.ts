@@ -362,16 +362,16 @@ async function testSubIssueSubWebhooks() {
 }
 
 // testIssueOpenedWebhooks();
-// testIssueLabeledWebhooks(); // BROKEN (SOMETHING WITH ON CONFLICT)
+// testIssueLabeledWebhooks();
 // testPullRequestOpenedWebhooks();
-// testPullRequestLabeledWebhooks(); // BROKEN (SOMETHING WITH ON CONFLICT)
-// testIssueCommentWebhooks(); // broken on conflict
-// testDiscussionWebhooks(); // This works I think; it looks like there might be some problems with the answered/is_answered fields
-// testDiscussionCommentWebhooks(); // BROKEN on conflict
-// testIssueMilestoneWebhooks(); // BROKEN ON CONFLICT
-// testDiscussionLabelWebhooks(); // Broken On conflict
-// testIssueAssignedWebhooks(); // Broken On Conflict
-// testPullRequestAssignedWebhooks(); // Broken On Conflict
+// testPullRequestLabeledWebhooks();
+// testIssueCommentWebhooks();
+// testDiscussionWebhooks(); // This works I think; it looks like there might be some problems with how we process the answered/is_answered fields
+// testDiscussionCommentWebhooks();
+// testIssueMilestoneWebhooks();
+// testDiscussionLabelWebhooks();
+// testIssueAssignedWebhooks();
+// testPullRequestAssignedWebhooks();
 
 
 // testSubIssueSubWebhooks(); // NOT YET READY TO TEST
