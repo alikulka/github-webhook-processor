@@ -907,6 +907,19 @@ export class WebhookProcessor {
 	//     throw new Error("Method not implemented.");
 	// }
 
+  private async processDiscussionAnswer(payload: any): Promise<void> {
+    const discussion_comment =
+    PayloadMapper.createDiscussionCommentAnswerFromPayload(payload);
+
+    discussion_comment.is_answer = true;
+
+    await this.handleDatabaseOperation(
+			discussion_comment,
+			this.discussionCommentOperations,
+			discussion_comment.id,
+		);
+  }
+
 	private async processRepoLabels(payload: any): Promise<void> {
 		const repo_label = PayloadMapper.createRepoLabelsFromPayload(
 			payload,
@@ -995,6 +1008,7 @@ export class WebhookProcessor {
 						break;
 
 					case WebhookAction.Answered:
+            await this.processDiscussionAnswer(payload);
 						break;
 				}
 				break;

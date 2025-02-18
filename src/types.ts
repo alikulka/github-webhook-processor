@@ -188,8 +188,8 @@ export interface Discussion {
 		| "RESOLVED"
 		| "SPAM"
 		| "OTHER";
-	answer?: DiscussionComment;
-	answer_chosen_at: Date;
+	answer?: number;
+	answer_chosen_at: Date | null;
 	answer_chosen_by: number;
 	created_by: number;
 	author_association:

@@ -156,8 +156,8 @@ export class PayloadMapper {
 	static createDiscussionFromPayload(payload: any): types.Discussion {
 		return {
       active_lock_reason: payload.discussion.active_lock_reason,
-			answer: payload.discussion.answer,
-			answer_chosen_at: new Date(payload.discussion.answer_chosen_at) || null,
+			answer: payload.answer?.id,
+			answer_chosen_at:  payload.discussion.answer_chosen_at ? new Date(payload.discussion.answer_chosen_at) : null,
 			answer_chosen_by: payload.discussion.answer_chosen_by?.id, //OPTIONAL CHAINING
 			created_by: payload.discussion.user.id,
 			author_association: payload.discussion.author_association,
@@ -167,10 +167,9 @@ export class PayloadMapper {
 			closed_at: payload.discussion.locked_at
 				? new Date(payload.discussion.locked_at)
 				: null,
-			// created_at: payload.discussion.created_at? new Date(payload.discussion.created_at) : new Date(),
 			created_at: new Date(payload.discussion.created_at),
 			id: payload.discussion.id,
-			is_answered: payload.discussion.answered,
+			is_answered: !!payload.answer, // T if there is an answer, F if not
 			last_edited_at: new Date(payload.discussion.updated_at),
 			is_locked: payload.discussion.locked,
 			discussion_number: payload.discussion.number,
@@ -244,6 +243,37 @@ export class PayloadMapper {
 			in_reply_to_id: payload.comment.id,
 		};
 	}
+
+  static createDiscussionCommentAnswerFromPayload(
+		payload: any,
+	): types.DiscussionComment {
+    return {
+			id: payload.answer.id,
+			body: payload.answer.body || "",
+			created_by: payload.answer.user.id,
+			created_at: payload.answer.created_at
+				? new Date(payload.answer.created_at)
+				: new Date(),
+			deleted_at: payload.answer.deleted_at
+				? new Date(payload.answer.deleted_at)
+				: new Date(),
+			discussion_id: payload.discussion.id,
+			edited_by: payload.answer.edited_by,
+			is_answer: payload.answer.is_answer ? payload.answer.is_answer : false,
+			is_minimized: payload.answer.is_minimized
+				? payload.answer.is_minimized
+				: false,
+			last_edited_at: payload.answer.last_edited_at
+				? new Date(payload.answer.last_edited_at)
+				: new Date(),
+			minimized_reason: payload.answer.minimized_reason,
+			published_at: payload.answer.published_at
+				? new Date(payload.answer.published_at)
+				: new Date(),
+			author_association: payload.answer.author_association,
+			in_reply_to_id: payload.answer.id,
+		};
+  }
 
 	static createDiscussionCommentReactionFromPayload(
 		payload: any,

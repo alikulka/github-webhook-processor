@@ -155,14 +155,14 @@ async function testIssueCommentWebhooks() {
 	}
 }
 
-async function testDiscussionWebhooks() {
+async function testDiscussionCreatedWebhooks() {
 	const pool = new Pool(config.database);
 	const client = await pool.connect();
 
 	try {
 		const processor = new WebhookProcessor(client);
 		console.log("Processing webhook...");
-		const discussion_wh = sampleWebhook.DiscussionAnsweredWebhook;
+		const discussion_wh = sampleWebhook.DiscussionWebhook;
 		await processor.processWebhook("discussion", discussion_wh.payload);
 		console.log("Webhook processed successfully");
 
@@ -212,6 +212,42 @@ async function testDiscussionCommentWebhooks() {
 			[discussion_comment_wh.payload.comment.id],
 		);
 		console.log("Issue record:", discussionCommentResult.rows[0]);
+	} catch (error) {
+		console.error("Error:", error);
+	} finally {
+		await client.release();
+		await pool.end();
+	}
+}
+
+async function testDiscussionAnsweredWebhooks() {
+  const pool = new Pool(config.database);
+	const client = await pool.connect();
+
+	try {
+		const processor = new WebhookProcessor(client);
+		console.log("Processing discussion comment webhook...");
+		const discussion_ans_comment_wh = sampleWebhook.DiscussionAnswerCommentWebhook;
+		await processor.processWebhook("discussion_comment", discussion_ans_comment_wh.payload);
+		console.log("Discussion comment webhook processed successfully");
+
+    console.log("Processing discussion answered webhook...");
+    const discussion_ans_wh = sampleWebhook.DiscussionAnsweredWebhook2;
+    await processor.processWebhook("discussion", discussion_ans_wh.payload);
+    console.log("Discussion answered webhook processed successfully");
+
+		// Query results
+		// const repoResult = await client.query(
+		// 	"SELECT * FROM repositories WHERE id = $1",
+		// 	[issue_wh1.payload.repository.id],
+		// );
+		// console.log("Repository record:", repoResult.rows[0]);
+
+		const discussionResult = await client.query(
+			"SELECT * FROM discussions WHERE id = $1",
+			[discussion_ans_wh.payload.discussion.id],
+		);
+		console.log("Discussion record:", discussionResult.rows[0]);
 	} catch (error) {
 		console.error("Error:", error);
 	} finally {
@@ -366,8 +402,9 @@ async function testSubIssueSubWebhooks() {
 // testPullRequestOpenedWebhooks();
 // testPullRequestLabeledWebhooks();
 // testIssueCommentWebhooks();
-// testDiscussionWebhooks(); // This works I think; it looks like there might be some problems with how we process the answered/is_answered fields
+// testDiscussionCreatedWebhooks();
 // testDiscussionCommentWebhooks();
+testDiscussionAnsweredWebhooks();
 // testIssueMilestoneWebhooks();
 // testDiscussionLabelWebhooks();
 // testIssueAssignedWebhooks();
