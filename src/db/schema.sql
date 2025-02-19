@@ -301,11 +301,6 @@ CREATE TABLE "discussion_labels" (
   "label_id" bigint NOT NULL
 );
 
-CREATE TABLE "milestone_labels" (
-  "milestone_id" int NOT NULL,
-  "label_id" bigint NOT NULL
-);
-
 CREATE TABLE "pull_request_labels" (
   "pull_request_id" bigint NOT NULL,
   "label_id" bigint NOT NULL
@@ -401,10 +396,6 @@ ALTER TABLE "discussion_labels" ADD FOREIGN KEY ("discussion_id") REFERENCES "di
 
 ALTER TABLE "discussion_labels" ADD FOREIGN KEY ("label_id") REFERENCES "repo_labels" ("id");
 
-ALTER TABLE "milestone_labels" ADD FOREIGN KEY ("milestone_id") REFERENCES "milestones" ("id");
-
-ALTER TABLE "milestone_labels" ADD FOREIGN KEY ("label_id") REFERENCES "repo_labels" ("id");
-
 ALTER TABLE "pull_request_labels" ADD FOREIGN KEY ("pull_request_id") REFERENCES "pull_requests" ("id");
 
 ALTER TABLE "pull_request_labels" ADD FOREIGN KEY ("label_id") REFERENCES "repo_labels" ("id");
@@ -442,8 +433,6 @@ ALTER TABLE "issue_assignees" ADD PRIMARY KEY ("issue_id", "assignee_id");
 ALTER TABLE "issue_milestones" ADD PRIMARY KEY ("issue_id", "milestone_id");
 
 ALTER TABLE "issue_type" ADD PRIMARY KEY ("issue_id", "type_id");
-
-ALTER TABLE "milestone_labels" ADD PRIMARY KEY ("milestone_id", "label_id");
 
 ALTER TABLE "pull_request_assignees" ADD PRIMARY KEY ("pull_request_id", "assignee_id");
 

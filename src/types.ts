@@ -324,11 +324,6 @@ export interface DiscussionLabel {
 	label_id: number;
 }
 
-export interface MilestoneLabel {
-	milestone_id: number;
-	label_id: number;
-}
-
 export interface PullRequestLabel {
 	pull_request_id: number;
 	label_id: number;

@@ -1621,64 +1621,6 @@ export class Upserts {
 		]);
 	}
 
-	public async insertMilestoneLabels(
-		milestoneLabels: types.MilestoneLabel,
-	): Promise<void> {
-		const query = `
-      INSERT INTO milestone_labels (
-        milestone_id, label_id
-      ) VALUES ($1, $2)
-    `;
-
-		const values = [milestoneLabels.milestone_id, milestoneLabels.label_id];
-
-		try {
-			this.client.query(query, values);
-			console.log("Milestone label inserted successfully:", milestoneLabels.milestone_id);
-		} catch (error) {
-			console.error("Error inserting milestone label:", error);
-		}
-	}
-
-	public async updateMilestoneLabels(
-		milestoneLabels: types.MilestoneLabel,
-	): Promise<void> {
-		const query = `
-      UPDATE milestone_labels SET
-        milestone_id = $1,
-        label_id = $2
-      WHERE milestone_id = $1 AND label_id = $2
-    `;
-
-		const values = [milestoneLabels.milestone_id, milestoneLabels.label_id];
-
-		try {
-			this.client.query(query, values);
-			console.log(
-				"Milestone label updated successfully:",
-				milestoneLabels.milestone_id,
-			);
-		} catch (error) {
-			console.error("Error updating milestone label:", error);
-		}
-	}
-
-	public async upsertMilestoneLabels(
-		milestoneLabels: types.MilestoneLabel,
-	): Promise<void> {
-		const query = `
-      INSERT INTO milestone_labels (
-        milestone_id, label_id
-      ) VALUES ($1, $2)
-      ON CONFLICT (milestone_id, label_id) DO NOTHING
-    `;
-
-		await this.client.query(query, [
-			milestoneLabels.milestone_id,
-			milestoneLabels.label_id,
-		]);
-	}
-
 	public async insertPullRequestLabels(
 		pullRequestLabels: types.PullRequestLabel,
 	): Promise<void> {

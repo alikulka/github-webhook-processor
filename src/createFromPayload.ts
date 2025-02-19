@@ -357,16 +357,6 @@ export class PayloadMapper {
 		};
 	}
 
-	static createMilestoneLabelFromPayload(
-		payload_milestone_id: number,
-		payload_label_id: number,
-	): types.MilestoneLabel {
-		return {
-			milestone_id: payload_milestone_id,
-			label_id: payload_label_id,
-		};
-	}
-
 	static createPullRequestLabelFromPayload(
 		pr_id: number,
 		pr_label_id: number,

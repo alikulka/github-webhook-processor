@@ -117,34 +117,20 @@ export class WebhookProcessor {
 		entityName: "Issue Comment",
 		identifierColumn: "id",
 	};
-	// 	{
-	// 		tableName: "issuecommentreactions",
-	// 		operations: {
-	// 			insert: (issue_comment_reaction) =>
-	// 				this.upserts.insertIssueCommentReaction(issue_comment_reaction),
-	// 			update: (issue_comment_reaction) =>
-	// 				this.upserts.updateIssueCommentReaction(issue_comment_reaction),
-	// 			upsert: (issue_comment_reaction) =>
-	// 				this.upserts.upsertIssueCommentReaction(issue_comment_reaction),
-	// 		},
-	// 		entityName: "Issue Comment Reaction",
-	// 		identifierColumn: "issuecomment_id",
-	// 	};
 
-	private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
-		{
-			tableName: "discussioncategories",
-			operations: {
-				insert: (discussion_category) =>
-					this.upserts.insertDiscussionCategories(discussion_category),
-				update: (discussion_category) =>
-					this.upserts.updateDiscussionCategories(discussion_category),
-				upsert: (discussion_category) =>
-					this.upserts.upsertDiscussionCategories(discussion_category),
-			},
-			entityName: "Discussion Categories",
-			identifierColumn: "id",
-		};
+  private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> = {
+		tableName: "discussioncategories",
+		operations: {
+			insert: (discussion_category) =>
+				this.upserts.insertDiscussionCategories(discussion_category),
+			update: (discussion_category) =>
+				this.upserts.updateDiscussionCategories(discussion_category),
+			upsert: (discussion_category) =>
+				this.upserts.upsertDiscussionCategories(discussion_category),
+		},
+		entityName: "Discussion Categories",
+		identifierColumn: "id",
+	};
 
 	private discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
 		{
@@ -249,20 +235,6 @@ export class WebhookProcessor {
 			identifierColumn: "discussion_id",
 		};
 
-	private milestoneLabelOperations: DatabaseOperations<types.MilestoneLabel> = {
-		tableName: "milestonelabels",
-		operations: {
-			insert: (milestone_label) =>
-				this.upserts.insertMilestoneLabels(milestone_label),
-			update: (milestone_label) =>
-				this.upserts.updateMilestoneLabels(milestone_label),
-			upsert: (milestone_label) =>
-				this.upserts.upsertMilestoneLabels(milestone_label),
-		},
-		entityName: "Milestone Label",
-		identifierColumn: "id",
-	};
-
 	private pullRequestLabelOperations: DatabaseOperations<types.PullRequestLabel> =
 		{
 			tableName: "pull_request_labels",
@@ -361,8 +333,8 @@ export class WebhookProcessor {
 		identifier: number | string,
 	): Promise<void> {
 		try {
-      console.log(`Performing upsert on ${operations.entityName}.`);
-      await operations.operations.upsert(entity);
+			console.log(`Performing upsert on ${operations.entityName}.`);
+			await operations.operations.upsert(entity);
 		} catch (error) {
 			console.error(
 				`Error handling ${operations.entityName} operation:`,
@@ -560,45 +532,6 @@ export class WebhookProcessor {
 
 				break;
 			}
-
-			case "milestone": {
-				const milestone = PayloadMapper.createMilestonesFromPayload(payload);
-
-				const repo_id = payload.repository.id;
-
-				await this.handleDatabaseOperation(
-					milestone,
-					this.milestoneOperations,
-					milestone.id,
-				);
-
-				for (const labelData of payload.milestone.labels) {
-					console.log(labelData);
-					const repoLabel = PayloadMapper.createRepoLabelsFromPayload(
-						labelData,
-						repo_id,
-					);
-					// console.log(issueLabel);
-					await this.handleDatabaseOperation(
-						repoLabel,
-						this.repoLabelOperations,
-						repoLabel.id,
-					);
-
-					const milestone_label = PayloadMapper.createMilestoneLabelFromPayload(
-						milestone.id,
-						labelData.id,
-					);
-
-					await this.handleDatabaseOperation(
-						milestone_label,
-						this.milestoneLabelOperations,
-						milestone_label.milestone_id,
-					);
-				}
-
-				break;
-			}
 		}
 	}
 
@@ -772,7 +705,6 @@ export class WebhookProcessor {
 		);
 	}
 
-
 	private async processDiscussionComments(payload: any): Promise<void> {
 		const discussion_category =
 			PayloadMapper.createDiscussionCategoriesFromPayload(payload);
@@ -866,18 +798,18 @@ export class WebhookProcessor {
 	//     throw new Error("Method not implemented.");
 	// }
 
-  private async processDiscussionAnswer(payload: any): Promise<void> {
-    const discussion_comment =
-    PayloadMapper.createDiscussionCommentAnswerFromPayload(payload);
+	private async processDiscussionAnswer(payload: any): Promise<void> {
+		const discussion_comment =
+			PayloadMapper.createDiscussionCommentAnswerFromPayload(payload);
 
-    discussion_comment.is_answer = true;
+		discussion_comment.is_answer = true;
 
-    await this.handleDatabaseOperation(
+		await this.handleDatabaseOperation(
 			discussion_comment,
 			this.discussionCommentOperations,
 			discussion_comment.id,
 		);
-  }
+	}
 
 	private async processRepoLabels(payload: any): Promise<void> {
 		const repo_label = PayloadMapper.createRepoLabelsFromPayload(
@@ -967,7 +899,7 @@ export class WebhookProcessor {
 						break;
 
 					case WebhookAction.Answered:
-            await this.processDiscussionAnswer(payload);
+						await this.processDiscussionAnswer(payload);
 						break;
 				}
 				break;
