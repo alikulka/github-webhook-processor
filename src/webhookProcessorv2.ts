@@ -825,10 +825,23 @@ export class WebhookProcessor {
 	}
 
 	private async processSubIssueList(payload: any): Promise<void> {
+    const owner = PayloadMapper.createOwnerFromPayload(payload.sub_issue.user);
+    const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
+
+    const parent_issue = PayloadMapper.createParentIssueFromPayload(payload);
+
+    const sub_issue =  PayloadMapper.createSubIssueFromPayload(payload);
 		const sub_issue_list = PayloadMapper.createSubIssueListFromPayload(
 			payload.parent_issue_id,
 			payload.sub_issue_id,
 		);
+
+    await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
+    await this.handleDatabaseOperation(repo, this.repositoryOperations, repo.id);
+
+    await this.handleDatabaseOperation(parent_issue, this.issueOperations, parent_issue.id);
+
+    await this.handleDatabaseOperation(sub_issue, this.issueOperations, sub_issue.id);
 
 		await this.handleDatabaseOperation(
 			sub_issue_list,

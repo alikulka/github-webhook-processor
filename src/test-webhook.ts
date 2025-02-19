@@ -366,14 +366,14 @@ async function testPullRequestAssignedWebhooks() {
 	}
 }
 
-async function testSubIssueSubWebhooks() {
+async function testSubIssueParentAddedWebhooks() {
 	const pool = new Pool(config.database);
 	const client = await pool.connect();
 
 	try {
 		const processor = new WebhookProcessor(client);
 		console.log("Processing webhook...");
-		const sub_issue_wh1 = sampleWebhook.subIssueSubWebhook;
+		const sub_issue_wh1 = sampleWebhook.subIssueParentWebhook;
 		await processor.processWebhook("sub_issue", sub_issue_wh1.payload);
 		console.log("Webhook processed successfully");
 
@@ -388,7 +388,7 @@ async function testSubIssueSubWebhooks() {
 			"SELECT * FROM sub_issue_list WHERE sub_id = $1",
 			[sub_issue_wh1.payload.sub_issue_id],
 		);
-		console.log("Pull Request Assignee record:", subIssueResult.rows[0]);
+		console.log("Sub ", subIssueResult.rows[0]);
 	} catch (error) {
 		console.error("Error:", error);
 	} finally {
@@ -404,11 +404,11 @@ async function testSubIssueSubWebhooks() {
 // testIssueCommentWebhooks();
 // testDiscussionCreatedWebhooks();
 // testDiscussionCommentWebhooks();
-testDiscussionAnsweredWebhooks();
+// testDiscussionAnsweredWebhooks();
 // testIssueMilestoneWebhooks();
 // testDiscussionLabelWebhooks();
 // testIssueAssignedWebhooks();
 // testPullRequestAssignedWebhooks();
 
 
-// testSubIssueSubWebhooks(); // NOT YET READY TO TEST
+testSubIssueParentAddedWebhooks(); // NOT YET READY TO TEST

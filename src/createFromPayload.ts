@@ -62,7 +62,7 @@ export class PayloadMapper {
 			node_id: payload.issue.node_id,
 			url: payload.issue.url,
 			issue_number: payload.issue.number,
-			state: payload.issue.state,
+			state: payload.issue.state.toUpperCase(),
 			title: payload.issue.title,
 			body: payload.issue.body || "",
 			created_by: payload.issue.user,
@@ -400,6 +400,54 @@ export class PayloadMapper {
 			milestone_id: payload_milestone_id,
 		};
 	}
+
+  static createSubIssueFromPayload(payload: any) {
+    return {
+			id: payload.sub_issue.id,
+			node_id: payload.sub_issue.node_id,
+			url: payload.sub_issue.url,
+			issue_number: payload.sub_issue.number,
+			state: payload.sub_issue.state.toUpperCase(),
+			title: payload.sub_issue.title,
+			body: payload.sub_issue.body || "",
+			created_by: payload.sub_issue.user,
+			locked: payload.sub_issue.locked,
+			active_lock_reason: payload.sub_issue.active_lock_reason,
+			num_comments: payload.sub_issue.comments,
+			closed_at: payload.sub_issue.closed_at ? new Date(payload.sub_issue.closed_at) : null,
+			created_at: new Date(payload.sub_issue.created_at),
+			updated_at: new Date(payload.sub_issue.updated_at),
+			closed_by: payload.sub_issue.closed_by,
+			repository_id: payload.repository.id,
+			author_association: payload.sub_issue.author_association,
+			total_reaction_count: payload.sub_issue.reactions?.total_count || 0,
+			sub_or_parent_issue: payload.sub_issue.sub_or_parent_issue || "SUB",
+		};
+  }
+
+  static createParentIssueFromPayload(payload: any) {
+    return {
+			id: payload.parent_issue.id,
+			node_id: payload.parent_issue.node_id,
+			url: payload.parent_issue.url,
+			issue_number: payload.parent_issue.number,
+			state: payload.parent_issue.state.toUpperCase(),
+			title: payload.parent_issue.title,
+			body: payload.parent_issue.body || "",
+			created_by: payload.parent_issue.user,
+			locked: payload.parent_issue.locked,
+			active_lock_reason: payload.parent_issue.active_lock_reason,
+			num_comments: payload.parent_issue.comments,
+			closed_at: payload.parent_issue.closed_at ? new Date(payload.parent_issue.closed_at) : null,
+			created_at: new Date(payload.parent_issue.created_at),
+			updated_at: new Date(payload.parent_issue.updated_at),
+			closed_by: payload.parent_issue.closed_by,
+			repository_id: payload.parent_issue_repo.id,
+			author_association: payload.parent_issue.author_association,
+			total_reaction_count: payload.parent_issue.reactions?.total_count || 0,
+			sub_or_parent_issue: payload.parent_issue.sub_or_parent_issue || "PARENT",
+		};
+  }
 
 	static createSubIssueListFromPayload(payload_parent_id: number, payload_sub_id: number): types.SubIssueList {
 	    return {

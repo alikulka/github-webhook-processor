@@ -1948,7 +1948,7 @@ export class Upserts {
 
 	public async updateSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
 		const query = `
-	  UPDATE sub_issue_lists SET
+	  UPDATE sub_issue_list SET
 	    parent_id = $1,
 	    sub_id = $2
 	  WHERE parent_id = $1 AND sub_id = $2
@@ -1969,7 +1969,7 @@ export class Upserts {
 
 	public async upsertSubIssueList(subIssueList: types.SubIssueList): Promise<void> {
 		const query = `
-	  INSERT INTO sub_issue_lists (
+	  INSERT INTO sub_issue_list (
 	    parent_id, sub_id
 	  ) VALUES ($1, $2)
 	  ON CONFLICT (parent_id, sub_id) DO NOTHING
