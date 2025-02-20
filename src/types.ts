@@ -201,7 +201,7 @@ export interface Discussion {
 	is_closed: boolean;
 	closed_at: Date | null;
 	created_at: Date;
-	id: string;
+	id: number;
 	is_answered: boolean;
 	last_edited_at: Date;
 	is_locked: boolean;
@@ -249,7 +249,7 @@ export interface DiscussionComment {
 	created_at: Date;
 	deleted_at: Date;
 	discussion_id: Discussion;
-	id: string;
+	id: number;
 	edited_by: Owner;
 	is_answer: boolean;
 	is_minimized: boolean;

@@ -402,7 +402,7 @@ async function testSubIssueParentAddedWebhooks() {
 // testPullRequestOpenedWebhooks();
 // testPullRequestLabeledWebhooks();
 // testIssueCommentWebhooks();
-// testDiscussionCreatedWebhooks();
+testDiscussionCreatedWebhooks();
 // testDiscussionCommentWebhooks();
 // testDiscussionAnsweredWebhooks();
 // testIssueMilestoneWebhooks();
@@ -411,4 +411,4 @@ async function testSubIssueParentAddedWebhooks() {
 // testPullRequestAssignedWebhooks();
 
 
-testSubIssueParentAddedWebhooks(); // NOT YET READY TO TEST
+// testSubIssueParentAddedWebhooks();

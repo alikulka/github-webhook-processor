@@ -188,7 +188,7 @@ CREATE TABLE "discussions" (
   "is_closed" boolean NOT NULL,
   "closed_at" timestamp,
   "created_at" timestamp NOT NULL,
-  "id" text UNIQUE PRIMARY KEY NOT NULL,
+  "id" bigint UNIQUE PRIMARY KEY NOT NULL,
   "is_answered" boolean,
   "last_edited_at" timestamp,
   "is_locked" boolean NOT NULL,
@@ -204,7 +204,7 @@ CREATE TABLE "discussions" (
 );
 
 CREATE TABLE "discussionpolls" (
-  "discussion_id" text,
+  "discussion_id" bigint,
   "poll_id" text UNIQUE PRIMARY KEY NOT NULL,
   "question" text NOT NULL,
   "total_votes" int NOT NULL
@@ -223,7 +223,7 @@ CREATE TABLE "discussioncomments" (
   "body" text NOT NULL,
   "created_at" timestamp NOT NULL,
   "deleted_at" timestamp,
-  "discussion_id" text NOT NULL,
+  "discussion_id" bigint NOT NULL,
   "id" int UNIQUE PRIMARY KEY NOT NULL,
   "edited_by" int,
   "is_answer" boolean NOT NULL,
@@ -297,7 +297,7 @@ CREATE TABLE "issue_labels" (
 );
 
 CREATE TABLE "discussion_labels" (
-  "discussion_id" text NOT NULL,
+  "discussion_id" bigint NOT NULL,
   "label_id" bigint NOT NULL
 );
 
@@ -354,8 +354,6 @@ ALTER TABLE "issuecomments" ADD FOREIGN KEY ("created_by") REFERENCES "owners" (
 
 ALTER TABLE "issuecomments" ADD FOREIGN KEY ("issue_id") REFERENCES "issues" ("id");
 
-ALTER TABLE "issuecommentreactions" ADD FOREIGN KEY ("issuecomment_id") REFERENCES "issuecomments" ("id");
-
 ALTER TABLE "discussions" ADD FOREIGN KEY ("answer") REFERENCES "discussioncomments" ("id");
 
 ALTER TABLE "discussions" ADD FOREIGN KEY ("answer_chosen_by") REFERENCES "owners" ("id");
@@ -377,8 +375,6 @@ ALTER TABLE "discussioncomments" ADD FOREIGN KEY ("discussion_id") REFERENCES "d
 ALTER TABLE "discussioncomments" ADD FOREIGN KEY ("edited_by") REFERENCES "owners" ("id");
 
 ALTER TABLE "discussioncomments" ADD FOREIGN KEY ("in_reply_to_id") REFERENCES "discussioncomments" ("id");
-
-ALTER TABLE "discussioncommentreactions" ADD FOREIGN KEY ("discussioncomment_id") REFERENCES "discussioncomments" ("id");
 
 ALTER TABLE "discussioncategories" ADD FOREIGN KEY ("repository_id") REFERENCES "repositories" ("id");
 
@@ -441,7 +437,3 @@ ALTER TABLE "pull_request_labels" ADD PRIMARY KEY ("pull_request_id", "label_id"
 ALTER TABLE "pull_request_milestones" ADD PRIMARY KEY ("pull_request_id", "milestone_id");
 
 ALTER TABLE "sub_issue_list" ADD PRIMARY KEY ("parent_id", "sub_id");
-
-ALTER TABLE "discussioncommentreactions" ADD PRIMARY KEY ("discussioncomment_id");
-
-ALTER TABLE "issuecommentreactions" ADD PRIMARY KEY ("issuecomment_id");
