@@ -62,7 +62,7 @@ export class PayloadMapper {
 			node_id: payload.issue.node_id,
 			url: payload.issue.url,
 			issue_number: payload.issue.number,
-			state: payload.issue.state.toUpperCase(),
+			state: payload.issue.state,
 			title: payload.issue.title,
 			body: payload.issue.body || "",
 			created_by: payload.issue.user,
@@ -207,81 +207,82 @@ export class PayloadMapper {
 
 	static createDiscussionCommentFromPayload(
 		payload: any,
+		discussion_id: int
 	): types.DiscussionComment {
 		return {
-			id: payload.comment.id,
-			body: payload.comment.body || "",
-			created_by: payload.comment.user.id,
-			created_at: payload.comment.created_at
-				? new Date(payload.comment.created_at)
+			id: payload.id,
+			body: payload.body || "",
+			created_by: payload.user.id,
+			created_at: payload.created_at
+				? new Date(payload.created_at)
 				: new Date(),
-			deleted_at: payload.comment.deleted_at
-				? new Date(payload.comment.deleted_at)
+			deleted_at: payload.deleted_at
+				? new Date(payload.deleted_at)
 				: new Date(),
-			discussion_id: payload.discussion.id,
-			edited_by: payload.comment.edited_by,
-			is_answer: payload.comment.is_answer ? payload.comment.is_answer : false,
-			is_minimized: payload.comment.is_minimized
-				? payload.comment.is_minimized
+			discussion_id: discussion_id,
+			edited_by: payload.edited_by,
+			is_answer: payload.is_answer ? payload.is_answer : false,
+			is_minimized: payload.is_minimized
+				? payload.is_minimized
 				: false,
-			last_edited_at: payload.comment.last_edited_at
-				? new Date(payload.comment.last_edited_at)
+			last_edited_at: payload.last_edited_at
+				? new Date(payload.last_edited_at)
 				: new Date(),
-			minimized_reason: payload.comment.minimized_reason,
-			published_at: payload.comment.published_at
-				? new Date(payload.comment.published_at)
+			minimized_reason: payload.minimized_reason,
+			published_at: payload.published_at
+				? new Date(payload.published_at)
 				: new Date(),
-			author_association: payload.comment.author_association,
-			in_reply_to_id: payload.comment.id,
-			plusone: payload.comment.reactions?.["+1"] || 0,
-			minusone: payload.comment.reactions?.["-1"] || 0,
-			laugh: payload.comment.reactions?.laugh || 0,
-			hooray: payload.comment.reactions?.hooray || 0,
-			confused: payload.comment.reactions?.confused || 0,
-			heart: payload.comment.reactions?.heart || 0,
-			rocket: payload.comment.reactions?.rocket || 0,
-			eyes: payload.comment.reactions?.eyes || 0,
+			author_association: payload.author_association,
+			in_reply_to_id: payload.id,
+			plusone: payload.reactions?.["+1"] || 0,
+			minusone: payload.reactions?.["-1"] || 0,
+			laugh: payload.reactions?.laugh || 0,
+			hooray: payload.reactions?.hooray || 0,
+			confused: payload.reactions?.confused || 0,
+			heart: payload.reactions?.heart || 0,
+			rocket: payload.reactions?.rocket || 0,
+			eyes: payload.reactions?.eyes || 0,
 		};
 	}
 
-  static createDiscussionCommentAnswerFromPayload(
-		payload: any,
-	): types.DiscussionComment {
-    return {
-			id: payload.answer.id,
-			body: payload.answer.body || "",
-			created_by: payload.answer.user.id,
-			created_at: payload.answer.created_at
-				? new Date(payload.answer.created_at)
-				: new Date(),
-			deleted_at: payload.answer.deleted_at
-				? new Date(payload.answer.deleted_at)
-				: new Date(),
-			discussion_id: payload.discussion.id,
-			edited_by: payload.answer.edited_by,
-			is_answer: payload.answer.is_answer ? payload.answer.is_answer : false,
-			is_minimized: payload.answer.is_minimized
-				? payload.answer.is_minimized
-				: false,
-			last_edited_at: payload.answer.last_edited_at
-				? new Date(payload.answer.last_edited_at)
-				: new Date(),
-			minimized_reason: payload.answer.minimized_reason,
-			published_at: payload.answer.published_at
-				? new Date(payload.answer.published_at)
-				: new Date(),
-			author_association: payload.answer.author_association,
-			in_reply_to_id: payload.answer.id,
-      plusone: payload.answer.reactions?.["+1"] || 0,
-			minusone: payload.answer.reactions?.["-1"] || 0,
-			laugh: payload.answer.reactions?.laugh || 0,
-			hooray: payload.answer.reactions?.hooray || 0,
-			confused: payload.answer.reactions?.confused || 0,
-			heart: payload.answer.reactions?.heart || 0,
-			rocket: payload.answer.reactions?.rocket || 0,
-			eyes: payload.answer.reactions?.eyes || 0,
-		};
-  }
+//   static createDiscussionCommentAnswerFromPayload(
+// 		payload: any,
+// 	): types.DiscussionComment {
+//     return {
+// 			id: payload.answer.id,
+// 			body: payload.answer.body || "",
+// 			created_by: payload.answer.user.id,
+// 			created_at: payload.answer.created_at
+// 				? new Date(payload.answer.created_at)
+// 				: new Date(),
+// 			deleted_at: payload.answer.deleted_at
+// 				? new Date(payload.answer.deleted_at)
+// 				: new Date(),
+// 			discussion_id: payload.discussion.id,
+// 			edited_by: payload.answer.edited_by,
+// 			is_answer: payload.answer.is_answer ? payload.answer.is_answer : false,
+// 			is_minimized: payload.answer.is_minimized
+// 				? payload.answer.is_minimized
+// 				: false,
+// 			last_edited_at: payload.answer.last_edited_at
+// 				? new Date(payload.answer.last_edited_at)
+// 				: new Date(),
+// 			minimized_reason: payload.answer.minimized_reason,
+// 			published_at: payload.answer.published_at
+// 				? new Date(payload.answer.published_at)
+// 				: new Date(),
+// 			author_association: payload.answer.author_association,
+// 			in_reply_to_id: payload.answer.id,
+//       plusone: payload.answer.reactions?.["+1"] || 0,
+// 			minusone: payload.answer.reactions?.["-1"] || 0,
+// 			laugh: payload.answer.reactions?.laugh || 0,
+// 			hooray: payload.answer.reactions?.hooray || 0,
+// 			confused: payload.answer.reactions?.confused || 0,
+// 			heart: payload.answer.reactions?.heart || 0,
+// 			rocket: payload.answer.reactions?.rocket || 0,
+// 			eyes: payload.answer.reactions?.eyes || 0,
+// 		};
+//   }
 
 	// static createDiscussionPollsFromPayload(payload: any): types.DiscussionPoll {
 	//     return {
@@ -407,7 +408,7 @@ export class PayloadMapper {
 			node_id: payload.sub_issue.node_id,
 			url: payload.sub_issue.url,
 			issue_number: payload.sub_issue.number,
-			state: payload.sub_issue.state.toUpperCase(),
+			state: payload.sub_issue.state,
 			title: payload.sub_issue.title,
 			body: payload.sub_issue.body || "",
 			created_by: payload.sub_issue.user,
@@ -431,7 +432,7 @@ export class PayloadMapper {
 			node_id: payload.parent_issue.node_id,
 			url: payload.parent_issue.url,
 			issue_number: payload.parent_issue.number,
-			state: payload.parent_issue.state.toUpperCase(),
+			state: payload.parent_issue.state,
 			title: payload.parent_issue.title,
 			body: payload.parent_issue.body || "",
 			created_by: payload.parent_issue.user,
@@ -450,7 +451,8 @@ export class PayloadMapper {
   }
 
 	static createSubIssueListFromPayload(payload_parent_id: number, payload_sub_id: number): types.SubIssueList {
-	    return {
+	    console.log("in createSubIssueListFromPayload(): ", payload_parent_id, payload_sub_id)
+		return {
 	        parent_id: payload_parent_id,
 	        sub_id: payload_sub_id,
 	    };

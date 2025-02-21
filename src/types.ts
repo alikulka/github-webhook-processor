@@ -109,7 +109,7 @@ export interface PullRequest {
 	node_id: string;
 	url: string;
 	pull_request_number: number;
-	state: "OPEN" | "CLOSED";
+	state: "open" | "closed" | "merged";
 	state_reason: "COMPLETED" | "REOPENED" | "NOT_PLANNED";
 	title: string;
 	body: string;
@@ -201,7 +201,7 @@ export interface Discussion {
 	is_closed: boolean;
 	closed_at: Date | null;
 	created_at: Date;
-	id: string;
+	id: number;
 	is_answered: boolean;
 	last_edited_at: Date;
 	is_locked: boolean;
@@ -291,7 +291,7 @@ export interface Milestone {
 	node_id: string;
 	url: string;
 	milestone_number: number;
-	state: "OPEN" | "CLOSED";
+	state: "open" | "closed";
 	title: string;
 	description: string;
 	created_by: Owner;

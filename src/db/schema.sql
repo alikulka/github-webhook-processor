@@ -1,16 +1,12 @@
--- SQL dump generated using DBML (dbml.dbdiagram.io)
--- Database: PostgreSQL
--- Generated at: 2025-02-07T23:40:04.122Z
-
 CREATE TYPE "IssueState" AS ENUM (
-  'OPEN',
-  'CLOSED'
+  'open',
+  'closed'
 );
 
 CREATE TYPE "PullRequestState" AS ENUM (
-  'OPEN',
-  'CLOSED',
-  'MERGED'
+  'open',
+  'closed',
+  'merged'
 );
 
 CREATE TYPE "IssueStateReason" AS ENUM (

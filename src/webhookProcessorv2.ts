@@ -27,9 +27,9 @@ enum WebhookEventType {
 	IssueCommentReaction = "issue_comment_reaction",
 	Discussion = "discussion",
 	DiscussionComment = "discussion_comment",
-	RepoLabel = "repo_label",
+	RepoLabel = "label",
 	Milestone = "milestone",
-	SubIssue = "sub_issue",
+	SubIssue = "sub_issues",
 }
 
 enum WebhookAction {
@@ -118,19 +118,20 @@ export class WebhookProcessor {
 		identifierColumn: "id",
 	};
 
-  private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> = {
-		tableName: "discussioncategories",
-		operations: {
-			insert: (discussion_category) =>
-				this.upserts.insertDiscussionCategories(discussion_category),
-			update: (discussion_category) =>
-				this.upserts.updateDiscussionCategories(discussion_category),
-			upsert: (discussion_category) =>
-				this.upserts.upsertDiscussionCategories(discussion_category),
-		},
-		entityName: "Discussion Categories",
-		identifierColumn: "id",
-	};
+	private discussionCategoriesOperations: DatabaseOperations<types.DiscussionCategory> =
+		{
+			tableName: "discussioncategories",
+			operations: {
+				insert: (discussion_category) =>
+					this.upserts.insertDiscussionCategories(discussion_category),
+				update: (discussion_category) =>
+					this.upserts.updateDiscussionCategories(discussion_category),
+				upsert: (discussion_category) =>
+					this.upserts.upsertDiscussionCategories(discussion_category),
+			},
+			entityName: "Discussion Categories",
+			identifierColumn: "id",
+		};
 
 	private discussionCommentOperations: DatabaseOperations<types.DiscussionComment> =
 		{
@@ -411,13 +412,13 @@ export class WebhookProcessor {
 			);
 		}
 
-		if (payload.action === WebhookAction.Closed) {
-			await this.handleDatabaseOperation(
-				pullRequest,
-				this.pullRequestOperations,
-				pullRequest.id,
-			);
-		}
+		// if (payload.action === WebhookAction.Closed) {
+		// 	await this.handleDatabaseOperation(
+		// 		pullRequest,
+		// 		this.pullRequestOperations,
+		// 		pullRequest.id,
+		// 	);
+		// }
 	}
 
 	private async processLabel(payload: any, context: string): Promise<void> {
@@ -587,6 +588,9 @@ export class WebhookProcessor {
 				);
 				break;
 			}
+
+			case "":
+				break;
 		}
 	}
 
@@ -710,7 +714,7 @@ export class WebhookProcessor {
 			PayloadMapper.createDiscussionCategoriesFromPayload(payload);
 		const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 		const discussion_comment =
-			PayloadMapper.createDiscussionCommentFromPayload(payload);
+			PayloadMapper.createDiscussionCommentFromPayload(payload.comment, payload.discussion.id);
 
 		await this.handleDatabaseOperation(
 			discussion_category,
@@ -756,8 +760,6 @@ export class WebhookProcessor {
 		const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
 		const discussion_category =
 			PayloadMapper.createDiscussionCategoriesFromPayload(payload);
-		// const discussion_comment = PayloadMapper.createDiscussionCommentFromPayload(payload);
-		// const reaction = PayloadMapper.createDiscussionCommentReactionFromPayload(payload);
 		const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 
 		await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
@@ -774,20 +776,6 @@ export class WebhookProcessor {
 			discussion_category.id,
 		);
 
-		// if (discussion_comment) {
-		//     await this.handleDatabaseOperation(
-		//         discussion_comment,
-		//         this.discussionCommentOperations,
-		//         discussion_comment.id,
-		//     );
-		// }
-
-		// await this.handleDatabaseOperation(
-		//     reaction,
-		//     this.discussionCommentReactionOperations,
-		//     reaction.discussioncomment_id,
-		// );
-
 		await this.handleDatabaseOperation(
 			discussion,
 			this.discussionOperations,
@@ -799,21 +787,41 @@ export class WebhookProcessor {
 	// }
 
 	private async processDiscussionAnswer(payload: any): Promise<void> {
-		const discussion_comment =
-			PayloadMapper.createDiscussionCommentAnswerFromPayload(payload);
+		// console.log("payload in processDiscussionAnswer():", payload)
+		// console.log("payload.answer: ", payload.answer)
+		// console.log("payload.id: ", payload.id)
+		const discussion_comment_answer =
+			PayloadMapper.createDiscussionCommentFromPayload(payload.answer, payload.discussion.id);
+		// const discussion = PayloadMapper.createDiscussionFromPayload(payload);
 
-		discussion_comment.is_answer = true;
+		discussion_comment_answer.is_answer = true;
 
 		await this.handleDatabaseOperation(
-			discussion_comment,
+			discussion_comment_answer,
 			this.discussionCommentOperations,
-			discussion_comment.id,
+			discussion_comment_answer.id,
 		);
+
+		// await this.handleDatabaseOperation(
+		// 	discussion,
+		// 	this.discussionOperations,
+		// 	discussion.id
+		// );
+	}
+
+	private async processDiscussionCategoryChanged(payload: any): Promise<void> {
+		const discussion_category = PayloadMapper.createDiscussionCategoriesFromPayload(payload)
+
+		await this.handleDatabaseOperation(
+			discussion_category,
+			this.discussionCategoriesOperations,
+			discussion_category.id
+		)
 	}
 
 	private async processRepoLabels(payload: any): Promise<void> {
 		const repo_label = PayloadMapper.createRepoLabelsFromPayload(
-			payload,
+			payload.label,
 			payload.repository.id,
 		);
 
@@ -825,23 +833,35 @@ export class WebhookProcessor {
 	}
 
 	private async processSubIssueList(payload: any): Promise<void> {
-    const owner = PayloadMapper.createOwnerFromPayload(payload.sub_issue.user);
-    const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
+		const owner = PayloadMapper.createOwnerFromPayload(payload.sub_issue.user);
+		const repo = PayloadMapper.createRepositoryFromPayload(payload, owner);
 
-    const parent_issue = PayloadMapper.createParentIssueFromPayload(payload);
+		const parent_issue = PayloadMapper.createParentIssueFromPayload(payload);
 
-    const sub_issue =  PayloadMapper.createSubIssueFromPayload(payload);
+		const sub_issue = PayloadMapper.createSubIssueFromPayload(payload);
 		const sub_issue_list = PayloadMapper.createSubIssueListFromPayload(
 			payload.parent_issue_id,
 			payload.sub_issue_id,
 		);
 
-    await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
-    await this.handleDatabaseOperation(repo, this.repositoryOperations, repo.id);
+		await this.handleDatabaseOperation(owner, this.ownerOperations, owner.id);
+		await this.handleDatabaseOperation(
+			repo,
+			this.repositoryOperations,
+			repo.id,
+		);
 
-    await this.handleDatabaseOperation(parent_issue, this.issueOperations, parent_issue.id);
+		await this.handleDatabaseOperation(
+			parent_issue,
+			this.issueOperations,
+			parent_issue.id,
+		);
 
-    await this.handleDatabaseOperation(sub_issue, this.issueOperations, sub_issue.id);
+		await this.handleDatabaseOperation(
+			sub_issue,
+			this.issueOperations,
+			sub_issue.id,
+		);
 
 		await this.handleDatabaseOperation(
 			sub_issue_list,
@@ -850,7 +870,9 @@ export class WebhookProcessor {
 		);
 	}
 
-	async processWebhook(eventType: string, payload: any): Promise<void> {
+	public async processWebhook(eventType: string, payload: any): Promise<void> {
+		console.log("In processWebhook()");
+		console.log("Payload: ", payload);
 		console.log(
 			`Processing ${eventType} webhook with action ${payload.action}...`,
 		);
@@ -914,23 +936,28 @@ export class WebhookProcessor {
 					case WebhookAction.Answered:
 						await this.processDiscussionAnswer(payload);
 						break;
+
+					case WebhookAction.CategoryChanged:
+						await this.processDiscussionCategoryChanged(payload)
+						break;
 				}
 				break;
 			case WebhookEventType.DiscussionComment:
 				await this.processDiscussionComments(payload);
-
-				switch (payload.action) {
-					case WebhookAction.Labeled:
-					case WebhookAction.Unlabeled:
-						await this.processLabel(payload, "discussion_comment");
-						break;
-				}
-
 				break;
 
 			case WebhookEventType.SubIssue:
 				await this.processSubIssueList(payload);
 				break;
+
+			case WebhookEventType.RepoLabel:
+				await this.processRepoLabels(payload);
+				break;
+
+			case WebhookEventType.Milestone:
+				await this.processMilestone(payload, "");
+				break;
+
 			default:
 				console.log(`Unhandled event type: ${eventType}`);
 		}
